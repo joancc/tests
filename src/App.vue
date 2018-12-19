@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <Input msg="Welcome to Your Vue.js App"/>
-    <SomeComponent/>
+    <div>
+      <Input msg="Welcome to Your Vue.js App"/>
+      <SomeComponent/>
+    </div>
   </div>
 </template>
 

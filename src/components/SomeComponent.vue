@@ -1,30 +1,50 @@
 <template>
   <div>
-    <a class="button is-report">
-      <span class="icon">
-        <i class="fas fa-ban"></i>
-      </span>
-      <span>Cancelado</span>
-    </a>
-    <a class="button is-income is-outlined" @click="openAlert" :class="{'disabled': isDisabled}">
-      <span class="icon">
-        <i class="fas fa-check"></i>
-      </span>
-      <span>Enviar</span>
-    </a>
+    <div>
+      <a class="button is-report" @click.prevent="openMenu">
+        <span class="icon">
+          <i class="fas fa-ban"></i>
+        </span>
+        <span>Menu</span>
+      </a>
+      <a
+        class="button is-income is-outlined"
+        @click="!menuOpened"
+        :class="{'disabled': isDisabled}"
+      >
+        <span class="icon">
+          <i class="fas fa-check"></i>
+        </span>
+        <span>Enviar</span>
+      </a>
+    </div>
+    <div v-if="menuOpened">
+      <SelectBranch/>
+    </div>
   </div>
 </template>
 <script>
+import SelectBranch from "@/components/SelectBranch.vue";
+
 export default {
   name: "SomeComponent",
+  components: {
+    SelectBranch
+  },
   data() {
     return {
-      isDisabled: true
+      isDisabled: true,
+      menuOpened: false
     };
   },
   methods: {
     openAlert() {
-      alert("Waaaa");
+      if (!this.isDisabled) {
+        alert("si");
+      }
+    },
+    openMenu() {
+      this.menuOpened = !this.menuOpened;
     }
   },
   mounted() {
@@ -38,3 +58,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.select-branch {
+  position: relative !important;
+}
+</style>
