@@ -27,53 +27,46 @@
             <div class="icon companies"></div>
             <h4>Empresas</h4>
           </div>
-          <div class="item">
-            <button class="select-item active">
+          <div class="item" v-for="companie in companies" :key="companie.id">
+            <button class="select-item" v-if="companie.active">
               <div class="info">
                 <p>
-                  Empresa no patito S.A de C.V
+                  {{companie.name}}
                   <span class="on"></span>
-                  <span>RFC: POASHF12434</span>
+                  <span v-if="companie.rfc !== null">RFC: {{companie.rfc}}</span>
+                  <span v-if="companie.clave !== null">Clave: {{companie.clave}}</span>
                 </p>
               </div>
             </button>
-          </div>
-          <div class="item">
-            <button class="select-item" disabled>
-              <div class="info">
-                <span>Empresa no patito S.A de C.V
-                  <div class="popover_wrapper">
-                    <i class="fas fas fas fa-lock"></i>
-                    <div class="push popover_content up">
-                      <p class="popover_message">
-                        No tienes
-                        <strong>permiso</strong> para modificar la información
-                      </p>
+
+            <div v-if="!companie.active">
+              <button class="select-item" disabled>
+                <div class="info">
+                  <span>
+                    {{companie.name}}
+                    <div class="popover_wrapper">
+                      <i class="fas fa-lock"></i>
+                      <div class="push popover_content up">
+                        <p class="popover_message">
+                          No tienes
+                          <strong>permiso</strong> para modificar la información
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="d-block">RFC: POASHF12434</div>
-                </span>
-              </div>
-              <a class="fas fa-question-circle" @click="handleShowRequest"></a>
-            </button>
-            <div class="request" :class="{'show': showRequest}">
-              <a class="fas fa-question-circle" @click="handleShowRequest"></a>
-              <p>¿Solicitar permiso para la Tienda #8009?</p>
-              <div>
-                <button class="button is-small is-bank">solicitar</button>
+                    <div class="d-block" v-if="companie.rfc !== null">RFC: {{companie.rfc}}</div>
+                    <div class="d-block" v-if="companie.clave !== null">RFC: {{companie.clave}}</div>
+                  </span>
+                </div>
+                <a class="fas fa-question-circle" @click="handleShowRequest"></a>
+              </button>
+              <div class="request" :class="{'show': showRequest}">
+                <a class="fas fa-question-circle" @click="handleShowRequest"></a>
+                <p>¿Solicitar permiso para la Tienda #8009?</p>
+                <div>
+                  <button class="button is-small is-bank">solicitar</button>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="item">
-            <button class="select-item">
-              <div class="info">
-                <p>
-                  Almacén Sonora Grill
-                  <span class="on"></span>
-                  <span>Clave: 90078434</span>
-                </p>
-              </div>
-            </button>
           </div>
         </div>
 
@@ -370,7 +363,26 @@ export default {
   data() {
     return {
       isDisabled: true,
-      list: [],
+      companies: [
+        {
+          name: "Empresa no patito S.A de C.V",
+          rfc: "POASHF12434",
+          clave: null,
+          active: true
+        },
+        {
+          name: "Empresa no patito S.A de C.V",
+          rfc: "POASHF12434",
+          clave: null,
+          active: false
+        },
+        {
+          name: "Almacén Sonora Grill",
+          rfc: null,
+          clave: "90078434",
+          active: true
+        }
+      ],
       menu: false,
       showRequest: false
     };
