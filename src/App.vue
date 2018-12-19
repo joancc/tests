@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <SomeComponent msg="Welcome to Your Vue.js App"/>
+    <Input msg="Welcome to Your Vue.js App" placeholder="Enter your name..."/>
+    <Button/>
   </div>
 </template>
 
 <script>
-import SomeComponent from "./components/SomeComponent.vue";
+import Button from "./components/Button.vue";
+import Input from "./components/Input.vue";
 
 export default {
   name: "app",
   components: {
-    SomeComponent
+    Button,
+    Input
   }
 };
 </script>
@@ -23,5 +26,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  padding: 0 80px;
 }
 </style>

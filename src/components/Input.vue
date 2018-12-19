@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     handleName() {
-      this.$root.$emit("ActiveButton", this.name.length);
+      this.$root.$emit("ActiveButton", this.name);
       if (this.name.length < 5) {
         this.isError = true;
         this.isValid = false;
