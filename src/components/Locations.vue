@@ -1,5 +1,5 @@
 <template>
-  <div class="column is-hidden is-one-third">
+  <div class="column is-one-third" :class="{'is-hidden': isLocationsHidden}">
     <div class="select-title">
       <div class="icon location"></div>
       <h4>Ubicación</h4>
@@ -107,6 +107,11 @@
 
 <script>
 export default {
-  name: "Locations"
+  name: "Locations",
+  data() {
+    return {
+      isLocationsHidden: true
+    };
+  }
 };
 </script>

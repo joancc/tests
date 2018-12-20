@@ -6,7 +6,11 @@
         <h4>Almacenes</h4>
       </div>
       <div class="item" v-for="branch in companyBranches[0].warehouses" :key="branch.id">
-        <button class="select-item" v-if="branch.active === true">
+        <button
+          class="select-item"
+          v-if="branch.active === true"
+          @click="passBranchId(branch.locations)"
+        >
           <div class="info">
             <p>
               {{branch.name}}
@@ -130,27 +134,28 @@
         </div>
       </div>
     </div>
-    <Locations/>
   </div>
 </template>
 
 <script>
-import Locations from "@/components/Locations.vue";
 export default {
   name: "BranchWarehouses",
   props: ["companySelected", "companyBranches"],
   data() {
     return {
-      isHidden: true
+      isHidden: true,
+      branchLocations: null
     };
-  },
-  components: {
-    Locations
   },
   watch: {
     companySelected() {
       this.isHidden = !this.isHidden;
-      console.log(this.companyBranches.length);
+    }
+  },
+  methods: {
+    passBranchId(locations) {
+      console.log(locations);
+      this.branchLocations = locations;
     }
   }
 };

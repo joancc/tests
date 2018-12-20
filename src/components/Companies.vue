@@ -16,7 +16,6 @@
             </p>
           </div>
         </button>
-
         <div v-if="!company.active">
           <button class="select-item" disabled>
             <div class="info">
@@ -48,10 +47,12 @@
       </div>
     </div>
     <Branches :companySelected="companySelected" :companyBranches="companyBranches"/>
+    <Locations/>
   </div>
 </template>
 
 <script>
+import Locations from "@/components/Locations.vue";
 import Branches from "@/components/Branches.vue";
 import companies from "@/data.js";
 export default {
@@ -66,7 +67,8 @@ export default {
     };
   },
   components: {
-    Branches
+    Branches,
+    Locations
   },
   methods: {
     passId(id) {
