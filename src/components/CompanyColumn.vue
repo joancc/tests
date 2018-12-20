@@ -6,19 +6,19 @@
 		</div>
 		<div class="item" v-for="company in companies" :key="company.id">
 			<div v-if="company.active">
-				<button class="select-item">
+				<button class="select-item" @click.prevent="showBranchSelected(company.id)">
 					<div class="info">
 						<p>
 							{{company.name}}
 							<span class="on"></span>
 							<span v-if="company.rfc !== null">RFC: {{company.rfc}}</span>
-							<span v-if="company.clave !== null">Clave: {{company.clave}}</span>
+							<span v-if="company.clave !== null">Clave: {{company.companyKey}}</span>
 						</p>
 					</div>
 				</button>
 			</div>
 			<div v-if="!company.active">
-				<button class="select-item" disabled>
+				<button class="select-item" disabled @click.prevent="showBranchSelected(company.id)">
 					<div class="info">
 						<span>
 							{{company.name}}
@@ -32,14 +32,14 @@
 								</div>
 							</div>
 							<div class="d-block" v-if="company.rfc !== null">RFC: {{company.rfc}}</div>
-							<div class="d-block" v-if="company.clave !== null">RFC: {{company.clave}}</div>
+							<div class="d-block" v-if="company.clave !== null">RFC: {{company.companyKey}}</div>
 						</span>
 					</div>
 					<a class="fas fa-question-circle" @click="showRequest = true"></a>
 				</button>
 				<div class="request" :class="{'show': showRequest}">
 					<a class="fas fa-question-circle" @click="showRequest = false"></a>
-					<p>¿Solicitar permiso para la Tienda {{company.name}}?</p>
+					<p>¿Solicitar permiso para la Tienda {{company.companyKey}}?</p>
 					<div>
 						<button class="button is-small is-bank">solicitar</button>
 					</div>
@@ -55,31 +55,22 @@
 		data() {
 			return {
 				showRequest: false,
-				companies: [
-					{
-						id: 1,
-						name: "no patito S.A de C.V",
-						rfc: "POASHF12434",
-						clave: null,
-						active: true
-					},
-					{
-						id: 2,
-						name: "Empresa no patito S.A de C.V",
-						rfc: "POASHF12434",
-						clave: null,
-						active: false
-					},
-					{
-						id: 3,
-						name: "Almacén Sonora Grill",
-						rfc: null,
-						clave: "90078434",
-						active: true
-					}
-				]
+				showBranch: true
 			};
-		}
+		},
+		methods: {
+			showBranchSelected(branchId) {
+				this.showBranch = !this.showBranch;
+				const variables = {
+					branchId: branchId,
+					showColumn: this.showBranch
+				};
+				console.log(variables);
+
+				this.$root.$emit("branchSelected", variables);
+			}
+		},
+		props: ["companies"]
 	};
 </script>
 
