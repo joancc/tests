@@ -1,8 +1,8 @@
 <template>
 	<div class="select-branch">
 		<div class="columns">
-			<CompanyColumn :companies="companies"/>
-			<BranchColumn :companies="companies"/>
+			<CompanyColumn :companies="companies" :onClick="handleBranchSelected"/>
+			<BranchColumn :branch="branchSelected"/>
 		</div>
 	</div>
 </template>
@@ -18,8 +18,19 @@
 			CompanyColumn,
 			BranchColumn
 		},
+		methods: {
+			handleBranchSelected(id) {
+				console.log("ejecutado");
+				this.companies.forEach(company => {
+					if (company.id === id) {
+						this.branchSelected = company;
+					}
+				});
+			}
+		},
 		data() {
 			return {
+				branchSelected: {},
 				companies: [
 					{
 						id: 1,

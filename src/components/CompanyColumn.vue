@@ -6,7 +6,7 @@
 		</div>
 		<div class="item" v-for="company in companies" :key="company.id">
 			<div v-if="company.active">
-				<button class="select-item" @click.prevent="showBranchSelected(company.id)">
+				<button class="select-item" @click.prevent="onClick(company.id)">
 					<div class="info">
 						<p>
 							{{company.name}}
@@ -18,7 +18,7 @@
 				</button>
 			</div>
 			<div v-if="!company.active">
-				<button class="select-item" disabled @click.prevent="showBranchSelected(company.id)">
+				<button class="select-item" disabled>
 					<div class="info">
 						<span>
 							{{company.name}}
@@ -54,23 +54,10 @@
 		name: "company-column",
 		data() {
 			return {
-				showRequest: false,
-				showBranch: true
+				showRequest: false
 			};
 		},
-		methods: {
-			showBranchSelected(branchId) {
-				this.showBranch = !this.showBranch;
-				const variables = {
-					branchId: branchId,
-					showColumn: this.showBranch
-				};
-				console.log(variables);
-
-				this.$root.$emit("branchSelected", variables);
-			}
-		},
-		props: ["companies"]
+		props: ["companies", "onClick"]
 	};
 </script>
 
