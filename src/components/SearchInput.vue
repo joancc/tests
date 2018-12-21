@@ -13,8 +13,6 @@
      <input type="text" placeholder="Place your info here...">
      <i class="fas fa-search"></i>
     </div>
-
-
   </div>
 </template>
 

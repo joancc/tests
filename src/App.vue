@@ -1,19 +1,19 @@
 <template>
   <div id="app">
     <SomeComponent msg="Welcome to Your Vue.js App"/>
-    <SearcherInput/>
+    <SearchInput/>
   </div>
 </template>
 
 <script>
 import SomeComponent from "./components/SomeComponent.vue";
-import SearcherInput from "./components/SearcherInput.vue";
+import SearchInput from "./components/SearchInput.vue";
 
 export default {
   name: "app",
   components: {
     SomeComponent,
-    SearcherInput
+    SearchInput
   }
 };
 </script>
