@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>{{ msg }}</h1>
     <a class="button is-report">
       <span class="icon">
         <i class="fas fa-ban"></i>
@@ -13,8 +14,13 @@
     </a>
   </div>
 </template>
+
 <script>
 export default {
-  name: "SomeComponent"
+  name: "SomeComponent",
+  props: {
+    msg: String
+  } 
 };
+// the value inside obj props is Type
 </script>
