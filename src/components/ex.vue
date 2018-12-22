@@ -29,3 +29,10 @@
    </li>
    <li><a><i class="fas fa-money-bill-alt"></i><span>Cuentas</span></a></li>
    <li><a><i class="fas fa-calculator"></i><span>Ir a mi contabilidad</span></a></li> 
+
+
+
+     //     let actives = document.querySelectorAll('.is-active')
+  //     console.log(actives)
+  //       this.$refs.compras.active = !this.$refs.compras.active
+  //       console.log(this.$refs.compras.active , this.$refs.inventario.active)
