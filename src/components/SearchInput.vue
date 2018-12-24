@@ -1,5 +1,4 @@
 <template>
- <div>
   <div class="input-wrapper input-action">
    <input type="text" placeholder="Place your info here...">
    <div class="input-btn">
@@ -8,12 +7,6 @@
       </button>
     </div>
    </div>
-
-    <div class="input-wrapper">
-     <input type="text" placeholder="Place your info here...">
-     <i class="fas fa-search"></i>
-    </div>
-  </div>
 </template>
 
 <script>
