@@ -1,20 +1,15 @@
 <template>
  <ul class="menu-list">
    <MainItems :options="options" :show="show"></MainItems>
-   <div v-show="active">
-     <Submenu v-bind:options="options"></Submenu>
-   </div>
  </ul>
 </template>
 
 <script>
 import MainItems from './MainItems.vue'
-import Submenu from './Submenu.vue'
 
 export default {
     name: "Menu",
     components: {
-      'Submenu' : Submenu,
       'MainItems': MainItems
   },
   data() {
@@ -37,15 +32,37 @@ export default {
         },
         {
             item:"Inventario", 
-            icon: "fas fa-box"
+            icon: "fas fa-box",
+             submenu: {
+                subitem: "Productos",
+                subitem: "Traspasar inventario",
+                subitem: "Recontar inventario",
+                subitem: "Actualización masiva",                    
+             }
         },
         {
             item:"Ventas y Clientes", 
-            icon: "fas fa-usd-circle" 
+            icon: "fas fa-usd-circle",
+             submenu: {
+                subitem: "Ventas",
+                subitem: "Mis Facturas",
+                subitem: "Pedidos",
+                subitem: "Clientes",
+                subitem: "Cobros",     
+                subitem: "Categorías de ingresos",                    
+             } 
         },
         {
             item:"Reportes Inteligentes",
-            icon: "fas fa-clipboard-list-check" 
+            icon: "fas fa-clipboard-list-check",
+             submenu: {
+                subitem: "Inicio",
+                subitem: "Resumen de Operaciones",
+                subitem: "Ventas Diarias",
+                subitem: "Cuentas por Cobrar",
+                subitem: "Cuentas por Pagar",     
+                subitem: "Cambios en Inventarios",                    
+             }  
         },
         {
             item:"Cuentas",

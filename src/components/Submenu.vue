@@ -1,14 +1,15 @@
 <template>
     <ul >
-       <li><a href="#"><i class="fas fa-sales"></i><span>Compras y Proveedores</span></a></li>
-       <p>{{subitem}}</p>
+      <div >
+       <li><a href="#"><i class=""></i><span></span></a></li>
+      </div>
     </ul>
 </template>
 
 <script>
 export default {
   props:{
-    options: Array
+    options: Array,
   },
   name: "Submenu"
 };
