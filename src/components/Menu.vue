@@ -1,65 +1,67 @@
 <template>
  <ul class="menu-list">
-   <li v-for="option in options" :key="option.id"><a :class="{'is-active': active}" @click="show" ref="compras"><i :class="`${option.icon}`"></i><span>{{option.item}}</span></a></li>
-<!-- Make a conditional to decide. if submenu exists, render it, else, nthn -->
-    <Submenu></Submenu>
+   <MainItems :options="options" :show="show"></MainItems>
+   <div v-show="active">
+     <Submenu v-bind:options="options"></Submenu>
+   </div>
  </ul>
 </template>
 
 <script>
+import MainItems from './MainItems.vue'
 import Submenu from './Submenu.vue'
 
 export default {
-  name: "Menu",
-  el: "menu-list",
-  components: {
-      'Submenu' : Submenu 
+    name: "Menu",
+    components: {
+      'Submenu' : Submenu,
+      'MainItems': MainItems
   },
   data() {
       return {
-          active : false,
-          options: [
-            {
-                item: 'Mi gestionix', 
-                icon: 'fas fa-building'
-            },
-            {
-                item:'Compras y Proveedores', 
-                icon: 'fas fa-shopping-basket',
-                submenu: {
-                    subitem: 'Compras y Proveedores',
-                    subitem: 'Compras y Proveedores',
-                    subitem: 'Compras y Proveedores',
-                    subitem: 'Compras y Proveedores',                    
-                } 
-            },
-            {
-                item:'Inventario', 
-                icon: 'fas fa-box'
-            },
-            {
-                item:'Ventas y Clientes', 
-                icon: 'fas fa-usd-circle' 
-            },
-            {
-                item:'Reportes Inteligentes',
-                icon: 'fas fa-clipboard-list-check' 
-            },
-            {
-                item:'Cuentas',
-                icon: 'fas fa-money-bill-alt'
-            },
-            {
-                item:'Contabilidad', 
-                icon: 'fas fa-calculator' 
-            }
-          ]
-      }
+        active : false,
+        options: [
+        {
+            item: "Mi gestionix", 
+            icon: "fas fa-building"
+        },
+        {
+            item: "Compras y Proveedores", 
+            icon: "fas fa-shopping-basket",
+            submenu: {
+                subitem: "Compras y Proveedores",
+                subitem: "Compras y Proveedores",
+                subitem: "Compras y Proveedores",
+                subitem: "Compras y Proveedores",                    
+             } 
+        },
+        {
+            item:"Inventario", 
+            icon: "fas fa-box"
+        },
+        {
+            item:"Ventas y Clientes", 
+            icon: "fas fa-usd-circle" 
+        },
+        {
+            item:"Reportes Inteligentes",
+            icon: "fas fa-clipboard-list-check" 
+        },
+        {
+            item:"Cuentas",
+            icon: "fas fa-money-bill-alt"
+        },
+        {
+            item:"Contabilidad", 
+            icon: "fas fa-calculator" 
+        }
+      ]
+    }
   },
   methods:{
     show (){
-      this.active = !this.active
-    }
-  } 
+      return this.active = !this.active
+  }
+ } 
 };
 </script>
