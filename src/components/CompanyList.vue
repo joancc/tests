@@ -1,19 +1,19 @@
 <template>
-  <div class="column" style="border: 2px solid red;">
+  <div class="column">
     <div class="select-title">
       <div class="icon companies"></div>
       <h4>Empresas</h4>
     </div>
-    <CompanyListItem
+    <ListItem
       v-for="company in companies"
-      :company="company"
-      :handle-company-select="handleCompanySelect"
-      :key="company.taxId"
+      :item="company"
+      :handleSelectedItem="handleSelectedItem"
+      :key="company.id"
     />
   </div>
 </template>
 <script>
-import CompanyListItem from "./CompanyListItem";
+import ListItem from "./ListItem";
 
 export default {
   name: "CompanyList",
@@ -22,13 +22,13 @@ export default {
       type: Array,
       required: true
     },
-    handleCompanySelect: {
+    handleSelectedItem: {
       type: Function,
       required: true
     }
   },
   components: {
-    CompanyListItem
+    ListItem
   }
 };
 </script>
