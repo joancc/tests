@@ -1,9 +1,11 @@
 <template>
  <ul class="menu-list">
-   <main-items 
+   <MainItems 
+   :active="active"
    :options="options" 
-   :show="show">
-   </main-items>
+   :show="show"
+   :submenu="submenu">
+   </MainItems>
  </ul>
 </template>
 
@@ -11,13 +13,14 @@
 import MainItems from './MainItems.vue'
 
 export default {
-    name: "Menu",
+name: "Menu",
     components: {
       'MainItems': MainItems
   },
   data() {
       return {
         active : false,
+        submenu: [] ,
         options: [
         {
             item: "Mi gestionix", 
@@ -26,62 +29,73 @@ export default {
         {
             item: "Compras y Proveedores", 
             icon: "fas fa-shopping-basket",
-            submenu: {
-                subitem: "Compras y Proveedores",
-                subitem: "Compras y Proveedores",
-                subitem: "Compras y Proveedores",
-                subitem: "Compras y Proveedores",                    
-             } 
+            submenu: [
+                { subitem: "Compras y Proveedores", icon:"fas fa-sales" },
+                { subitem: "Proveedores", icon:"fas fa-hand-holding-box" },
+                { subitem: "Pagos", icon:"fas fa-money-bill" },
+                { subitem: "Categorías de egresos", icon:"fas fa-folder-money" }
+                ] 
         },
         {
-            item:"Inventario", 
+            item: "Inventario", 
             icon: "fas fa-box",
-             submenu: {
-                subitem: "Productos",
-                subitem: "Traspasar inventario",
-                subitem: "Recontar inventario",
-                subitem: "Actualización masiva",                    
-             }
+            submenu: [
+                { subitem: "Productos", icon:"fas fa-tag" },
+                { subitem: "Traspasar inventario", icon:"fas fa-box-open" },
+                { subitem: "Recontar inventario", icon:"fas fa-boxes" },
+                { subitem: "Actualización masiva", icon:"fas fa-box-alt" }                    
+             ]
         },
         {
-            item:"Ventas y Clientes", 
+            item: "Ventas y Clientes", 
             icon: "fas fa-usd-circle",
-             submenu: {
-                subitem: "Ventas",
-                subitem: "Mis Facturas",
-                subitem: "Pedidos",
-                subitem: "Clientes",
-                subitem: "Cobros",     
-                subitem: "Categorías de ingresos",                    
-             } 
+            submenu: [
+                { subitem: "Ventas", icon:"fas fa-money-check-alt" },
+                { subitem: "Mis Facturas", icon:"fas fa-file-invoice" },
+                { subitem: "Pedidos", icon:"fas fa-file-check" },
+                { subitem: "Clientes", icon:"fas fa-user" },
+                { subitem: "Cobros", icon:"fas fa-hand-holding-usd" },     
+                { subitem: "Categorías de ingresos", icon:"fas fa-pennant" },                    
+             ]
         },
         {
-            item:"Reportes Inteligentes",
+            item: "Reportes Inteligentes",
             icon: "fas fa-clipboard-list-check",
-             submenu: {
-                subitem: "Inicio",
-                subitem: "Resumen de Operaciones",
-                subitem: "Ventas Diarias",
-                subitem: "Cuentas por Cobrar",
-                subitem: "Cuentas por Pagar",     
-                subitem: "Cambios en Inventarios",                    
-             }  
+             submenu: [ 
+                { subitem: "Inicio", icon:"fas fa-chart-line" },
+                { subitem: "Resumen de Operaciones", icon:"fas fa-screen" },
+                { subitem: "Ventas Diarias", icon:"fas fa-file-invoice-dollar" },
+                { subitem: "Cuentas por Cobrar", icon:"fas fa-calendar-income" },
+                { subitem: "Cuentas por Pagar", icon:"fas fa-calendar-payments" },     
+                { subitem: "Cambios en Inventarios", icon:"fas fa-dolly" }                   
+             ]  
         },
         {
-            item:"Cuentas",
+            item: "Cuentas",
             icon: "fas fa-money-bill-alt"
         },
         {
-            item:"Contabilidad", 
+            item: "Contabilidad", 
             icon: "fas fa-calculator" 
         }
       ]
     }
   },
   methods:{
-    show (){
-        console.log('click')
-    //   return this.active = !this.active
+    show (id){
+        let newArray = []
+        this.options.forEach(function(option){
+          if(id === option.item){
+            let arraySubmenu = option.submenu
+              arraySubmenu.forEach(function(submenu) {
+                  newArray.push(submenu)
+              })
+          }
+        })
+        return (this.submenu = newArray)
+  },
+    IsActive(){
+    return this.active = !this.active
   }
  } 
 };
