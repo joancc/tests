@@ -1,16 +1,14 @@
 <template>
-  <div id="app">
-    <SomeComponent msg="Welcome to Your Vue.js App"/>
-  </div>
+  <div id="app"><BranchPicker /></div>
 </template>
 
 <script>
-import SomeComponent from "./components/SomeComponent.vue";
+import BranchPicker from "./components/BranchPicker.vue";
 
 export default {
   name: "app",
   components: {
-    SomeComponent
+    BranchPicker
   }
 };
 </script>
