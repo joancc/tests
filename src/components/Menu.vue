@@ -4,6 +4,7 @@
    :active="active"
    :options="options" 
    :show="show"
+   :isActive="isActive"
    :submenu="submenu">
    </MainItems>
  </ul>
@@ -94,7 +95,7 @@ name: "Menu",
         })
         return (this.submenu = newArray)
   },
-    IsActive(){
+    isActive(){
     return this.active = !this.active
   }
  } 

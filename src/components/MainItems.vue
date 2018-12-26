@@ -4,7 +4,7 @@
    <li v-for="option in options" 
    :key="option.id" >
      <a 
-     @click="show(option.item)">
+     @click="show(option.item); isActive()">
       <i 
       :class="`${option.icon}`">
       </i>
@@ -31,6 +31,10 @@ export default {
     },
     show: {
       type: Function,
+      required: true
+    },
+    isActive:{
+       type: Function,
       required: true
     },
     submenu: {
