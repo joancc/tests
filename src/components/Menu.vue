@@ -1,6 +1,9 @@
 <template>
  <ul class="menu-list">
-   <MainItems :options="options" :show="show"></MainItems>
+   <main-items 
+   :options="options" 
+   :show="show">
+   </main-items>
  </ul>
 </template>
 
@@ -77,7 +80,8 @@ export default {
   },
   methods:{
     show (){
-      return this.active = !this.active
+        console.log('click')
+    //   return this.active = !this.active
   }
  } 
 };
