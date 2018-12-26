@@ -21,7 +21,7 @@ import Submenu from "./Submenu.vue";
 
 export default {
   components: {
-    'Submenu': Submenu
+    Submenu : Submenu
   },
   props: {
     options: Array,
