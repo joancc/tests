@@ -1,16 +1,21 @@
 <template>
   <div id="app">
     <SomeComponent msg="Welcome to Your Vue.js App"/>
+    <SearchInput/>
+    <SideBar/>
   </div>
 </template>
 
 <script>
 import SomeComponent from "./components/SomeComponent.vue";
-
+import SearchInput from "./components/SearchInput.vue";
+import SideBar from "./components/SideBar.vue"
 export default {
   name: "app",
   components: {
-    SomeComponent
+    SomeComponent,
+    SearchInput,
+    SideBar
   }
 };
 </script>
@@ -23,5 +28,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  padding: 0 500px;
 }
 </style>
