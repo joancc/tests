@@ -1,33 +1,25 @@
 <template>
-	<div id="app">
-		<div>
-			<Input msg="Welcome to Your Vue.js App"/>
-			<SomeComponent/>
-		</div>
-	</div>
+  <div id="app"><BranchPicker /></div>
 </template>
 
 <script>
-	import SomeComponent from "./components/SomeComponent.vue";
-	import Input from "./components/Input.vue";
+import BranchPicker from "./components/BranchPicker.vue";
 
-	export default {
-		name: "app",
-		components: {
-			SomeComponent,
-			Input
-		}
-	};
+export default {
+  name: "app",
+  components: {
+    BranchPicker
+  }
+};
 </script>
 
 <style>
-	#app {
-		font-family: "Avenir", Helvetica, Arial, sans-serif;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-align: center;
-		color: #2c3e50;
-		margin-top: 60px;
-		padding: 2em;
-	}
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
 </style>
