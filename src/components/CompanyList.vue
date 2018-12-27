@@ -1,5 +1,5 @@
 <template>
-  <div class="column">
+  <div class="column is-one-third">
     <div class="select-title">
       <div class="icon companies"></div>
       <h4>Empresas</h4>

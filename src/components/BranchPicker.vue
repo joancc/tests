@@ -5,8 +5,8 @@
     </div>
     <div class="columns">
       <CompanyList :companies="companies" :handleSelectedItem="handleSelectedItem"/>
-      <BranchesList :branches="companyBranches" :handleSelectedItem="handleSelectedItem"/>
-      <LocationList/>
+      <BranchesList :branches="branches" :handleSelectedItem="handleSelectedBranch"/>
+      <LocationList :locations="branchLocations" :handleSelectedItem="handleSelectedLocation"/>
     </div>
   </div>
 </template>
@@ -21,8 +21,11 @@ export default {
   data() {
     return {
       companiesFromServer: data,
-      activeCompanyId: 1,
-      companyBranches: []
+      activeCompanyId: 0,
+      activeBranchId: 0,
+      activeLocation: 0,
+      companyBranches: [],
+      branchLocations: []
     };
   },
   computed: {
@@ -33,16 +36,37 @@ export default {
           ...{ selected: company.id === this.activeCompanyId }
         };
       });
+    },
+    branches() {
+      return this.companyBranches.map(company => {
+        return {
+          ...company,
+          ...{ selected: company.id === this.activeBranchId }
+        };
+      });
     }
   },
   methods: {
     handleSelectedItem(id) {
       this.activeCompanyId = id;
+      this.branchLocations = [];
       this.companiesFromServer.forEach(company => {
         if (company.id === id) {
           this.companyBranches = company.branches;
         }
       });
+    },
+    handleSelectedBranch(branchId) {
+      this.activeBranchId = branchId;
+      this.companyBranches.forEach(branch => {
+        if (branch.id === branchId) {
+          this.branchLocations = branch.locations;
+        }
+      });
+    },
+    handleSelectedLocation(locationId) {
+      this.activeLocation = locationId;
+      console.log(locationId);
     }
   },
   components: {
