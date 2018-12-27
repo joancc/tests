@@ -5,7 +5,7 @@
 		</div>
 		<div class="columns">
 			<CompanyList :companies="companies" :handle-company-select="handleCompanySelect"/>
-			<StoreList :storeList="storeList" :handle-company-select="handleCompanySelect"/>
+			<StoreList :storeList="stores" :handle-company-select="handleStoreSelect"/>
 			<LocationList/>
 		</div>
 	</div>
@@ -14,6 +14,7 @@
 	import CompanyList from "./CompanyList.vue";
 	import StoreList from "./StoreList.vue";
 	import LocationList from "./LocationList.vue";
+	import { log } from "util";
 
 	export default {
 		name: "SomeComponent",
@@ -241,7 +242,8 @@
 						]
 					}
 				],
-				activeCompanyTaxId: "1234567890"
+				activeCompanyTaxId: "1234567890",
+				activeStoreId: ""
 			};
 		},
 		computed: {
@@ -252,7 +254,15 @@
 				return this.companiesFromServer.map(company => {
 					return {
 						...company,
-						...{ active: company.taxId === this.activeCompanyTaxId }
+						...{ active: company.key === this.activeCompanyTaxId }
+					};
+				});
+			},
+			stores() {
+				return this.storeList.map(store => {
+					return {
+						...store,
+						...{ active: store.key === this.activeStoreId }
 					};
 				});
 			}
@@ -263,6 +273,19 @@
 				this.companiesFromServer.forEach(company => {
 					if (company.key === taxId) {
 						this.storeList = company.stores;
+					}
+				});
+			},
+			handleStoreSelect(storeId) {
+				console.log(storeId);
+				this.activeStoreId = storeId;
+				console.log(this.activeStoreId);
+
+				this.companiesFromServer.forEach(company => {
+					if (company.key === this.activeCompanyTaxId) {
+						company.stores.forEach(store => {
+							console.log(store);
+						});
 					}
 				});
 			}
