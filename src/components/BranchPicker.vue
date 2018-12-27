@@ -19,6 +19,7 @@
 				:locationList="locations"
 				:handle-company-select="handleLocationSelect"
 				:class="{'is-hidden': showLocationColumn}"
+				class="is-one-third"
 			/>
 		</div>
 	</div>
@@ -300,6 +301,7 @@
 						this.storeList = company.stores;
 					}
 				});
+				this.showStoreColumn = false;
 			},
 			handleStoreSelect(storeId) {
 				this.activeStoreId = storeId;
@@ -312,11 +314,10 @@
 						});
 					}
 				});
-				console.log(this.locationList);
+				this.showLocationColumn = false;
 			},
 			handleLocationSelect(locationId) {
 				this.activeLocationId = locationId;
-				this.showLocationColumn = !this.showLocationColumn;
 			}
 		},
 		components: {
