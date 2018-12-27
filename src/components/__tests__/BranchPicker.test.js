@@ -78,4 +78,40 @@ describe("BranchPicker", () => {
     const activeItem2 = wrapper.find(".active");
     expect(activeItem2.text()).toContain("Gamma");
   });
+  it("It renders stores according to company selected", async () => {
+    const {
+      getByText,
+      wrapper,
+      debug
+    } = render(BranchPicker);
+    const companyName = wrapper.vm.companies[0].name;
+    const itemSelected = getByText(companyName);
+    await fireEvent.click(itemSelected);
+    const storeListed = wrapper.vm.companies[0].stores[0].name;
+    expect(storeListed).toContain('Store1');
+  });
+  it("It adds class active item selected", async () => {
+    const {
+      getByText,
+      wrapper,
+      debug
+    } = render(BranchPicker);
+    const companyName = wrapper.vm.companies[0].name;
+    const companySelected = getByText(companyName);
+    wrapper.vm.handleCompanySelect(companyName.key);
+    await fireEvent.click(companySelected);
+    let activeButtons = wrapper.findAll('.active');
+
+    const storeName = wrapper.vm.stores[0].name;
+    const storeListed = getByText(storeName);
+    wrapper.vm.handleStoreSelect(storeListed.key);
+    await fireEvent.click(storeListed);
+
+    activeButtons = wrapper.findAll('.active');
+    expect(activeButtons.length).toBe(2);
+
+    const storeSelected = wrapper.findAll('.active').at(1);
+    expect(storeSelected.text()).toContain('Store1');
+
+  });
 });
