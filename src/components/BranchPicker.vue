@@ -301,7 +301,10 @@
 						this.storeList = company.stores;
 					}
 				});
-				this.showStoreColumn = false;
+				this.showStoreColumn = !this.showStoreColumn;
+				if (!this.showLocationColumn) {
+					this.showLocationColumn = true;
+				}
 			},
 			handleStoreSelect(storeId) {
 				this.activeStoreId = storeId;
@@ -314,7 +317,7 @@
 						});
 					}
 				});
-				this.showLocationColumn = false;
+				this.showLocationColumn = !this.showLocationColumn;
 			},
 			handleLocationSelect(locationId) {
 				this.activeLocationId = locationId;
