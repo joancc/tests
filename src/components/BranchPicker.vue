@@ -4,9 +4,22 @@
 			<a href="#">&lt; Regresar</a>
 		</div>
 		<div class="columns">
-			<CompanyList :companies="companies" :handle-company-select="handleCompanySelect"/>
-			<StoreList :storeList="stores" :handle-company-select="handleStoreSelect"/>
-			<LocationList/>
+			<CompanyList
+				:companies="companies"
+				:handle-company-select="handleCompanySelect"
+				class="is-one-third"
+			/>
+			<StoreList
+				:storeList="stores"
+				:handle-company-select="handleStoreSelect"
+				:class="{'is-hidden': showStoreColumn}"
+				class="is-one-third"
+			/>
+			<LocationList
+				:locationList="locations"
+				:handle-company-select="handleLocationSelect"
+				:class="{'is-hidden': showLocationColumn}"
+			/>
 		</div>
 	</div>
 </template>
@@ -21,6 +34,8 @@
 		data() {
 			return {
 				storeList: [],
+				showStoreColumn: true,
+				showLocationColumn: true,
 				locationList: [],
 				companiesFromServer: [
 					{
@@ -244,7 +259,8 @@
 					}
 				],
 				activeCompanyTaxId: "1234567890",
-				activeStoreId: ""
+				activeStoreId: "",
+				activeLocationId: ""
 			};
 		},
 		computed: {
@@ -266,6 +282,14 @@
 						...{ active: store.key === this.activeStoreId }
 					};
 				});
+			},
+			locations() {
+				return this.locationList.map(location => {
+					return {
+						...location,
+						...{ active: location.key === this.activeLocationId }
+					};
+				});
 			}
 		},
 		methods: {
@@ -278,17 +302,21 @@
 				});
 			},
 			handleStoreSelect(storeId) {
-				console.log(storeId);
 				this.activeStoreId = storeId;
-				console.log(this.activeStoreId);
-
 				this.companiesFromServer.forEach(company => {
 					if (company.key === this.activeCompanyTaxId) {
 						company.stores.forEach(store => {
-							console.log(store);
+							if (store.key === this.activeStoreId) {
+								this.locationList = store.locations;
+							}
 						});
 					}
 				});
+				console.log(this.locationList);
+			},
+			handleLocationSelect(locationId) {
+				this.activeLocationId = locationId;
+				this.showLocationColumn = !this.showLocationColumn;
 			}
 		},
 		components: {

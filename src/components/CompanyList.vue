@@ -7,7 +7,7 @@
 		<ListItem
 			v-for="company in companies"
 			:company="company"
-			:handleCompanySelect="handleCompanySelect "
+			:handleCompanySelect="handleCompanySelect"
 			:key="company.key"
 		/>
 	</div>
