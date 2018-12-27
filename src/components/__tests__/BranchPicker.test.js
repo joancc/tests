@@ -2,7 +2,6 @@ import { createLocalVue, mount } from "@vue/test-utils";
 import {
   getQueriesForElement,
   prettyDOM,
-  wait,
   fireEvent
 } from "dom-testing-library";
 
@@ -24,16 +23,18 @@ function render(component, options) {
 }
 
 describe("BranchPicker", () => {
-  it("Updates active company correctly", () => {
+  test("Updates active company correctly", () => {
     const { wrapper } = render(BranchPicker);
 
-    expect(wrapper.vm.companies[0].selected).toBe(true);
     wrapper.vm.handleSelectedItem(wrapper.vm.companies[2].id);
     expect(wrapper.vm.companies[0].selected).toBe(false);
     expect(wrapper.vm.companies[2].selected).toBe(true);
   });
-  it("It always has ONE and only ONE active company", () => {
+
+  test("It always has ONE and only ONE active company", () => {
     const { wrapper } = render(BranchPicker);
+
+    wrapper.vm.handleSelectedItem(wrapper.vm.companies[0].id);
     let trueCount = 0;
     for (let index = 0; index < wrapper.vm.companies.length; index++) {
       if (wrapper.vm.companies[index].selected) {
@@ -52,18 +53,53 @@ describe("BranchPicker", () => {
     }
     expect(secondTrueCount).toEqual(1);
   });
-  it("it highlights the currently selected item", async () => {
+
+  test("it highlights the currently selected company", async () => {
     const { getByText, wrapper } = render(BranchPicker);
 
-    const item3Name = wrapper.vm.companies[2].name;
-    const item3 = getByText(item3Name);
-
+    const oneCompany = wrapper.vm.companies[0];
+    wrapper.vm.handleSelectedItem(oneCompany.id);
     const activeItem = wrapper.find(".active");
-    expect(activeItem.text()).toContain("Empresa");
+    expect(activeItem.text()).toContain(oneCompany.name);
 
-    await fireEvent.click(item3);
+    const anotherCompany = wrapper.vm.companies[2];
+    const companyName = getByText(anotherCompany.name);
+
+    await fireEvent.click(companyName);
 
     const activeItem2 = wrapper.find(".active");
-    expect(activeItem2.text()).toContain("Almacén");
+    expect(activeItem2.text()).toContain(anotherCompany.name);
+  });
+
+  test("branches shown when the company is selected", async () => {
+    const { getByText, wrapper } = render(BranchPicker);
+    const oneCompany = wrapper.vm.companies[0];
+    const companyName = getByText(oneCompany.name);
+
+    await fireEvent.click(companyName);
+    const oneBranch = oneCompany.branches[0];
+    expect(getByText(oneBranch.name)).toBeTruthy();
+
+    const anotherBranch = oneCompany.branches[3];
+    expect(getByText(anotherBranch.name)).toBeTruthy();
+  });
+
+  test("it changes the selected propety when the branch is active", () => {
+    const { wrapper } = render(BranchPicker);
+
+    wrapper.vm.handleSelectedItem(wrapper.vm.companies[0].id);
+    expect(wrapper.vm.branches[0].selected).toBe(false);
+
+    wrapper.vm.handleSelectedBranch(wrapper.vm.branches[0].id);
+    expect(wrapper.vm.branches[0].selected).toBe(true);
+  });
+
+  test("locations shown when the branch is selected", async () => {
+    const { getByText, wrapper } = render(BranchPicker);
+
+    wrapper.vm.handleSelectedItem(wrapper.vm.companies[0].id);
+    const selectedBranch = wrapper.vm.branches[0];
+    await fireEvent.click(getByText(selectedBranch.name));
+    expect(getByText(selectedBranch.locations[0].name)).toBeTruthy();
   });
 });

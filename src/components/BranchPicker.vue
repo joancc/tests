@@ -38,10 +38,10 @@ export default {
       });
     },
     branches() {
-      return this.companyBranches.map(company => {
+      return this.companyBranches.map(branch => {
         return {
-          ...company,
-          ...{ selected: company.id === this.activeBranchId }
+          ...branch,
+          ...{ selected: branch.id === this.activeBranchId }
         };
       });
     }
