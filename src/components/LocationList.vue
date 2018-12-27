@@ -1,24 +1,23 @@
 <template>
-  <div class="column is-one-third">
+  <div class="column is-one-third" v-if="locations.length >=1">
     <div class="select-title">
-      <div class="icon companies"></div>
-      <h4>Empresas</h4>
+      <div class="icon location"></div>
+      <h4>Ubicación</h4>
     </div>
     <ListItem
-      v-for="company in companies"
-      :item="company"
+      v-for="location in locations"
+      :item="location"
+      :key="location.id"
       :handleSelectedItem="handleSelectedItem"
-      :key="company.id"
     />
   </div>
 </template>
 <script>
 import ListItem from "./ListItem";
-
 export default {
-  name: "CompanyList",
+  name: "LocationList",
   props: {
-    companies: {
+    locations: {
       type: Array,
       required: true
     },

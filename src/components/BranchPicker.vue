@@ -1,64 +1,78 @@
 <template>
-  <div class="select-branch" style="border: 2px solid purple;">
-    <div class="outer-20-b"><a href="#">&lt; Regresar</a></div>
+  <div class="select-branch">
+    <div class="outer-20-b">
+      <a href="#">&lt; Regresar</a>
+    </div>
     <div class="columns">
-      <CompanyList
-        :companies="companies"
-        :handle-company-select="handleCompanySelect"
-      />
-      <StorePicker />
-      <StoreLocation />
+      <CompanyList :companies="companies" :handleSelectedItem="handleSelectedItem"/>
+      <BranchesList :branches="branches" :handleSelectedItem="handleSelectedBranch"/>
+      <LocationList :locations="branchLocations" :handleSelectedItem="handleSelectedLocation"/>
     </div>
   </div>
 </template>
 <script>
 import CompanyList from "./CompanyList.vue";
-import StorePicker from "./StorePicker.vue";
-import StoreLocation from "./StoreLocation.vue";
+import BranchesList from "./BranchesList.vue";
+import LocationList from "./LocationList.vue";
+import data from "../data.js";
 
 export default {
-  name: "SomeComponent",
+  name: "BranchPicker",
   data() {
     return {
-      companiesFromServer: [
-        {
-          name: "Alpha",
-          taxId: "1234567890"
-        },
-        {
-          name: "Beta",
-          taxId: "sdfghjkiuh"
-        },
-        {
-          name: "Gamma",
-          taxId: "jhsadf98ad"
-        }
-      ],
-      activeCompanyTaxId: "1234567890"
+      companiesFromServer: data,
+      activeCompanyId: 0,
+      activeBranchId: 0,
+      activeLocation: 0,
+      companyBranches: [],
+      branchLocations: []
     };
   },
   computed: {
-    activeCompany() {
-      return this.companiesFromServer[0];
-    },
     companies() {
       return this.companiesFromServer.map(company => {
         return {
           ...company,
-          ...{ active: company.taxId === this.activeCompanyTaxId }
+          ...{ selected: company.id === this.activeCompanyId }
+        };
+      });
+    },
+    branches() {
+      return this.companyBranches.map(company => {
+        return {
+          ...company,
+          ...{ selected: company.id === this.activeBranchId }
         };
       });
     }
   },
   methods: {
-    handleCompanySelect(taxId) {
-      this.activeCompanyTaxId = taxId;
+    handleSelectedItem(id) {
+      this.activeCompanyId = id;
+      this.branchLocations = [];
+      this.companiesFromServer.forEach(company => {
+        if (company.id === id) {
+          this.companyBranches = company.branches;
+        }
+      });
+    },
+    handleSelectedBranch(branchId) {
+      this.activeBranchId = branchId;
+      this.companyBranches.forEach(branch => {
+        if (branch.id === branchId) {
+          this.branchLocations = branch.locations;
+        }
+      });
+    },
+    handleSelectedLocation(locationId) {
+      this.activeLocation = locationId;
+      console.log(locationId);
     }
   },
   components: {
     CompanyList,
-    StorePicker,
-    StoreLocation
+    BranchesList,
+    LocationList
   }
 };
 </script>
