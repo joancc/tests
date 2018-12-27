@@ -33,7 +33,7 @@ describe("BranchPicker", () => {
     } = render(BranchPicker);
 
     expect(wrapper.vm.companies[0].active).toBe(true);
-    wrapper.vm.handleCompanySelect(wrapper.vm.companies[2].taxId);
+    wrapper.vm.handleCompanySelect(wrapper.vm.companies[2].key);
     expect(wrapper.vm.companies[0].active).toBe(false);
     expect(wrapper.vm.companies[2].active).toBe(true);
   });
@@ -50,7 +50,7 @@ describe("BranchPicker", () => {
     }
     expect(trueCount).toEqual(1);
 
-    wrapper.vm.handleCompanySelect(wrapper.vm.companies[2].taxId);
+    wrapper.vm.handleCompanySelect(wrapper.vm.companies[2].key);
 
     let secondTrueCount = 0;
     for (let index = 0; index < wrapper.vm.companies.length; index++) {

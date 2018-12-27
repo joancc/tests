@@ -4,9 +4,23 @@
 			<a href="#">&lt; Regresar</a>
 		</div>
 		<div class="columns">
-			<CompanyList :companies="companies" :handle-company-select="handleCompanySelect"/>
-			<StoreList :storeList="storeList" :handle-company-select="handleCompanySelect"/>
-			<LocationList/>
+			<CompanyList
+				:companies="companies"
+				:handle-company-select="handleCompanySelect"
+				class="is-one-third"
+			/>
+			<StoreList
+				:storeList="stores"
+				:handle-company-select="handleStoreSelect"
+				:class="{'is-hidden': showStoreColumn}"
+				class="is-one-third"
+			/>
+			<LocationList
+				:locationList="locations"
+				:handle-company-select="handleLocationSelect"
+				:class="{'is-hidden': showLocationColumn}"
+				class="is-one-third"
+			/>
 		</div>
 	</div>
 </template>
@@ -14,12 +28,16 @@
 	import CompanyList from "./CompanyList.vue";
 	import StoreList from "./StoreList.vue";
 	import LocationList from "./LocationList.vue";
+	import { log } from "util";
 
 	export default {
 		name: "SomeComponent",
 		data() {
 			return {
 				storeList: [],
+				showStoreColumn: true,
+				showLocationColumn: true,
+				locationList: [],
 				companiesFromServer: [
 					{
 						name: "Alpha",
@@ -241,7 +259,9 @@
 						]
 					}
 				],
-				activeCompanyTaxId: "1234567890"
+				activeCompanyTaxId: "1234567890",
+				activeStoreId: "",
+				activeLocationId: ""
 			};
 		},
 		computed: {
@@ -252,7 +272,23 @@
 				return this.companiesFromServer.map(company => {
 					return {
 						...company,
-						...{ active: company.taxId === this.activeCompanyTaxId }
+						...{ active: company.key === this.activeCompanyTaxId }
+					};
+				});
+			},
+			stores() {
+				return this.storeList.map(store => {
+					return {
+						...store,
+						...{ active: store.key === this.activeStoreId }
+					};
+				});
+			},
+			locations() {
+				return this.locationList.map(location => {
+					return {
+						...location,
+						...{ active: location.key === this.activeLocationId }
 					};
 				});
 			}
@@ -265,6 +301,23 @@
 						this.storeList = company.stores;
 					}
 				});
+				this.showStoreColumn = false;
+			},
+			handleStoreSelect(storeId) {
+				this.activeStoreId = storeId;
+				this.companiesFromServer.forEach(company => {
+					if (company.key === this.activeCompanyTaxId) {
+						company.stores.forEach(store => {
+							if (store.key === this.activeStoreId) {
+								this.locationList = store.locations;
+							}
+						});
+					}
+				});
+				this.showLocationColumn = false;
+			},
+			handleLocationSelect(locationId) {
+				this.activeLocationId = locationId;
 			}
 		},
 		components: {
