@@ -21,6 +21,7 @@
 		data() {
 			return {
 				storeList: [],
+				locationList: [],
 				companiesFromServer: [
 					{
 						name: "Alpha",
