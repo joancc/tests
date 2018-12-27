@@ -14,12 +14,16 @@ const companies = [
         type: "warehouse",
         locations: [
           {
-            address: "Montevideo",
-            key: "12408416"
+            id: 111,
+            name: "Montevideo",
+            key: "12408416",
+            active: true
           },
           {
-            address: "Calzada de Guadalupe CDMX",
-            key: "12408416"
+            id: 112,
+            name: "Calzada de Guadalupe CDMX",
+            key: "12408416",
+            active: false
           }
         ]
       },
@@ -31,8 +35,10 @@ const companies = [
         type: "warehouse",
         locations: [
           {
-            address: "Aragón",
-            key: "34564459"
+            id: 121,
+            name: "Aragón",
+            key: "34564459",
+            active: true
           }
         ]
       },
@@ -44,8 +50,10 @@ const companies = [
         type: "warehouse",
         locations: [
           {
-            address: "Indios Verdes",
-            key: "34564459"
+            id: 131,
+            name: "Indios Verdes",
+            key: "34564459",
+            active: true
           }
         ]
       },
@@ -57,8 +65,10 @@ const companies = [
         type: "office",
         locations: [
           {
-            address: "Indios Vallejo",
-            key: "34564459"
+            id: 141,
+            name: "Indios Vallejo",
+            key: "34564459",
+            active: true
           }
         ]
       },
@@ -70,8 +80,10 @@ const companies = [
         type: "office",
         locations: [
           {
-            address: "Chilpancingo",
-            key: "34564459"
+            id: 151,
+            name: "Chilpancingo",
+            key: "34564459",
+            active: true
           }
         ]
       },
@@ -83,8 +95,10 @@ const companies = [
         active: false,
         locations: [
           {
-            address: "Guanajuato",
-            key: "34564459"
+            id: 161,
+            name: "Guanajuato",
+            key: "34564459",
+            active: true
           }
         ]
       }
@@ -113,8 +127,10 @@ const companies = [
         type: "warehouse",
         locations: [
           {
-            address: "Aragón",
-            key: "34564459"
+            id: 313,
+            name: "Aragón",
+            key: "34564459",
+            active: true
           }
         ]
       },
@@ -126,8 +142,10 @@ const companies = [
         type: "warehouse",
         locations: [
           {
-            address: "Indios Verdes",
-            key: "34564459"
+            id: 321,
+            name: "Indios Verdes",
+            key: "34564459",
+            active: true
           }
         ]
       },
@@ -139,8 +157,10 @@ const companies = [
         type: "office",
         locations: [
           {
-            address: "Indios Vallejo",
-            key: "34564459"
+            id: 331,
+            name: "Indios Vallejo",
+            key: "34564459",
+            active: true
           }
         ]
       },
@@ -152,8 +172,10 @@ const companies = [
         type: "office",
         locations: [
           {
-            address: "Mazatlán",
-            key: "34564459"
+            id: 341,
+            name: "Mazatlán",
+            key: "34564459",
+            active: true
           }
         ]
       },
@@ -165,8 +187,10 @@ const companies = [
         type: "office",
         locations: [
           {
-            address: "Indios Rio Nazas",
-            key: "34564459"
+            id: 351,
+            name: "Indios Rio Nazas",
+            key: "34564459",
+            active: true
           }
         ]
       },
@@ -178,8 +202,10 @@ const companies = [
         type: "store",
         locations: [
           {
-            address: "San Lazaro",
-            key: "34564459"
+            id: 361,
+            name: "San Lazaro",
+            key: "34564459",
+            active: true
           }
         ]
       }
