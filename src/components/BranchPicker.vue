@@ -1,15 +1,27 @@
 <template>
   <div class="select-branch">
     <div class="outer-20-b">
-      <a href="#">&lt; Regresar</a>
+      <a href="#" @click="handleShowMenu">&lt; Regresar</a>
     </div>
     <div class="columns">
-      <CompanyList :companies="companies" :handleSelectedItem="handleSelectedItem"/>
-      <BranchesList :branches="branches" :handleSelectedItem="handleSelectedBranch"/>
-      <LocationList :locations="branchLocations" :handleSelectedItem="handleSelectedLocation"/>
+      <CompanyList
+        :companies="companies"
+        :handleSelectedItem="handleSelectedItem"
+        :handleRequest="{handleSelectedRequest, idRequest, selectedRequest}"
+      />
+      <BranchesList
+        :branches="branches"
+        :handleSelectedItem="handleSelectedBranch"
+        :handleRequest="{handleSelectedRequest, idRequest, selectedRequest}"
+      />
+      <LocationList
+        :locations="branchLocations"
+        :handleSelectedItem="handleSelectedLocation"
+        :handleRequest="{handleSelectedRequest, idRequest, selectedRequest}"
+      />
     </div>
   </div>
-</template>
+</template>testingjavascript
 <script>
 import CompanyList from "./CompanyList.vue";
 import BranchesList from "./BranchesList.vue";
@@ -25,8 +37,16 @@ export default {
       activeBranchId: 0,
       activeLocation: 0,
       companyBranches: [],
-      branchLocations: []
+      branchLocations: [],
+      idRequest: 0,
+      selectedRequest: false
     };
+  },
+  props: {
+    handleShowMenu: {
+      type: Function,
+      required: true
+    }
   },
   computed: {
     companies() {
@@ -38,10 +58,10 @@ export default {
       });
     },
     branches() {
-      return this.companyBranches.map(company => {
+      return this.companyBranches.map(branch => {
         return {
-          ...company,
-          ...{ selected: company.id === this.activeBranchId }
+          ...branch,
+          ...{ selected: branch.id === this.activeBranchId }
         };
       });
     }
@@ -67,6 +87,10 @@ export default {
     handleSelectedLocation(locationId) {
       this.activeLocation = locationId;
       console.log(locationId);
+    },
+    handleSelectedRequest(requestId) {
+      this.idRequest = requestId;
+      this.selectedRequest = !this.selectedRequest;
     }
   },
   components: {
@@ -76,3 +100,9 @@ export default {
   }
 };
 </script>
+<style scoped>
+.select-branch {
+  margin-top: -45px;
+}
+</style>
+

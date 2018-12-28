@@ -146,6 +146,12 @@ const companies = [
             name: "Indios Verdes",
             key: "34564459",
             active: true
+          },
+          {
+            id: 322,
+            name: "Casas Alemán",
+            key: "34777912",
+            active: true
           }
         ]
       },

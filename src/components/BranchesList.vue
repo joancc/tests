@@ -9,6 +9,7 @@
       :item="branch"
       :handleSelectedItem="handleSelectedItem"
       :key="branch.id"
+      :handleRequest="handleRequest"
     />
     <hr>
     <div class="select-title">
@@ -20,6 +21,7 @@
       :item="branch"
       :handleSelectedItem="handleSelectedItem"
       :key="branch.id"
+      :handleRequest="handleRequest"
     />
     <hr>
     <div class="select-title">
@@ -31,6 +33,7 @@
       :item="branch"
       :handleSelectedItem="handleSelectedItem"
       :key="branch.id"
+      :handleRequest="handleRequest"
     />
   </div>
 </template>
@@ -45,6 +48,10 @@ export default {
     },
     handleSelectedItem: {
       type: Function,
+      required: true
+    },
+    handleRequest: {
+      type: Object,
       required: true
     }
   },

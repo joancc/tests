@@ -1,6 +1,11 @@
 <template>
-  <div class="item" @click="handleSelectedItem(item.id)">
-    <button v-if="item.active" class="select-item" :class="{ active: item.selected }">
+  <div class="item">
+    <button
+      v-if="item.active"
+      class="select-item"
+      @click="handleSelectedItem(item.id)"
+      :class="{ active: item.selected }"
+    >
       <div class="info">
         <p>
           {{ item.name }}
@@ -29,13 +34,22 @@
           </span>
         </div>
         <!--is-hidden -->
-        <a class="fas fa-question-circle"></a>
+        <a class="fas fa-question-circle" @click="handleRequest.handleSelectedRequest(item.id)"></a>
       </button>
+      <RequestItem
+        v-if="item.id === handleRequest.idRequest"
+        :selectedRequest="handleRequest.selectedRequest"
+        :handleSelectedRequest="handleRequest.handleSelectedRequest"
+        :requestId="item.id"
+        :itemKey="item.rfc || item.key"
+      />
     </div>
   </div>
 </template>
 <script>
+import RequestItem from "./RequestItem.vue";
 export default {
+  name: "ListItem",
   props: {
     item: {
       type: Object,
@@ -44,8 +58,14 @@ export default {
     handleSelectedItem: {
       type: Function,
       required: true
+    },
+    handleRequest: {
+      type: Object,
+      required: true
     }
   },
-  name: "ListItem"
+  components: {
+    RequestItem
+  }
 };
 </script>
