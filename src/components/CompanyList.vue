@@ -9,6 +9,7 @@
       :item="company"
       :handleSelectedItem="handleSelectedItem"
       :key="company.id"
+      :handleRequest="handleRequest"
     />
   </div>
 </template>
@@ -24,6 +25,10 @@ export default {
     },
     handleSelectedItem: {
       type: Function,
+      required: true
+    },
+    handleRequest: {
+      type: Object,
       required: true
     }
   },
