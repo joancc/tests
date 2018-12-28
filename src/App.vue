@@ -1,14 +1,16 @@
 <template>
-  <div id="app"><BranchPicker /></div>
+  <div id="app">
+    <BranchPickerButton/>
+  </div>
 </template>
 
 <script>
-import BranchPicker from "./components/BranchPicker.vue";
+import BranchPickerButton from "./components/BranchPickerButton.vue";
 
 export default {
   name: "app",
   components: {
-    BranchPicker
+    BranchPickerButton
   }
 };
 </script>
