@@ -1,27 +1,27 @@
 <template>
-	<div class="column" style="border: 2px solid red;">
+	<div class="column" style="border: 2px solid yellow;">
 		<div class="select-title">
-			<div class="icon companies"></div>
-			<h4>Empresas</h4>
+			<div class="icon location"></div>
+			<h4>Ubicación</h4>
 		</div>
-		<ListItem
-			v-for="company in companies"
-			:company="company"
-			:handleCompanySelect="handleCompanySelect"
-			:key="company.key"
-			:handleRequest="handleRequest"
-			:showRequest="showRequest"
-			:requestId="requestId"
-		/>
+		<div v-for="location in locationList" :key="location.key">
+			<ListItem
+				:company="location"
+				:handleCompanySelect="handleCompanySelect"
+				:handleRequest="handleRequest"
+				:showRequest="showRequest"
+				:requestId="requestId"
+			/>
+		</div>
 	</div>
 </template>
 <script>
 	import ListItem from "./ListItem";
 
 	export default {
-		name: "CompanyList",
+		name: "StoreLocation",
 		props: {
-			companies: {
+			locationList: {
 				type: Array,
 				required: true
 			},
