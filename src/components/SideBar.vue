@@ -9,17 +9,16 @@
 </template>
 
 <script>
-import Logo from './Logo.vue'
-import Menu from './Menu.vue'
-import Footer from './Footer'
+import Logo from "./Logo.vue";
+import Menu from "./Menu.vue";
+import Footer from "./Footer";
 
 export default {
   name: "SideBar",
-  components:{
-    'Logo' : Logo,
-    'Menu': Menu,
-    'Footer': Footer
+  components: {
+    Logo: Logo,
+    Menu: Menu,
+    Footer: Footer
   }
 };
-
 </script>

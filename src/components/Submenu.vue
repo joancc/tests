@@ -1,14 +1,23 @@
 <template>
     <ul >
-       <li><a href="#"><i class="fas fa-sales"></i><span>Compras y Proveedores</span></a></li>
-       <p>{{subitem}}</p>
+      <div >
+       <li v-for="subitem in submenu" 
+       :key="subitem.id" ><a href="#">
+       <i 
+       :class="`${subitem.icon}`">
+       </i>
+      <span>{{subitem.subitem}}</span></a></li>
+      </div>
     </ul>
 </template>
 
 <script>
 export default {
   props:{
-    options: Array
+  submenu: {
+  type: Array,
+  required:true
+   }
   },
   name: "Submenu"
 };
