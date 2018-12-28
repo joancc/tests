@@ -114,4 +114,14 @@ describe("BranchPicker", () => {
     expect(storeSelected.text()).toContain('Store1');
 
   });
+  // it('It shows and hide columns when Cerrar is clicked', async () => {
+  //   const {
+  //     getByText,
+  //     wrapper,
+  //     debug
+  //   } = render(BranchPicker);
+  //   const closeBtn = wrapper.find('a');
+  //   wrapper.vm.handleCloseColumns();
+  //   debug();
+  // });
 });

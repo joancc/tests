@@ -1,9 +1,11 @@
 <template>
 	<div class="select-branch" style="border: 2px solid purple;">
 		<div class="outer-20-b">
-			<a href="#">&lt; Regresar</a>
+			<a @click="handleCloseColumns">
+				<i class="far fa-times-circle"></i> Cerrar
+			</a>
 		</div>
-		<div class="columns">
+		<div class="columns" :class="{'is-hidden': closeColumns}">
 			<CompanyList
 				:companies="companies"
 				:handle-company-select="handleCompanySelect"
@@ -43,10 +45,12 @@
 		name: "SomeComponent",
 		data() {
 			return {
+				closeColumns: false,
 				requestId: "",
 				showRequest: false,
 				storeList: [],
 				showStoreColumn: true,
+				showCompanies: false,
 				showLocationColumn: true,
 				locationList: [],
 				companiesFromServer: [
@@ -336,6 +340,9 @@
 			handleRequest(id) {
 				this.showRequest = !this.showRequest;
 				this.requestId = id;
+			},
+			handleCloseColumns() {
+				this.closeColumns = !this.closeColumns;
 			}
 		},
 		components: {

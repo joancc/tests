@@ -10,9 +10,6 @@ import {
 } from "dom-testing-library";
 
 import ListItem from '@/components/ListItem.vue';
-import {
-  wrap
-} from "module";
 
 
 function render(component, options) {
@@ -44,7 +41,7 @@ describe("ListItem", () => {
     } = render(ListItem, {
       propsData: {
         company: {
-          name: "Alpha",
+          name: "Store3",
           key: "1234567890",
           status: false
         },
@@ -56,9 +53,7 @@ describe("ListItem", () => {
     });
     expect(wrapper).not.toContain('Solicitar permiso para la Tienda');
     const question = wrapper.find('a');
-    // console.log(question.html());
     await question.trigger('click');
-    expect(getByText('¿Solicitar permiso para la Tienda Alpha?')).toBeTruthy();
-
+    expect(getByText('¿Solicitar permiso para la Tienda Store3?')).toBeTruthy();
   });
 })
