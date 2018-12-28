@@ -1,5 +1,7 @@
 <template>
-    <ul >
+<div>
+  <a>holi</a>
+    <!-- <ul >
       <div >
        <li v-for="subitem in submenu" 
        :key="subitem.id" ><a href="#">
@@ -8,16 +10,15 @@
        </i>
       <span>{{subitem.subitem}}</span></a></li>
       </div>
-    </ul>
+    </ul> -->
+</div>
+
 </template>
 
 <script>
 export default {
-  props:{
-  submenu: {
-  type: Array,
-  required:true
-   }
+  props: {
+  
   },
   name: "Submenu"
 };

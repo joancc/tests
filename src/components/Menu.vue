@@ -3,8 +3,7 @@
    <MainItems 
    :active="active"
    :options="options" 
-   :show="show"
-   :isActive="isActive"
+   :showAndActive="showAndActive"
    :submenu="submenu">
    </MainItems>
  </ul>
@@ -96,9 +95,12 @@ export default {
 
       return (this.submenu = newArray);
     },
-
     isActive() {
       return (this.active = !this.active);
+    },
+    showAndActive(id) {
+      this.show(id);
+      this.isActive();
     }
   }
 };
