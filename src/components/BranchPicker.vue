@@ -43,7 +43,7 @@
 		name: "SomeComponent",
 		data() {
 			return {
-				requestId: null,
+				requestId: "",
 				showRequest: false,
 				storeList: [],
 				showStoreColumn: true,
