@@ -1,7 +1,7 @@
 <template>
   <div class="select-branch">
     <div class="outer-20-b">
-      <a href="#">&lt; Regresar</a>
+      <a href="#" @click="handleShowMenu">&lt; Regresar</a>
     </div>
     <div class="columns">
       <CompanyList
@@ -41,6 +41,12 @@ export default {
       idRequest: 0,
       selectedRequest: false
     };
+  },
+  props: {
+    handleShowMenu: {
+      type: Function,
+      required: true
+    }
   },
   computed: {
     companies() {
@@ -94,3 +100,9 @@ export default {
   }
 };
 </script>
+<style scoped>
+.select-branch {
+  margin-top: -45px;
+}
+</style>
+
