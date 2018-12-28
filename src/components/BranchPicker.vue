@@ -4,12 +4,24 @@
       <a href="#">&lt; Regresar</a>
     </div>
     <div class="columns">
-      <CompanyList :companies="companies" :handleSelectedItem="handleSelectedItem"/>
-      <BranchesList :branches="branches" :handleSelectedItem="handleSelectedBranch"/>
-      <LocationList :locations="branchLocations" :handleSelectedItem="handleSelectedLocation"/>
+      <CompanyList
+        :companies="companies"
+        :handleSelectedItem="handleSelectedItem"
+        :handleRequest="{handleSelectedRequest, idRequest, selectedRequest}"
+      />
+      <BranchesList
+        :branches="branches"
+        :handleSelectedItem="handleSelectedBranch"
+        :handleRequest="{handleSelectedRequest, idRequest, selectedRequest}"
+      />
+      <LocationList
+        :locations="branchLocations"
+        :handleSelectedItem="handleSelectedLocation"
+        :handleRequest="{handleSelectedRequest, idRequest, selectedRequest}"
+      />
     </div>
   </div>
-</template>
+</template>testingjavascript
 <script>
 import CompanyList from "./CompanyList.vue";
 import BranchesList from "./BranchesList.vue";
@@ -25,7 +37,9 @@ export default {
       activeBranchId: 0,
       activeLocation: 0,
       companyBranches: [],
-      branchLocations: []
+      branchLocations: [],
+      idRequest: 0,
+      selectedRequest: false
     };
   },
   computed: {
@@ -67,6 +81,10 @@ export default {
     handleSelectedLocation(locationId) {
       this.activeLocation = locationId;
       console.log(locationId);
+    },
+    handleSelectedRequest(requestId) {
+      this.idRequest = requestId;
+      this.selectedRequest = !this.selectedRequest;
     }
   },
   components: {

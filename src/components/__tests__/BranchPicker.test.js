@@ -44,7 +44,6 @@ describe("BranchPicker", () => {
     expect(trueCount).toEqual(1);
 
     wrapper.vm.handleSelectedItem(wrapper.vm.companies[2].id);
-
     let secondTrueCount = 0;
     for (let index = 0; index < wrapper.vm.companies.length; index++) {
       if (wrapper.vm.companies[index].selected) {
@@ -84,6 +83,18 @@ describe("BranchPicker", () => {
     expect(getByText(anotherBranch.name)).toBeTruthy();
   });
 
+  test("it renders the disabled companies correctly", () => {
+    const { wrapper } = render(BranchPicker);
+    let disabledCount = 0;
+    wrapper.vm.companies.forEach(company => {
+      if (company.active === false) {
+        disabledCount++;
+      }
+    });
+    const disabledCompanies = wrapper.findAll("button:disabled");
+    expect(disabledCompanies.length).toEqual(disabledCount);
+  });
+
   test("it changes the selected propety when the branch is active", () => {
     const { wrapper } = render(BranchPicker);
 
@@ -101,5 +112,18 @@ describe("BranchPicker", () => {
     const selectedBranch = wrapper.vm.branches[0];
     await fireEvent.click(getByText(selectedBranch.name));
     expect(getByText(selectedBranch.locations[0].name)).toBeTruthy();
+  });
+
+  test("Request is shown for disabled companies", () => {
+    const { wrapper, getByText, debug } = render(BranchPicker);
+
+    expect(wrapper).not.toContain("Solicitar permiso para");
+    wrapper.vm.handleSelectedRequest(wrapper.vm.companies[0].id);
+    const disabledCompany = wrapper.findAll(".fa-question-circle");
+    const companyKey = wrapper.vm.companies[0].rfc;
+    disabledCompany.at(0).trigger("click");
+    expect(
+      getByText(`¿Solicitar permiso para la Tienda ${companyKey}?`)
+    ).toBeTruthy();
   });
 });
