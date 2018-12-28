@@ -5,7 +5,13 @@
 			<h4>Ubicación</h4>
 		</div>
 		<div v-for="location in locationList" :key="location.key">
-			<ListItem :company="location" :handleCompanySelect="handleCompanySelect"/>
+			<ListItem
+				:company="location"
+				:handleCompanySelect="handleCompanySelect"
+				:handleRequest="handleRequest"
+				:showRequest="showRequest"
+				:requestId="requestId"
+			/>
 		</div>
 	</div>
 </template>
@@ -21,6 +27,18 @@
 			},
 			handleCompanySelect: {
 				type: Function,
+				required: true
+			},
+			handleRequest: {
+				type: Function,
+				required: true
+			},
+			showRequest: {
+				type: Boolean,
+				required: true
+			},
+			requestId: {
+				type: String,
 				required: true
 			}
 		},

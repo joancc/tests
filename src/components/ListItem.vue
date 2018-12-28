@@ -1,6 +1,6 @@
 <template>
-	<div class="item" @click="handleCompanySelect(company.key)">
-		<button class="select-item" :class="{ active: company.active }" v-if="company.status">
+	<div class="item">
+		<button class="select-item" :class="{ active: company.active }" v-if="company.status" @click="handleCompanySelect(company.key)">
 			<div class="info">
 				<p>
 					{{ company.name }}
@@ -25,18 +25,14 @@
 					<div class="d-block">RFC: {{company.key}}</div>
 				</span>
 			</div>
-			<a class="fas fa-question-circle"></a>
+			<a class="fas fa-question-circle" @click="handleRequest(company.key)"></a>
 		</button>
-		<!-- <div class="request show">
-			<a class="fas fa-question-circle"></a>
-			<p>¿Solicitar permiso para la Tienda #8009?</p>
-			<div>
-				<button class="button is-small is-bank">solicitar</button>
-			</div>
-		</div>-->
+		<Request :class="{'show': showRequest}" v-if="company.key === requestId" :company="company" :handleRequest="handleRequest" :requestId="requestId"/>
 	</div>
 </template>
 <script>
+	import Request from "@/components/Request.vue";
+
 	export default {
 		props: {
 			company: {
@@ -46,8 +42,23 @@
 			handleCompanySelect: {
 				type: Function,
 				required: true
+			},
+			handleRequest: {
+				type: Function,
+				required: true
+			},
+			showRequest: {
+				type: Boolean,
+				required: true
+			},
+			requestId: {
+				type: String,
+				required: true
 			}
 		},
-		name: "ListItem"
+		name: "ListItem",
+		components: {
+			Request
+		}
 	};
 </script>

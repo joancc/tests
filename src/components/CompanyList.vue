@@ -9,6 +9,9 @@
 			:company="company"
 			:handleCompanySelect="handleCompanySelect"
 			:key="company.key"
+			:handleRequest="handleRequest"
+			:showRequest="showRequest"
+			:requestId="requestId"
 		/>
 	</div>
 </template>
@@ -24,6 +27,18 @@
 			},
 			handleCompanySelect: {
 				type: Function,
+				required: true
+			},
+			handleRequest: {
+				type: Function,
+				required: true
+			},
+			showRequest: {
+				type: Boolean,
+				required: true
+			},
+			requestId: {
+				type: String,
 				required: true
 			}
 		},

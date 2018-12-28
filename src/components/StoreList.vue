@@ -5,14 +5,26 @@
 			<h4>Almacenes</h4>
 		</div>
 		<div v-for="warehouse in wareHouseList" :key="warehouse.key">
-			<ListItem :company="warehouse" :handleCompanySelect="handleCompanySelect"/>
+			<ListItem
+				:company="warehouse"
+				:handleCompanySelect="handleCompanySelect"
+				:handleRequest="handleRequest"
+				:showRequest="showRequest"
+				:requestId="requestId"
+			/>
 		</div>
 		<div class="select-title">
 			<div class="icon offices"></div>
 			<h4>Oficinas</h4>
 		</div>
 		<div v-for="office in officeList" :key="office.key">
-			<ListItem :company="office" :handleCompanySelect="handleCompanySelect"/>
+			<ListItem
+				:company="office"
+				:handleCompanySelect="handleCompanySelect"
+				:handleRequest="handleRequest"
+				:showRequest="showRequest"
+				:requestId="requestId"
+			/>
 		</div>
 
 		<div class="select-title">
@@ -20,7 +32,13 @@
 			<h4>Tiendas</h4>
 		</div>
 		<div v-for="store in storesList" :key="store.key">
-			<ListItem :company="store" :handleCompanySelect="handleCompanySelect"/>
+			<ListItem
+				:company="store"
+				:handleCompanySelect="handleCompanySelect"
+				:handleRequest="handleRequest"
+				:showRequest="showRequest"
+				:requestId="requestId"
+			/>
 		</div>
 	</div>
 </template>
@@ -36,6 +54,18 @@
 			},
 			handleCompanySelect: {
 				type: Function,
+				required: true
+			},
+			handleRequest: {
+				type: Function,
+				required: true
+			},
+			showRequest: {
+				type: Boolean,
+				required: true
+			},
+			requestId: {
+				type: String,
 				required: true
 			}
 		},

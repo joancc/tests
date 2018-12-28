@@ -7,18 +7,27 @@
 			<CompanyList
 				:companies="companies"
 				:handle-company-select="handleCompanySelect"
+				:handleRequest="handleRequest"
+				:showRequest="showRequest"
+				:requestId="requestId"
 				class="is-one-third"
 			/>
 			<StoreList
 				:storeList="stores"
 				:handle-company-select="handleStoreSelect"
 				:class="{'is-hidden': showStoreColumn}"
+				:handleRequest="handleRequest"
+				:showRequest="showRequest"
+				:requestId="requestId"
 				class="is-one-third"
 			/>
 			<LocationList
 				:locationList="locations"
 				:handle-company-select="handleLocationSelect"
 				:class="{'is-hidden': showLocationColumn}"
+				:handleRequest="handleRequest"
+				:showRequest="showRequest"
+				:requestId="requestId"
 				class="is-one-third"
 			/>
 		</div>
@@ -34,6 +43,8 @@
 		name: "SomeComponent",
 		data() {
 			return {
+				requestId: null,
+				showRequest: false,
 				storeList: [],
 				showStoreColumn: true,
 				showLocationColumn: true,
@@ -321,6 +332,10 @@
 			},
 			handleLocationSelect(locationId) {
 				this.activeLocationId = locationId;
+			},
+			handleRequest(id) {
+				this.showRequest = !this.showRequest;
+				this.requestId = id;
 			}
 		},
 		components: {
