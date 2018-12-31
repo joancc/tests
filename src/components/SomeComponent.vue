@@ -20,7 +20,7 @@ export default {
   name: "SomeComponent",
   props: {
     msg: String
-  }
+  } 
 };
 // the value inside obj props is Type
 </script>
