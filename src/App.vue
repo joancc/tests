@@ -2,26 +2,20 @@
   <div id="app">
     <SomeComponent msg="Welcome to Your Vue.js App"/>
     <SearchInput/>
-    <!-- <SideBar/> -->
-    <Historical/>
-    <Notifications/>
+    <SideBar/>
   </div>
 </template>
 
 <script>
-// import SomeComponent from "./components/SomeComponent.vue";
-// import SearchInput from "./components/SearchInput.vue";
-// import SideBar from "./components/SideBar.vue";
-import Historical from "./components/Historical/Historical.vue";
-import Notifications from "./components/Notifications/Notifications.vue";
+import SomeComponent from "./components/SomeComponent.vue";
+import SearchInput from "./components/SearchInput.vue";
+import SideBar from "./components/SideBar.vue"
 export default {
   name: "app",
   components: {
-    // SomeComponent,
-    // SearchInput,
-    // SideBar, 
-    Historical,
-    Notifications
+    SomeComponent,
+    SearchInput,
+    SideBar
   }
 };
 </script>
@@ -31,9 +25,9 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
+  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-  padding: 0 100px;
+  padding: 0 500px;
 }
 </style>
