@@ -4,17 +4,17 @@
       <div class="icon companies"></div>
       <h4>Empresas</h4>
     </div>
-    <ListItem v-for="company in companiesList" :item="company" :key="company.company_id"/>
+    <CompanyListItem v-for="company in companiesList" :item="company" :key="company.company_id"/>
   </div>
 </template>
 <script>
-import ListItem from "./ListItem";
+import CompanyListItem from "./CompanyListItem";
 import { mapGetters, mapState } from "vuex";
 
 export default {
   name: "CompanyList",
   components: {
-    ListItem
+    CompanyListItem
   },
   created() {
     this.$store.dispatch("getCompaniesList");

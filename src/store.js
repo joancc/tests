@@ -10,8 +10,8 @@ const accessToken =
 export default new Vuex.Store({
   state: {
     companiesList: [],
-    activeItemId: 0,
-    companyBranches: []
+    companyBranches: [],
+    branchLocation: []
   },
   mutations: {
     setCompaniesList: (state, payload) => {
@@ -19,11 +19,29 @@ export default new Vuex.Store({
     },
     setCompanyBranches: (state, payload) => {
       state.companyBranches = payload;
+    },
+    setBranchLocation: (state, payload) => {
+      state.branchLocation = payload;
     }
   },
   actions: {
+    getActiveBranch: ({ commit, state }, { id }) => {
+      const branches = state.companyBranches.map(branch => {
+        return {
+          ...branch,
+          ...{
+            selected: branch.branch_id === id
+          }
+        };
+      });
+      commit("setCompanyBranches", branches);
+      branches.forEach(location => {
+        if (location.branch_id === id) {
+          commit("setBranchLocation", location.address);
+        }
+      });
+    },
     getActiveItem: ({ commit, state }, { id }) => {
-      console.log(id);
       const companies = state.companiesList.map(company => {
         return {
           ...company,
@@ -40,7 +58,6 @@ export default new Vuex.Store({
         }
       })
         .then(response => {
-          console.log(response.data);
           commit("setCompanyBranches", response.data);
         })
         .catch(err => console.log(err));
@@ -63,12 +80,11 @@ export default new Vuex.Store({
           commit("setCompaniesList", companies);
         })
         .catch(err => console.log(err));
-    },
-
-    getBranchesList: ({ commit }, { companyId }) => {}
+    }
   },
   getters: {
     companiesList: state => state.companiesList,
-    companyBranches: state => state.companyBranches
+    companyBranches: state => state.companyBranches,
+    branchLocation: state => state.branchLocation
   }
 });
