@@ -6,7 +6,7 @@
     <div class="columns">
       <CompanyList/>
       <BranchesList/>
-      <LocationList :locations="branchLocations" :handleSelectedItem="handleSelectedLocation"/>
+      <LocationList/>
     </div>
   </div>
 </template>
@@ -14,41 +14,15 @@
 import CompanyList from "./CompanyList.vue";
 import BranchesList from "./BranchesList.vue";
 import LocationList from "./LocationList.vue";
-import data from "../data.js";
 
 export default {
   name: "BranchPicker",
   data() {
     return {
-      companiesFromServer: data,
-      activeCompanyId: 0,
-      activeBranchId: 0,
-      activeLocation: 0,
-      companyBranches: [],
-      branchLocations: [],
-      idRequest: 0,
-      selectedRequest: false
+      activeLocation: 0
     };
   },
-  computed: {
-    branches() {
-      return this.companyBranches.map(branch => {
-        return {
-          ...branch,
-          ...{ selected: branch.id === this.activeBranchId }
-        };
-      });
-    }
-  },
   methods: {
-    handleSelectedBranch(branchId) {
-      this.activeBranchId = branchId;
-      this.companyBranches.forEach(branch => {
-        if (branch.id === branchId) {
-          this.branchLocations = branch.locations;
-        }
-      });
-    },
     handleSelectedLocation(locationId) {
       this.activeLocation = locationId;
       console.log(locationId);

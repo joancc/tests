@@ -4,48 +4,28 @@
       <div class="icon warehouses"></div>
       <h4>Almacenes</h4>
     </div>
-    <ListItem
-      v-for="branch in filterWarehouses"
-      :item="branch"
-      :handleSelectedItem="handleSelectedItem"
-      :key="branch.branch_id"
-    />
+    <BranchListItem v-for="branch in filterWarehouses" :item="branch" :key="branch.branch_id"/>
     <hr>
     <div class="select-title">
       <div class="icon offices"></div>
       <h4>Oficinas</h4>
     </div>
-    <ListItem
-      v-for="branch in filterOffices"
-      :item="branch"
-      :handleSelectedItem="handleSelectedItem"
-      :key="branch.branch_id"
-    />
+    <BranchListItem v-for="branch in filterOffices" :item="branch" :key="branch.branch_id"/>
     <hr>
     <div class="select-title">
       <div class="icon stores"></div>
       <h4>Tiendas</h4>
     </div>
-    <ListItem
-      v-for="branch in filterStores"
-      :item="branch"
-      :handleSelectedItem="handleSelectedItem"
-      :key="branch.branch_id"
-    />
+    <BranchListItem v-for="branch in filterStores" :item="branch" :key="branch.branch_id"/>
   </div>
 </template>
 <script>
-import ListItem from "./ListItem";
+import BranchListItem from "./BranchListItem";
 import { mapGetters, mapState } from "vuex";
 export default {
   name: "BranchesList",
-  props: {
-    handleSelectedItem: {
-      type: Function
-    }
-  },
   components: {
-    ListItem
+    BranchListItem
   },
   computed: {
     ...mapGetters(["companyBranches"]),
