@@ -9,7 +9,7 @@
 <script>
 import SomeComponent from "./components/SomeComponent.vue";
 import SearchInput from "./components/SearchInput.vue";
-import SideBar from "./components/SideBar.vue"
+import SideBar from "./components/SideBar.vue";
 export default {
   name: "app",
   components: {
