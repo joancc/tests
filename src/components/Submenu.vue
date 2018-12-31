@@ -1,23 +1,26 @@
 <template>
+<div>
     <ul >
       <div >
-       <li v-for="subitem in submenu" 
-       :key="subitem.id" ><a href="#">
+       <li v-for="o in option" :key="o.id"><a href="#">
        <i 
-       :class="`${subitem.icon}`">
+       :class="`${o.icon}`">
        </i>
-      <span>{{subitem.subitem}}</span></a></li>
+      <span ></span></a></li>
       </div>
     </ul>
+</div>
+
 </template>
 
 <script>
 export default {
-  props:{
-  submenu: {
-  type: Array,
-  required:true
-   }
+  props: {
+     option: Object,
+      submenu: {
+      type: Array,
+      required: true
+    } 
   },
   name: "Submenu"
 };

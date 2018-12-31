@@ -2,26 +2,22 @@
  <div>
    <ul>
    <li v-for="option in options" 
-   :key="option.id" >
-     <a 
-     @click="show(option.item); isActive()">
-      <i 
-      :class="`${option.icon}`">
-      </i>
-      <span>{{option.item}}</span>
-     </a>
+    :key="option.id" >
+    <EachMainItem 
+    :key="option.id" 
+    :option="option"
+    :showAndActive="showAndActive">
+    </EachMainItem>
     </li>
-    <Submenu  :submenu="submenu" :class="{'is-active': active}" v-show="active" ></Submenu>
    </ul>
  </div>
 </template>
 
 <script>
-import Submenu from "./Submenu.vue";
-
+import EachMainItem from "./EachMainItem.vue";
 export default {
   components: {
-    'Submenu': Submenu
+     EachMainItem: EachMainItem
   },
   props: {
     options: Array,
@@ -29,12 +25,8 @@ export default {
       type: Boolean,
       required: true
     },
-    show: {
+     showAndActive: {
       type: Function,
-      required: true
-    },
-    isActive:{
-       type: Function,
       required: true
     },
     submenu: {
