@@ -27,10 +27,6 @@
 			...mapGetters(["companiesFromServer"])
 		},
 		props: {
-			// handleCompanySelect: {
-			// 	type: Function,
-			// 	required: true
-			// },
 			handleRequest: {
 				type: Function,
 				required: true
