@@ -5,9 +5,8 @@
 			<h4>Empresas</h4>
 		</div>
 		<ListItem
-			v-for="company in companies"
+			v-for="company in companiesFromServer"
 			:company="company"
-			:handleCompanySelect="handleCompanySelect"
 			:key="company.key"
 			:handleRequest="handleRequest"
 			:showRequest="showRequest"
@@ -16,19 +15,22 @@
 	</div>
 </template>
 <script>
-	import ListItem from "./ListItem";
+	import { mapGetters } from "vuex";
+	import ListItem from "@/components/ListItem.vue";
 
 	export default {
 		name: "CompanyList",
+		created() {
+			this.$store.dispatch("getCompaniesFromServer");
+		},
+		computed: {
+			...mapGetters(["companiesFromServer"])
+		},
 		props: {
-			companies: {
-				type: Array,
-				required: true
-			},
-			handleCompanySelect: {
-				type: Function,
-				required: true
-			},
+			// handleCompanySelect: {
+			// 	type: Function,
+			// 	required: true
+			// },
 			handleRequest: {
 				type: Function,
 				required: true
