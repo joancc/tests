@@ -1,17 +1,15 @@
 <template>
   <div class="item">
     <button
-      v-if="item.active"
       class="select-item"
-      @click="handleSelectedItem(item.id)"
+      @click="handleSelectedItem(item.company_id)"
       :class="{ active: item.selected }"
     >
       <div class="info">
         <p>
-          {{ item.name }}
+          {{ item.emitter.business_name }}
           <span class="on"></span>
-          <span v-if="item.rfc">RFC : {{ item.rfc }}</span>
-          <span v-if="item.key">CLAVE : {{ item.key }}</span>
+          <span>RFC : {{ item.emitter.tax_id }}</span>
         </p>
       </div>
     </button>
@@ -19,7 +17,7 @@
       <button class="select-item" disabled>
         <div class="info">
           <span>
-            {{item.name}}
+            {{item.emitter.business_name}}
             <div class="popover_wrapper">
               <i class="fas fa-lock"></i>
               <div class="push popover_content up">
@@ -29,39 +27,31 @@
                 </p>
               </div>
             </div>
-            <div class="d-block" v-if="item.rfc">RFC: {{item.rfc}}</div>
-            <div class="d-block" v-if="item.key">Clave: {{item.key}}</div>
+            <div class="d-block">RFC: {{item.emitter.tax_id}}</div>
           </span>
         </div>
         <!--is-hidden -->
         <a class="fas fa-question-circle" @click="handleRequest.handleSelectedRequest(item.id)"></a>
       </button>
-      <RequestItem
-        v-if="item.id === handleRequest.idRequest"
-        :selectedRequest="handleRequest.selectedRequest"
-        :handleSelectedRequest="handleRequest.handleSelectedRequest"
-        :requestId="item.id"
-        :itemKey="item.rfc || item.key"
-      />
+      <RequestItem/>
     </div>
   </div>
 </template>
 <script>
 import RequestItem from "./RequestItem.vue";
+import { mapGetters } from "vuex";
 export default {
   name: "ListItem",
   props: {
     item: {
-      type: Object,
-      required: true
-    },
-    handleSelectedItem: {
-      type: Function,
-      required: true
-    },
-    handleRequest: {
-      type: Object,
-      required: true
+      type: Object
+    }
+  },
+  methods: {
+    handleSelectedItem(itemId) {
+      this.$store.dispatch("getActiveItem", {
+        id: itemId
+      });
     }
   },
   components: {

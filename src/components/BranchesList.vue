@@ -1,5 +1,5 @@
 <template>
-  <div class="column is-one-third" v-if="branches.length >=1">
+  <div class="column is-one-third" v-if="companyBranches.length >=1">
     <div class="select-title">
       <div class="icon warehouses"></div>
       <h4>Almacenes</h4>
@@ -8,8 +8,7 @@
       v-for="branch in filterWarehouses"
       :item="branch"
       :handleSelectedItem="handleSelectedItem"
-      :key="branch.id"
-      :handleRequest="handleRequest"
+      :key="branch.branch_id"
     />
     <hr>
     <div class="select-title">
@@ -20,8 +19,7 @@
       v-for="branch in filterOffices"
       :item="branch"
       :handleSelectedItem="handleSelectedItem"
-      :key="branch.id"
-      :handleRequest="handleRequest"
+      :key="branch.branch_id"
     />
     <hr>
     <div class="select-title">
@@ -32,46 +30,38 @@
       v-for="branch in filterStores"
       :item="branch"
       :handleSelectedItem="handleSelectedItem"
-      :key="branch.id"
-      :handleRequest="handleRequest"
+      :key="branch.branch_id"
     />
   </div>
 </template>
 <script>
 import ListItem from "./ListItem";
+import { mapGetters, mapState } from "vuex";
 export default {
   name: "BranchesList",
   props: {
-    branches: {
-      type: Array,
-      required: true
-    },
     handleSelectedItem: {
-      type: Function,
-      required: true
-    },
-    handleRequest: {
-      type: Object,
-      required: true
+      type: Function
     }
   },
   components: {
     ListItem
   },
   computed: {
+    ...mapGetters(["companyBranches"]),
     filterWarehouses() {
-      return this.branches.filter(branch => {
-        return branch.type === "warehouse";
+      return this.companyBranches.filter(branch => {
+        return branch.type === "Shop";
       });
     },
     filterOffices() {
-      return this.branches.filter(branch => {
-        return branch.type === "office";
+      return this.companyBranches.filter(branch => {
+        return branch.type === "Office";
       });
     },
     filterStores() {
-      return this.branches.filter(branch => {
-        return branch.type === "store";
+      return this.companyBranches.filter(branch => {
+        return branch.type === "Store";
       });
     }
   }
