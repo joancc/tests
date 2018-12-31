@@ -4,36 +4,23 @@
       <div class="icon companies"></div>
       <h4>Empresas</h4>
     </div>
-    <ListItem
-      v-for="company in companies"
-      :item="company"
-      :handleSelectedItem="handleSelectedItem"
-      :key="company.id"
-      :handleRequest="handleRequest"
-    />
+    <ListItem v-for="company in companiesList" :item="company" :key="company.company_id"/>
   </div>
 </template>
 <script>
 import ListItem from "./ListItem";
+import { mapGetters, mapState } from "vuex";
 
 export default {
   name: "CompanyList",
-  props: {
-    companies: {
-      type: Array,
-      required: true
-    },
-    handleSelectedItem: {
-      type: Function,
-      required: true
-    },
-    handleRequest: {
-      type: Object,
-      required: true
-    }
-  },
   components: {
     ListItem
+  },
+  created() {
+    this.$store.dispatch("getCompaniesList");
+  },
+  computed: {
+    ...mapGetters(["companiesList"])
   }
 };
 </script>
