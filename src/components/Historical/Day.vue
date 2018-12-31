@@ -1,9 +1,10 @@
 <template>
 <div>
-  <li class="day">
-       <p>Hoy</p>
+  <li v-for="info in historicalInfo " :key="info.id" class="day">
+       <p>{{info.date}}</p>
+  <activity 
+  :info="info"/>
   </li>
-  <activity/>
 </div>
 </template>
 
@@ -13,6 +14,9 @@ export default {
     name: "Day",
     components: {
       Activity: Activity
+    },
+    props: {
+      historicalInfo: Array
     }
 }
 </script>
