@@ -7,14 +7,14 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     companiesFromServer: [],
-    activeCompanyTaxId: "1234567890"
+    branchList: []
   },
   mutations: {
     setCompaniesList: (state, payload) => {
       state.companiesFromServer = payload;
     },
-    setactiveCompanyTaxId: (state, payload) => {
-      state.activeCompanyTaxId = payload;
+    setBranchList: (state, payload) => {
+      state.branchList = payload;
     }
   },
   actions: {
@@ -31,20 +31,21 @@ export default new Vuex.Store({
         }
       });
       commit("setCompaniesList", companies);
-      // this.companiesFromServer.forEach(company => {
-      //   if (company.key === taxId) {
-      //     this.storeList = company.stores;
-      //   }
-      // });
-      // this.showStoreColumn = !this.showStoreColumn;
-      // if (!this.showLocationColumn) {
-      //   this.showLocationColumn = true;
-      // }
+      const currentToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjFCRTVGOTQ2MTI0NTMyMkYxOTE4RTZERDVBREIzOTI4REFBMjg1RDciLCJ0eXAiOiJKV1QiLCJ4NXQiOiJHLVg1UmhKRk1pOFpHT2JkV3RzNUtOcWloZGMifQ.eyJuYmYiOjE1NDYyODMxMDYsImV4cCI6MTU0NjMyMzEwNiwiaXNzIjoiaHR0cHM6Ly9nZXN0aW9uaXgtaWRlbnRpdHlzZXJ2aWNlLW9hdXRoMi1hcGktdGVzdC5henVyZXdlYnNpdGVzLm5ldCIsImF1ZCI6WyJodHRwczovL2dlc3Rpb25peC1pZGVudGl0eXNlcnZpY2Utb2F1dGgyLWFwaS10ZXN0LmF6dXJld2Vic2l0ZXMubmV0L3Jlc291cmNlcyIsImdlc3Rpb25peF9hcGkiXSwiY2xpZW50X2lkIjoiR2VzdGlvbml4LUFwaSIsInN1YiI6ImEyZjdmOGY1LTI0ZjktNDU2Yi04Zjg5LWUzN2VmYzQzOWFkMiIsImF1dGhfdGltZSI6MTU0NjI4MzEwNiwiaWRwIjoibG9jYWwiLCJuYW1lIjpbIk1hcmNvIEFudG9uaW8iLCJNYXJjbyBBbnRvbmlvIiwiTWFyY28gQW50b25pbyIsIk1hcmNvIEFudG9uaW8iLCJNYXJjbyBBbnRvbmlvIiwiTWFyY28gQW50b25pbyIsIk1hcmNvIEFudG9uaW8iLCJNYXJjbyBBbnRvbmlvIiwiTWFyY28gQW50b25pbyIsIk1hcmNvIEFudG9uaW8iXSwiZW1haWwiOlsiaG9nYXJAZ2VzdGlvbml4LmNvbSIsImNlc2FyLnZhcmdhc0BnZXN0aW9uaXguY29tIiwiY29yZ293YXJlMkBnbWFpbC5jb20iLCJob2dhckBnZXN0aW9uaXguY29tIiwiY29yZ293YXJlMkBnbWFpbC5jb20iLCJob2dhckBnZXN0aW9uaXguY29tIiwiY29yZ293YXJlMkBnbWFpbC5jb20iLCJob2dhckBnZXN0aW9uaXguY29tIiwiY29yZ293YXJlMkBnbWFpbC5jb20iLCJob2dhckBnZXN0aW9uaXguY29tIiwiaG9nYXJAZ2VzdGlvbml4LmNvbSJdLCJzY29wZSI6WyJnZXN0aW9uaXhfYXBpIiwib2ZmbGluZV9hY2Nlc3MiXSwiYW1yIjpbInB3ZCJdfQ.mhPWUSAgtzWYJilIF5_LCwJ2VmNzqd7IT6g3sAROsUqe-HhZJuoLbKK0b6TYGPvmBfG1PLRQ-qmrAUptZcJl_5x_sOkEKlbXESvFkZ0bE8Uu3RHMHEnp4A4hN9dYHqMtPciQpSeQpOM2z113nOaqRCko26_kJEZaevEZ2hhBDK6k1mVUaW2NOZx9Tr0on0SrEceu1Dt84ahZYCzNVrE3mSM_1yIrPYdCZ_rA0eIjETGmBEJCVv_sNOL9a4voKh8urz1aClFI0r_dA5LAA-KB-Vj3DfgE_0MW-Yy72bNXhWevc5T7yC9rby3py9jFMfeYFOG5AjU_URjQs6mSJxzEXnFkRmWV2LfFbp7vlxxWGCnBYsnN06bGEt87d2KMXnQ3z264t9rKAFJfWRjY34IUgbqNdbJPxTP3Z1DC_qjIEskUBoZeloxSK2xqIzSdivlXGxYGhsFCK9skr7s-O2AY0lA38QXvLMNyFZo0kfVXGItOc3Fdv_782nI4e2QR-eNRU-sSat4skoyPLyc0RN9prptkTfTB-Jw3JsEharSjTx77a-VXoX2bz6kLRK-MvFO-z8NfSqGWeuZeT7GN_wi_vMfMFN9SWqaR2zT41IWW49LXw5iaOtniQeUm8kzTfuHrFutm4BfS7LIfHnRK_fY0f-PdY5A6yihWzYkSukvana0";
+      Axios.get("https://api-test.gestionix.com/api/v3//branch_offices/?", {
+          headers: {
+            Authorization: `Bearer ${currentToken}`,
+            Company: payload
+          }
+        })
+        .then(resp => {
+          commit("setBranchList", resp.data);
+        })
     },
     getCompaniesFromServer: ({
       commit
     }) => {
-      const currentToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjFCRTVGOTQ2MTI0NTMyMkYxOTE4RTZERDVBREIzOTI4REFBMjg1RDciLCJ0eXAiOiJKV1QiLCJ4NXQiOiJHLVg1UmhKRk1pOFpHT2JkV3RzNUtOcWloZGMifQ.eyJuYmYiOjE1NDYyNzE4NDIsImV4cCI6MTU0NjMxMTg0MiwiaXNzIjoiaHR0cHM6Ly9nZXN0aW9uaXgtaWRlbnRpdHlzZXJ2aWNlLW9hdXRoMi1hcGktdGVzdC5henVyZXdlYnNpdGVzLm5ldCIsImF1ZCI6WyJodHRwczovL2dlc3Rpb25peC1pZGVudGl0eXNlcnZpY2Utb2F1dGgyLWFwaS10ZXN0LmF6dXJld2Vic2l0ZXMubmV0L3Jlc291cmNlcyIsImdlc3Rpb25peF9hcGkiXSwiY2xpZW50X2lkIjoiR2VzdGlvbml4LUFwaSIsInN1YiI6ImEyZjdmOGY1LTI0ZjktNDU2Yi04Zjg5LWUzN2VmYzQzOWFkMiIsImF1dGhfdGltZSI6MTU0NjI3MTg0MiwiaWRwIjoibG9jYWwiLCJuYW1lIjpbIk1hcmNvIEFudG9uaW8iLCJNYXJjbyBBbnRvbmlvIiwiTWFyY28gQW50b25pbyIsIk1hcmNvIEFudG9uaW8iLCJNYXJjbyBBbnRvbmlvIiwiTWFyY28gQW50b25pbyIsIk1hcmNvIEFudG9uaW8iLCJNYXJjbyBBbnRvbmlvIiwiTWFyY28gQW50b25pbyIsIk1hcmNvIEFudG9uaW8iXSwiZW1haWwiOlsiaG9nYXJAZ2VzdGlvbml4LmNvbSIsImNlc2FyLnZhcmdhc0BnZXN0aW9uaXguY29tIiwiY29yZ293YXJlMkBnbWFpbC5jb20iLCJob2dhckBnZXN0aW9uaXguY29tIiwiY29yZ293YXJlMkBnbWFpbC5jb20iLCJob2dhckBnZXN0aW9uaXguY29tIiwiY29yZ293YXJlMkBnbWFpbC5jb20iLCJob2dhckBnZXN0aW9uaXguY29tIiwiY29yZ293YXJlMkBnbWFpbC5jb20iLCJob2dhckBnZXN0aW9uaXguY29tIiwiaG9nYXJAZ2VzdGlvbml4LmNvbSJdLCJzY29wZSI6WyJnZXN0aW9uaXhfYXBpIiwib2ZmbGluZV9hY2Nlc3MiXSwiYW1yIjpbInB3ZCJdfQ.fo8tSl7GO4baro8rFJ0keMnC9WlpitdPUziF6R8wR-0eDnoTJWIJqDNgEReTYuOzxeKjIal1ijcGseSe52pMIZsv9rw4RruHGgWX-W2kvUHeZTdgBnWiCZpZxWgSwCfQxgWclnpRCZpkyB4LA8uz11tqvzXGRhW3vUWFPSCaPwr0AdRKn9QnONI0l2G2OAAH9AtKyg5Gt__31ZALVXz8GtNJHD1_mbrCtRqt2slyj23kmS5GlXN0opwATXsTpTezKXqlxTJNqMpdlotwMNtCMRX6-CoqtVFA2rHqIdDa918uPQ9-MuJiDUIQhzyaBt0EWlrEfi-qTFwTPcyByPREspOKa1Z0xpif4oQOfXf6r2Z2885RhL1IHL4PXpCMLWjZ958Oqxvfsumeb9msyVo9gejXV969N90eN8HxnswGRIpf4sGnjvorJsyIImiMWvdaVkyU0oJ4VpWBPrcv6KTfNemyCrEVinwrGSGdF7hIJfvdgBJnR2c8duz8OO-mBmDSqg2jdMcIC4pFIKJjwt6AMqXJ1EJfvyaHXQppEwM23IyZ1MUVVUV8K7qom80AY5tFoYZh39LCsbgRCwx8GvqbF-AYnk5fLnTeaI5EFt-J_XohphYfvALOxWoDYgmeXv62P3W4K9_NZgq-HxD9o1fNqTBuOabCBys2upbOxbJS1Kc";
+      const currentToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjFCRTVGOTQ2MTI0NTMyMkYxOTE4RTZERDVBREIzOTI4REFBMjg1RDciLCJ0eXAiOiJKV1QiLCJ4NXQiOiJHLVg1UmhKRk1pOFpHT2JkV3RzNUtOcWloZGMifQ.eyJuYmYiOjE1NDYyODMxMDYsImV4cCI6MTU0NjMyMzEwNiwiaXNzIjoiaHR0cHM6Ly9nZXN0aW9uaXgtaWRlbnRpdHlzZXJ2aWNlLW9hdXRoMi1hcGktdGVzdC5henVyZXdlYnNpdGVzLm5ldCIsImF1ZCI6WyJodHRwczovL2dlc3Rpb25peC1pZGVudGl0eXNlcnZpY2Utb2F1dGgyLWFwaS10ZXN0LmF6dXJld2Vic2l0ZXMubmV0L3Jlc291cmNlcyIsImdlc3Rpb25peF9hcGkiXSwiY2xpZW50X2lkIjoiR2VzdGlvbml4LUFwaSIsInN1YiI6ImEyZjdmOGY1LTI0ZjktNDU2Yi04Zjg5LWUzN2VmYzQzOWFkMiIsImF1dGhfdGltZSI6MTU0NjI4MzEwNiwiaWRwIjoibG9jYWwiLCJuYW1lIjpbIk1hcmNvIEFudG9uaW8iLCJNYXJjbyBBbnRvbmlvIiwiTWFyY28gQW50b25pbyIsIk1hcmNvIEFudG9uaW8iLCJNYXJjbyBBbnRvbmlvIiwiTWFyY28gQW50b25pbyIsIk1hcmNvIEFudG9uaW8iLCJNYXJjbyBBbnRvbmlvIiwiTWFyY28gQW50b25pbyIsIk1hcmNvIEFudG9uaW8iXSwiZW1haWwiOlsiaG9nYXJAZ2VzdGlvbml4LmNvbSIsImNlc2FyLnZhcmdhc0BnZXN0aW9uaXguY29tIiwiY29yZ293YXJlMkBnbWFpbC5jb20iLCJob2dhckBnZXN0aW9uaXguY29tIiwiY29yZ293YXJlMkBnbWFpbC5jb20iLCJob2dhckBnZXN0aW9uaXguY29tIiwiY29yZ293YXJlMkBnbWFpbC5jb20iLCJob2dhckBnZXN0aW9uaXguY29tIiwiY29yZ293YXJlMkBnbWFpbC5jb20iLCJob2dhckBnZXN0aW9uaXguY29tIiwiaG9nYXJAZ2VzdGlvbml4LmNvbSJdLCJzY29wZSI6WyJnZXN0aW9uaXhfYXBpIiwib2ZmbGluZV9hY2Nlc3MiXSwiYW1yIjpbInB3ZCJdfQ.mhPWUSAgtzWYJilIF5_LCwJ2VmNzqd7IT6g3sAROsUqe-HhZJuoLbKK0b6TYGPvmBfG1PLRQ-qmrAUptZcJl_5x_sOkEKlbXESvFkZ0bE8Uu3RHMHEnp4A4hN9dYHqMtPciQpSeQpOM2z113nOaqRCko26_kJEZaevEZ2hhBDK6k1mVUaW2NOZx9Tr0on0SrEceu1Dt84ahZYCzNVrE3mSM_1yIrPYdCZ_rA0eIjETGmBEJCVv_sNOL9a4voKh8urz1aClFI0r_dA5LAA-KB-Vj3DfgE_0MW-Yy72bNXhWevc5T7yC9rby3py9jFMfeYFOG5AjU_URjQs6mSJxzEXnFkRmWV2LfFbp7vlxxWGCnBYsnN06bGEt87d2KMXnQ3z264t9rKAFJfWRjY34IUgbqNdbJPxTP3Z1DC_qjIEskUBoZeloxSK2xqIzSdivlXGxYGhsFCK9skr7s-O2AY0lA38QXvLMNyFZo0kfVXGItOc3Fdv_782nI4e2QR-eNRU-sSat4skoyPLyc0RN9prptkTfTB-Jw3JsEharSjTx77a-VXoX2bz6kLRK-MvFO-z8NfSqGWeuZeT7GN_wi_vMfMFN9SWqaR2zT41IWW49LXw5iaOtniQeUm8kzTfuHrFutm4BfS7LIfHnRK_fY0f-PdY5A6yihWzYkSukvana0";
       Axios.get("https://api-test.gestionix.com/api/v3/users/companies", {
           headers: {
             Authorization: `Bearer ${currentToken}`
@@ -66,6 +67,6 @@ export default new Vuex.Store({
   },
   getters: {
     companiesFromServer: state => state.companiesFromServer,
-    activeCompanyTaxId: state => state.activeCompanyTaxId
+    branchList: state => state.branchList
   }
 });

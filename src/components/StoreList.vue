@@ -4,10 +4,9 @@
 			<div class="icon warehouses"></div>
 			<h4>Almacenes</h4>
 		</div>
-		<div v-for="warehouse in wareHouseList" :key="warehouse.key">
+		<div v-for="warehouse in wareHouseList" :key="warehouse.branch_id">
 			<ListItem
 				:company="warehouse"
-				:handleCompanySelect="handleCompanySelect"
 				:handleRequest="handleRequest"
 				:showRequest="showRequest"
 				:requestId="requestId"
@@ -43,19 +42,30 @@
 	</div>
 </template>
 <script>
+	import { mapGetters } from "vuex";
 	import ListItem from "./ListItem";
 
 	export default {
 		name: "StorePicker",
+		computed: {
+			...mapGetters(["branchList"]),
+			wareHouseList() {
+				return this.branchList.filter(store => {
+					return store.type === "Shop";
+				});
+			},
+			officeList() {
+				return this.branchList.filter(store => {
+					return store.type === "Office";
+				});
+			},
+			storesList() {
+				return this.branchList.filter(store => {
+					return store.type === "Store";
+				});
+			}
+		},
 		props: {
-			storeList: {
-				type: Array,
-				required: true
-			},
-			handleCompanySelect: {
-				type: Function,
-				required: true
-			},
 			handleRequest: {
 				type: Function,
 				required: true
@@ -67,23 +77,6 @@
 			requestId: {
 				type: String,
 				required: true
-			}
-		},
-		computed: {
-			wareHouseList() {
-				return this.storeList.filter(store => {
-					return store.type === "warehouse";
-				});
-			},
-			officeList() {
-				return this.storeList.filter(store => {
-					return store.type === "office";
-				});
-			},
-			storesList() {
-				return this.storeList.filter(store => {
-					return store.type === "store";
-				});
 			}
 		},
 		components: {
