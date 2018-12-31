@@ -1,19 +1,21 @@
 <template>
   <div>
-    <a 
-     @click="showAndActive(option)">
+    <a @click="showAndActive(option)">
+  
       <i 
       :class="`${option.icon}`">
       </i>
       <span>{{option.item}}</span>
      </a>
-    <Submenu></Submenu>
+    <Submenu
+    :option="option"
+    :submenu="submenu">
+    </Submenu>
  </div>
 </template>
  
 <script>
 import Submenu from "./Submenu.vue";
-
 export default {
 components: {
     Submenu: Submenu
@@ -23,9 +25,12 @@ components: {
      showAndActive: {
       type: Function,
       required: true
-     }
+     },
+      submenu: {
+      type: Array,
+      required: true
+    }
  },
   name: "EachMenuItem"
 };
 </script>
-
