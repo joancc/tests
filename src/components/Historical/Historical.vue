@@ -57,10 +57,6 @@ export default {
      }
    ]
   }
-},
-methods : {
-  
-}
-    
+},    
 };
 </script>

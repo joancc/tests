@@ -1,16 +1,21 @@
 <template>
  <div>
-     <li class="activity">
-       <p v-for="i in info" :key="i.id" class="time">{{i.time}}</p><a class="tag time-tag sell-tag">VENTA</a><span>10 unidades</span><span><a href="#">Sucursal Puebla</a></span>
+     <li class="activity" v-for="activity in info.activities" :key="activity.id">
+       <Eachactivity 
+       :activity="activity" />
      </li>
  </div>
 </template>
 
 <script>
+import Eachactivity from "../Historical/EachActivity.vue"
 export default {
   name: "Activity",
+  components:{
+    Eachactivity: Eachactivity
+  },
   props: {
-      info: Object
+      info: Object,
     }
 }
 </script>
