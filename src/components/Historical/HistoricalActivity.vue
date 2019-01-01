@@ -10,7 +10,7 @@
 <script>
 import Eachactivity from "../Historical/EachActivity.vue"
 export default {
-  name: "Activity",
+  name: "HistoricalActivity",
   components:{
     Eachactivity: Eachactivity
   },

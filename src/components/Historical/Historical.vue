@@ -1,22 +1,22 @@
 <template>
 <div class="historical in-side">
-    <h-title/>
-    <h-body 
+    <historical-title/>
+    <historical-body 
     :historicalInfo="historicalInfo"/>
-    <h-footer/>
+    <historical-footer/>
 </div>
 </template>
 
  <script>
-import HTitle from "../Historical/H-Title.vue";
-import HFooter from "../Historical/H-Footer.vue";
-import HBody from "../Historical/H-Body.vue";
+import HistoricalTitle from "../Historical/HistoricalTitle.vue";
+import HistoricalFooter from "../Historical/HistoricalFooter.vue";
+import HistoricalBody from "../Historical/HistoricalBody.vue";
 export default {
   name: "Historical",
   components: {
-    HTitle: HTitle,
-    HFooter: HFooter,
-    HBody: HBody
+    HistoticalTitle: HistoricalTitle,
+    HistoricalFooter: HistoricalFooter,
+    HistoricalBody: HistoricalBody
   },
   data() {
     return {

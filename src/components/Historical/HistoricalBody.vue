@@ -2,19 +2,19 @@
  <div>
   <div class="day-activities">
    <ul>
-    <day :historicalInfo="historicalInfo" />
+    <HistoricalDay :historicalInfo="historicalInfo" />
    </ul>
  </div>
 </div>
 </template>
 
 <script>
-import Day from "../Historical/Day.vue";
+import HistoricalDay from "../Historical/HistoricalDay.vue";
 
 export default {
-    name: "Body",
+    name: "HistoricalBody",
     components: {
-     Day: Day
+     HistoricalDay: HistoricalDay
     },
     props: {
       historicalInfo: Array

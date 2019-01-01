@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    name: "Each-activity",
+    name: "EachActivity",
     props: {
         activity: Object
     }

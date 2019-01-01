@@ -2,18 +2,18 @@
 <div>
   <li v-for="info in historicalInfo " :key="info.id" class="day">
        <p>{{info.date}}</p>
-  <activity 
+  <Historical-activity 
   :info="info"/>
   </li>
 </div>
 </template>
 
 <script>
-import Activity from "../Historical/Activity.vue"
+import HistoricalActivity from "../Historical/HistoricalActivity.vue"
 export default {
-    name: "Day",
+    name: "HistoricalDay",
     components: {
-      Activity: Activity
+      HistoricalActivity: HistoricalActivity
     },
     props: {
       historicalInfo: Array
