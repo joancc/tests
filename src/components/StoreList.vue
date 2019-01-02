@@ -1,11 +1,11 @@
 <template>
-	<div class="column" style="border: 2px solid blue;">
+	<div class="column" style="border: 2px solid blue;" v-if="branchList.length > 0">
 		<div class="select-title">
 			<div class="icon warehouses"></div>
 			<h4>Almacenes</h4>
 		</div>
 		<div v-for="warehouse in wareHouseList" :key="warehouse.branch_id">
-			<ListItem
+			<ListStore
 				:company="warehouse"
 				:handleRequest="handleRequest"
 				:showRequest="showRequest"
@@ -17,9 +17,8 @@
 			<h4>Oficinas</h4>
 		</div>
 		<div v-for="office in officeList" :key="office.key">
-			<ListItem
+			<ListStore
 				:company="office"
-				:handleCompanySelect="handleCompanySelect"
 				:handleRequest="handleRequest"
 				:showRequest="showRequest"
 				:requestId="requestId"
@@ -31,9 +30,8 @@
 			<h4>Tiendas</h4>
 		</div>
 		<div v-for="store in storesList" :key="store.key">
-			<ListItem
+			<ListStore
 				:company="store"
-				:handleCompanySelect="handleCompanySelect"
 				:handleRequest="handleRequest"
 				:showRequest="showRequest"
 				:requestId="requestId"
@@ -43,7 +41,7 @@
 </template>
 <script>
 	import { mapGetters } from "vuex";
-	import ListItem from "./ListItem";
+	import ListStore from "./ListStore";
 
 	export default {
 		name: "StorePicker",
@@ -80,7 +78,7 @@
 			}
 		},
 		components: {
-			ListItem
+			ListStore
 		}
 	};
 </script>
