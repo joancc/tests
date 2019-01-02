@@ -27,34 +27,20 @@
 			</div>
 			<a class="fas fa-question-circle" @click="handleRequest(company.branch_id)"></a>
 		</button>
-		<Request
-			:class="{'show': showRequest}"
-			v-if="company.key === requestId"
-			:company="company"
-			:handleRequest="handleRequest"
-			:requestId="requestId"
-		/>
+		<Request :class="{'show': showRequest}" v-if="company.key === requestId" :company="company"/>
 	</div>
 </template>
 <script>
+	import { mapGetters } from "vuex";
 	import Request from "@/components/Request.vue";
 
 	export default {
+		computed: {
+			...mapGetters(["showRequest", "requestId"])
+		},
 		props: {
 			company: {
 				type: Object,
-				required: true
-			},
-			handleRequest: {
-				type: Function,
-				required: true
-			},
-			showRequest: {
-				type: Boolean,
-				required: true
-			},
-			requestId: {
-				type: String,
 				required: true
 			}
 		},

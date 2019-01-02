@@ -6,26 +6,9 @@
 			</a>
 		</div>
 		<div class="columns" :class="{'is-hidden': closeColumns}">
-			<CompanyList
-				:handleRequest="handleRequest"
-				:showRequest="showRequest"
-				:requestId="requestId"
-				class="is-one-third"
-			/>
-			<StoreList
-				:class="{'is-hidden': showStoreColumn}"
-				:handleRequest="handleRequest"
-				:showRequest="showRequest"
-				:requestId="requestId"
-				class="is-one-third"
-			/>
-			<LocationList
-				:class="{'is-hidden': showLocationColumn}"
-				:handleRequest="handleRequest"
-				:showRequest="showRequest"
-				:requestId="requestId"
-				class="is-one-third"
-			/>
+			<CompanyList class="is-one-third"/>
+			<StoreList :class="{'is-hidden': showStoreColumn}" class="is-one-third"/>
+			<LocationList :class="{'is-hidden': showLocationColumn}" class="is-one-third"/>
 		</div>
 	</div>
 </template>
@@ -43,16 +26,10 @@
 		},
 		data() {
 			return {
-				closeColumns: false,
-				requestId: "",
-				showRequest: false
+				closeColumns: false
 			};
 		},
 		methods: {
-			handleRequest(id) {
-				this.showRequest = !this.showRequest;
-				this.requestId = id;
-			},
 			handleCloseColumns() {
 				this.closeColumns = !this.closeColumns;
 			}

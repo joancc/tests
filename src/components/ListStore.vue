@@ -27,13 +27,7 @@
 			</div>
 			<a class="fas fa-question-circle" @click="handleRequest(company.branch_id)"></a>
 		</button>
-		<Request
-			:class="{'show': showRequest}"
-			v-if="company.key === requestId"
-			:company="company"
-			:handleRequest="handleRequest"
-			:requestId="requestId"
-		/>
+		<Request :class="{'show': showRequest}" v-if="company.branch_id === requestId"/>
 	</div>
 </template>
 <script>
@@ -44,23 +38,17 @@
 		methods: {
 			handleStoreSelect(storeId) {
 				this.$store.dispatch("handleStoreSelect", storeId);
+			},
+			handleRequest(id) {
+				this.$store.dispatch("handleRequest", id);
 			}
+		},
+		computed: {
+			...mapGetters(["showRequest", "requestId"])
 		},
 		props: {
 			company: {
 				type: Object,
-				required: true
-			},
-			handleRequest: {
-				type: Function,
-				required: true
-			},
-			showRequest: {
-				type: Boolean,
-				required: true
-			},
-			requestId: {
-				type: String,
 				required: true
 			}
 		},

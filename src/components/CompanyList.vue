@@ -4,14 +4,7 @@
 			<div class="icon companies"></div>
 			<h4>Empresas</h4>
 		</div>
-		<ListItem
-			v-for="company in companiesFromServer"
-			:company="company"
-			:key="company.key"
-			:handleRequest="handleRequest"
-			:showRequest="showRequest"
-			:requestId="requestId"
-		/>
+		<ListItem v-for="company in companiesFromServer" :company="company" :key="company.key"/>
 	</div>
 </template>
 <script>
@@ -25,20 +18,6 @@
 		},
 		computed: {
 			...mapGetters(["companiesFromServer"])
-		},
-		props: {
-			handleRequest: {
-				type: Function,
-				required: true
-			},
-			showRequest: {
-				type: Boolean,
-				required: true
-			},
-			requestId: {
-				type: String,
-				required: true
-			}
 		},
 		components: {
 			ListItem
