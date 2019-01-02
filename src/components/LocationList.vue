@@ -5,12 +5,7 @@
 			<h4>Ubicación</h4>
 		</div>
 		<div v-for="location in locationList" :key="location.key">
-			<ListLocation
-				:company="location"
-				:handleRequest="handleRequest"
-				:showRequest="showRequest"
-				:requestId="requestId"
-			/>
+			<ListLocation :company="location"/>
 		</div>
 	</div>
 </template>
@@ -22,20 +17,6 @@
 		name: "StoreLocation",
 		computed: {
 			...mapGetters(["locationList"])
-		},
-		props: {
-			handleRequest: {
-				type: Function,
-				required: true
-			},
-			showRequest: {
-				type: Boolean,
-				required: true
-			},
-			requestId: {
-				type: String,
-				required: true
-			}
 		},
 		components: {
 			ListLocation

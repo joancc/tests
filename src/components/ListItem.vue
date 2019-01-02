@@ -30,14 +30,12 @@
 					<div class="d-block">RFC: {{ company.emitter.tax_id }}</div>
 				</span>
 			</div>
-			<a class="fas fa-question-circle" @click="handleRequest(company.key)"></a>
+			<a class="fas fa-question-circle" @click="handleRequest(company.emitter.tax_id)"></a>
 		</button>
 		<Request
 			:class="{'show': showRequest}"
-			v-if="company.key === requestId"
+			v-if="company.emitter.tax_id === requestId"
 			:company="company"
-			:handleRequest="handleRequest"
-			:requestId="requestId"
 		/>
 	</div>
 </template>
@@ -49,23 +47,17 @@
 		methods: {
 			handleCompanySelect(taxId) {
 				this.$store.dispatch("handleCompanySelect", taxId);
+			},
+			handleRequest(id) {
+				this.$store.dispatch("handleRequest", id);
 			}
+		},
+		computed: {
+			...mapGetters(["showRequest", "requestId"])
 		},
 		props: {
 			company: {
 				type: Object,
-				required: true
-			},
-			handleRequest: {
-				type: Function,
-				required: true
-			},
-			showRequest: {
-				type: Boolean,
-				required: true
-			},
-			requestId: {
-				type: String,
 				required: true
 			}
 		},

@@ -1,7 +1,7 @@
 <template>
 	<div class="request">
-		<a class="fas fa-question-circle" @click="handleRequest(company.key)"></a>
-		<p>¿Solicitar permiso para la Tienda {{company.name}}?</p>
+		<a class="fas fa-question-circle" @click="handleRequest(requestId)"></a>
+		<p>¿Solicitar permiso para la Tienda?</p>
 		<div>
 			<button class="button is-small is-bank">solicitar</button>
 		</div>
@@ -9,20 +9,16 @@
 </template>
 
 <script>
+	import { mapGetters } from "vuex";
+
 	export default {
 		name: "activeRequest",
-		props: {
-			company: {
-				type: Object,
-				required: true
-			},
-			handleRequest: {
-				type: Function,
-				required: true
-			},
-			requestId: {
-				type: String,
-				required: true
+		computed: {
+			...mapGetters(["requestId"])
+		},
+		methods: {
+			handleRequest(id) {
+				this.$store.dispatch("handleRequest", id);
 			}
 		}
 	};

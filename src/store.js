@@ -10,7 +10,9 @@ export default new Vuex.Store({
     branchList: [],
     locationList: [],
     showStoreColumn: true,
-    showLocationColumn: true
+    showLocationColumn: true,
+    showRequest: false,
+    requestId: "",
   },
   mutations: {
     setCompaniesList: (state, payload) => {
@@ -28,8 +30,21 @@ export default new Vuex.Store({
     setshowLocationColumn: (state, payload) => {
       state.showLocationColumn = payload;
     },
+    setRequestId: (state, payload) => {
+      state.requestId = payload;
+    },
+    setshowRequest: (state, payload) => {
+      state.showRequest = !payload;
+    }
   },
   actions: {
+    handleRequest({
+      commit,
+      state
+    }, payload) {
+      commit('setshowRequest', state.showRequest);
+      commit('setRequestId', payload);
+    },
     handleCompanySelect({
       commit,
       state
@@ -63,7 +78,7 @@ export default new Vuex.Store({
         return {
           ...store,
           ...{
-            active: store.branch_id === payload
+            status: store.branch_id === payload
           }
         }
       });
@@ -102,6 +117,8 @@ export default new Vuex.Store({
     branchList: state => state.branchList,
     locationList: state => state.locationList,
     showStoreColumn: state => state.showStoreColumn,
-    showLocationColumn: state => state.showLocationColumn
+    showLocationColumn: state => state.showLocationColumn,
+    requestId: state => state.requestId,
+    showRequest: state => state.showRequest
   }
 });
