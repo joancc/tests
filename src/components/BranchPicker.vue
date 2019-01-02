@@ -13,8 +13,6 @@
 				class="is-one-third"
 			/>
 			<StoreList
-				:storeList="stores"
-				:handle-company-select="handleStoreSelect"
 				:class="{'is-hidden': showStoreColumn}"
 				:handleRequest="handleRequest"
 				:showRequest="showRequest"
@@ -22,8 +20,6 @@
 				class="is-one-third"
 			/>
 			<LocationList
-				:locationList="locations"
-				:handle-company-select="handleLocationSelect"
 				:class="{'is-hidden': showLocationColumn}"
 				:handleRequest="handleRequest"
 				:showRequest="showRequest"
@@ -42,37 +38,17 @@
 
 	export default {
 		name: "BranchPicker",
+		computed: {
+			...mapGetters(["showStoreColumn", "showLocationColumn"])
+		},
 		data() {
 			return {
 				closeColumns: false,
 				requestId: "",
-				showRequest: false,
-				storeList: [],
-				showStoreColumn: true,
-				showCompanies: false,
-				showLocationColumn: true,
-				locationList: [],
-				activeStoreId: "",
-				activeLocationId: ""
+				showRequest: false
 			};
 		},
 		methods: {
-			handleStoreSelect(storeId) {
-				this.activeStoreId = storeId;
-				this.companiesFromServer.forEach(company => {
-					if (company.key === this.activeCompanyTaxId) {
-						company.stores.forEach(store => {
-							if (store.key === this.activeStoreId) {
-								this.locationList = store.locations;
-							}
-						});
-					}
-				});
-				this.showLocationColumn = !this.showLocationColumn;
-			},
-			handleLocationSelect(locationId) {
-				this.activeLocationId = locationId;
-			},
 			handleRequest(id) {
 				this.showRequest = !this.showRequest;
 				this.requestId = id;
