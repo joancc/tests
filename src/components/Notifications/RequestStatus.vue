@@ -1,12 +1,17 @@
 <template>
 <div>
-    <p class="bad"><i class="far fa-times-circle"></i> Rechazado por <strong>Pedro Prado</strong></p><a href="#">Ver detalle</a>
+    <div>
+     <p class="bad"><i :class="notification.message.status.icon"></i>{{notification.message.status.statusMessage}} por <strong>{{notification.message.status.name}}</strong></p><a href="#">Ver detalle</a>            
+    </div>
 </div>
 </template>
 
 <script>
 export default {
-    name: "RequestStatus"
+    name: "RequestStatus",
+    props: {
+      notification: Object
+    }
 }
 </script>
 

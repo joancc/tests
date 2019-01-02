@@ -1,14 +1,19 @@
 <template>
-<div class="notification unread"><i class="far fa-eye as-unread"></i>
+<div> 
+  <div v-for="notification in notifications" 
+  :key="notification.id">
+  <div :class="notification.seen">
    <div class="icon gx-user">
-     <p>ci</p>
+     <p>{{notification.icon}}</p>
    </div>
    <div class="item-content">
-     <p><strong>Se rechazó el cambio de información de 2 productos</strong></p>
-     <p>solicitado por Abarrotes Mary</p>
+     <p><strong>{{notification.message.subject}}</strong></p>
+     <p>{{notification.message.request}}</p>
      <accept-reject-btn/>
-     <request-status/>
-     <p class="timestamp">10 de enero a las 11:35 h</p>
+     <request-status :notification="notifications"/>
+     <p class="timestamp">{{notification.date}}</p>
+   </div>
+   </div>
    </div>
  </div>
 </template>
@@ -22,6 +27,9 @@ export default {
     components: {
       AcceptRejectBtn: AcceptRejectBtn,
       RequestStatus: RequestStatus
+    },
+    props: {
+      notifications: Array
     }
 
 }
