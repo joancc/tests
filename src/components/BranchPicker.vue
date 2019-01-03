@@ -5,7 +5,7 @@
 				<i class="far fa-times-circle"></i> Cerrar
 			</a>
 		</div>
-		<div class="columns" :class="{'is-hidden': closeColumns}">
+		<div>
 			<CompanyList class="is-one-third"/>
 			<StoreList :class="{'is-hidden': showStoreColumn}" class="is-one-third"/>
 			<LocationList :class="{'is-hidden': showLocationColumn}" class="is-one-third"/>
@@ -41,3 +41,5 @@
 		}
 	};
 </script>
+
+		<div class="columns" :class="{'is-hidden': closeColumns}">
