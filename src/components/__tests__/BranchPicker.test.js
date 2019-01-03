@@ -1,14 +1,11 @@
+/* eslint-disable no-undef */
 import { createLocalVue, mount } from "@vue/test-utils";
-import {
-  getQueriesForElement,
-  prettyDOM,
-  fireEvent,
-  getAllByTestId
-} from "dom-testing-library";
+import { getQueriesForElement, prettyDOM } from "dom-testing-library";
 import Vuex from "vuex";
 import BranchPicker from "../BranchPicker.vue";
 import { mutations, getters, actions, state } from "../../store";
-
+//import { mokingGet } from "./moking";
+jest.mock("../../store");
 function render(component, options) {
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -27,17 +24,49 @@ function render(component, options) {
   };
 }
 
-describe("Mutations", () => {
-  test("setCompaniesList", () => {
-    // mock state
-    actions.getCompaniesList(mutations.setCompaniesList);
-    //const { wrapper, getAllByText } = render(BranchPicker);
-    console.log(state.companiesList);
-  });
-});
+const setCompaniesList = jest.fn(() => [
+  {
+    company_id: 17,
+    emitter: {
+      id: 11,
+      tax_id: "JAR1106038RA",
+      business_name: "Soluciones Eléctricas",
+      commercial_name: "Soluciones Eléctricas Ibarra Updated S.A. de C.V."
+    }
+  }
+]);
 
 describe("BranchPicker", () => {
-  //
+  test("componente", async () => {
+    const data = [
+      {
+        company_id: 17,
+        emitter: {
+          id: 11,
+          tax_id: "JAR1106038RA",
+          business_name: "Soluciones Eléctricas",
+          commercial_name: "Soluciones Eléctricas Ibarra Updated S.A. de C.V."
+        }
+      }
+    ];
+    actions.getCompaniesList.mockResolvedValue(data);
+    const commit = jest.fn();
+    await actions.mokingGet({ commit });
+    expect(commit).toHaveBeenCalledWith("setCompaniesList", { data });
+
+    // const { getByText } = render(BranchPicker);
+    // expect(getByText("Empresas")).toBeTruthy();
+    // expect(getByText("Soluciones Eléctricas")).toBeTruthy()
+    //actions.getCompaniesList({commit: mutations.setCompaniesList})
+
+    // let data;
+    // let mockCommit = (state, payload) => {
+    //   data = payload;
+    // };
+    // actions.getCompaniesList({ commit: mockCommit }).then(() => {
+    //   expect(data).toEqual({ title: "Mock with Jest" });
+    // });
+  });
 });
 
 /*describe("BranchPicker", () => {

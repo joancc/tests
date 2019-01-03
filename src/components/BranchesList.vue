@@ -1,5 +1,5 @@
 <template>
-  <div class="column is-one-third" v-if="companyBranches.length >=1">
+  <div class="column is-half" v-if="companyBranches.length >=1">
     <div class="select-title">
       <div class="icon warehouses"></div>
       <h4>Almacenes</h4>

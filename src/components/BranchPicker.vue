@@ -6,7 +6,6 @@
     <div class="columns">
       <CompanyList/>
       <BranchesList/>
-      <LocationList/>
     </div>
   </div>
 </template>
@@ -19,8 +18,7 @@ export default {
   name: "BranchPicker",
   components: {
     CompanyList,
-    BranchesList,
-    LocationList
+    BranchesList
   }
 };
 </script>
