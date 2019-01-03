@@ -2,17 +2,22 @@ import { createLocalVue, mount } from "@vue/test-utils";
 import {
   getQueriesForElement,
   prettyDOM,
-  fireEvent
+  fireEvent,
+  getAllByTestId
 } from "dom-testing-library";
-
+import Vuex from "vuex";
 import BranchPicker from "../BranchPicker.vue";
+import { mutations, getters, actions, state } from "../../store";
 
 function render(component, options) {
   const localVue = createLocalVue();
+  localVue.use(Vuex);
+  const store = new Vuex.Store({ state, getters, actions, mutations });
   const wrapper = mount(component, {
     localVue,
     attachToDocument: true,
-    ...options
+    ...options,
+    store
   });
 
   return {
@@ -22,7 +27,20 @@ function render(component, options) {
   };
 }
 
+describe("Mutations", () => {
+  test("setCompaniesList", () => {
+    // mock state
+    actions.getCompaniesList(mutations.setCompaniesList);
+    //const { wrapper, getAllByText } = render(BranchPicker);
+    console.log(state.companiesList);
+  });
+});
+
 describe("BranchPicker", () => {
+  //
+});
+
+/*describe("BranchPicker", () => {
   test("Updates active company correctly", () => {
     const { wrapper } = render(BranchPicker);
 
@@ -126,4 +144,4 @@ describe("BranchPicker", () => {
       getByText(`¿Solicitar permiso para la Tienda ${companyKey}?`)
     ).toBeTruthy();
   });
-});
+});*/

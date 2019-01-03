@@ -9,7 +9,7 @@
 </template>
 <script>
 import CompanyListItem from "./CompanyListItem";
-import { mapGetters, mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "CompanyList",
