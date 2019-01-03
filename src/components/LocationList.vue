@@ -8,13 +8,9 @@
   </div>
 </template>
 <script>
-import ListItem from "./CompanyListItem";
 import { mapGetters } from "vuex";
 export default {
   name: "LocationList",
-  components: {
-    ListItem
-  },
   computed: {
     ...mapGetters(["branchLocation"])
   }

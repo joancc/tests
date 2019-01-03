@@ -17,17 +17,6 @@ import LocationList from "./LocationList.vue";
 
 export default {
   name: "BranchPicker",
-  data() {
-    return {
-      activeLocation: 0
-    };
-  },
-  methods: {
-    handleSelectedLocation(locationId) {
-      this.activeLocation = locationId;
-      console.log(locationId);
-    }
-  },
   components: {
     CompanyList,
     BranchesList,
