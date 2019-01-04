@@ -61,6 +61,7 @@ describe("CompanyList", () => {
     companiesFromServer: () => [
       {
         company_id: 17,
+        active: true,
         status: true,
         emitter: {
           id: 11,
@@ -91,5 +92,13 @@ describe("CompanyList", () => {
     const company = wrapper.find('button');
     company.trigger('click');
     expect(getByText(branches[1].name)).toBeTruthy();
+    expect(company.classes()).toContain('active');
+  });
+  test("it adds active class to company according to selection", () => {
+    const { wrapper, getByText, debug } = render(BranchPicker, {}, storeOptions);
+    const company = wrapper.find('button');
+
+    company.trigger('click');
+    expect(company.classes()).toContain('active');
   });
 });
