@@ -5,20 +5,20 @@
     </div>
     <div class="columns">
       <CompanyList/>
-      <!-- <BranchesList/> -->
+      <BranchesList/>
     </div>
   </div>
 </template>
 <script>
 import CompanyList from "./CompanyList.vue";
-// import BranchesList from "./BranchesList.vue";
+import BranchesList from "./BranchesList.vue";
 // import LocationList from "./LocationList.vue";
 
 export default {
   name: "BranchPicker",
   components: {
-    CompanyList
-    //BranchesList
+    CompanyList,
+    BranchesList
   }
 };
 </script>

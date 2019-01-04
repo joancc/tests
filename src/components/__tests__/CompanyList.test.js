@@ -2,16 +2,18 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import { getQueriesForElement, prettyDOM } from "dom-testing-library";
 import Vuex from "vuex";
-import Vue from "vue";
 import BranchPicker from "../BranchPicker.vue";
 
-function render(component, options) {
+function render(component, options, storeOptions) {
   const localVue = createLocalVue();
   localVue.use(Vuex);
+  const store = new Vuex.Store(storeOptions);
+
   const wrapper = mount(component, {
     localVue,
     attachToDocument: true,
-    ...options
+    ...options,
+    store
   });
 
   return {
@@ -20,39 +22,65 @@ function render(component, options) {
     debug: () => console.log(prettyDOM(wrapper.element))
   };
 }
+const branches = [
+  {
+    branch_id: 198,
+    type: "Shop",
+    name: "Fl_Tda1",
+    active: true
+  },
+  {
+    branch_id: 18,
+    type: "Office",
+    name: "ALMACEN GENERAL",
+    active: true
+  }
+];
+const company = [
+  {
+    company_id: 17,
+    active: true,
+    emitter: {
+      id: 11,
+      tax_id: "JAR1106038RA",
+      business_name: "Soluciones Eléctricas"
+    }
+  }
+];
+describe("CompanyList.vue", () => {
+  let state = {
+    campanyBranches: []
+  };
+  let getters = {
+    companiesList: () => company,
+    companyBranches: () => branches
+  };
+  let actions = {
+    getCompaniesList: jest.fn(),
+    getActiveItem: jest.fn(id => id)
+  };
 
-Vue.use(Vuex);
-describe("actions", () => {
-  let actions;
-  let store;
-  let getters;
-  beforeEach(() => {
-    (getters = {
-      companiesList: () => [
-        {
-          company_id: 17,
-          active: true,
-          emitter: {
-            id: 11,
-            tax_id: "JAR1106038RA",
-            business_name: "Soluciones Eléctricas",
-            commercial_name: "Soluciones Eléctricas Ibarra Updated S.A. de C.V."
-          }
-        }
-      ]
-    }),
-      (actions = {
-        getCompaniesList: jest.fn()
-      }),
-      (store = new Vuex.Store({
-        getters,
-        actions
-      }));
-  });
-  test("calls store action getCompaniesList when the componenet", () => {
-    const { getByText } = render(BranchPicker, { store });
-    expect(actions.getCompaniesList).toHaveBeenCalled();
+  let storeOptions = {
+    state,
+    actions,
+    getters
+  };
+
+  test("calls store action getCompaniesList when the component is rendered", () => {
+    const { getByText } = render(BranchPicker, {}, storeOptions);
+    expect(getByText("Empresas")).toBeTruthy();
     expect(getByText("Soluciones Eléctricas")).toBeTruthy();
+  });
+
+  test("Company branches are rendered when the company is selected", () => {
+    const { getByText, wrapper, debug } = render(
+      BranchPicker,
+      {},
+      storeOptions
+    );
+    const companyButton = wrapper.find("button");
+    companyButton.trigger("click");
+    expect(getByText(branches[1].name)).toBeTruthy();
   });
 });
 

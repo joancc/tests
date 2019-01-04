@@ -2,7 +2,7 @@
   <div class="item">
     <button
       class="select-item"
-      @click="handleSelectedItem(item.company_id)"
+      @click="handleSelectedCompany(item.company_id)"
       :class="{ active: item.selected }"
     >
       <div class="info">
@@ -39,7 +39,6 @@
 </template>
 <script>
 import RequestItem from "./RequestItem.vue";
-import { mapGetters } from "vuex";
 export default {
   name: "ListItem",
   props: {
@@ -48,7 +47,7 @@ export default {
     }
   },
   methods: {
-    handleSelectedItem(itemId) {
+    handleSelectedCompany(itemId) {
       this.$store.dispatch("getActiveItem", {
         id: itemId
       });

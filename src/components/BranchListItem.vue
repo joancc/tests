@@ -2,7 +2,7 @@
   <div class="item">
     <button
       class="select-item"
-      @click="handleSelectedItem(item.branch_id)"
+      @click="handleSelectedBranch(item.branch_id)"
       :class="{ active: item.selected }"
     >
       <div class="info">
@@ -46,7 +46,7 @@ export default {
     }
   },
   methods: {
-    handleSelectedItem(itemId) {
+    handleSelectedBranch(itemId) {
       this.$store.dispatch("getActiveBranch", {
         id: itemId
       });
