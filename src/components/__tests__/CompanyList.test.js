@@ -44,7 +44,8 @@ const company = [
       id: 11,
       tax_id: "JAR1106038RA",
       business_name: "Soluciones Eléctricas"
-    }
+    },
+    selected: true
   }
 ];
 describe("CompanyList.vue", () => {
@@ -81,6 +82,20 @@ describe("CompanyList.vue", () => {
     const companyButton = wrapper.find("button");
     companyButton.trigger("click");
     expect(getByText(branches[1].name)).toBeTruthy();
+  });
+
+  test("it highlights the selected company", () => {
+    const { getByText, wrapper, debug } = render(
+      BranchPicker,
+      {},
+      storeOptions
+    );
+
+    const companyButton = wrapper.find("button");
+    companyButton.trigger("click");
+    debug();
+    expect(companyButton.classes("active")).toBe(true);
+    expect(wrapper.findAll(".active").length).toEqual(1);
   });
 });
 
