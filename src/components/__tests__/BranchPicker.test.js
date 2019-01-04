@@ -2,19 +2,16 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import { getQueriesForElement, prettyDOM } from "dom-testing-library";
 import Vuex from "vuex";
+import Vue from "vue";
 import BranchPicker from "../BranchPicker.vue";
-import { mutations, getters, actions, state } from "../../store";
-//import { mokingGet } from "./moking";
-jest.mock("../../store");
+
 function render(component, options) {
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  const store = new Vuex.Store({ state, getters, actions, mutations });
   const wrapper = mount(component, {
     localVue,
     attachToDocument: true,
-    ...options,
-    store
+    ...options
   });
 
   return {
@@ -24,48 +21,38 @@ function render(component, options) {
   };
 }
 
-const setCompaniesList = jest.fn(() => [
-  {
-    company_id: 17,
-    emitter: {
-      id: 11,
-      tax_id: "JAR1106038RA",
-      business_name: "Soluciones Eléctricas",
-      commercial_name: "Soluciones Eléctricas Ibarra Updated S.A. de C.V."
-    }
-  }
-]);
-
-describe("BranchPicker", () => {
-  test("componente", async () => {
-    const data = [
-      {
-        company_id: 17,
-        emitter: {
-          id: 11,
-          tax_id: "JAR1106038RA",
-          business_name: "Soluciones Eléctricas",
-          commercial_name: "Soluciones Eléctricas Ibarra Updated S.A. de C.V."
+Vue.use(Vuex);
+describe("actions", () => {
+  let actions;
+  let store;
+  let getters;
+  beforeEach(() => {
+    (getters = {
+      companiesList: () => [
+        {
+          company_id: 17,
+          active: true,
+          emitter: {
+            id: 11,
+            tax_id: "JAR1106038RA",
+            business_name: "Soluciones Eléctricas",
+            commercial_name: "Soluciones Eléctricas Ibarra Updated S.A. de C.V."
+          }
         }
-      }
-    ];
-    actions.getCompaniesList.mockResolvedValue(data);
-    const commit = jest.fn();
-    await actions.mokingGet({ commit });
-    expect(commit).toHaveBeenCalledWith("setCompaniesList", { data });
-
-    // const { getByText } = render(BranchPicker);
-    // expect(getByText("Empresas")).toBeTruthy();
-    // expect(getByText("Soluciones Eléctricas")).toBeTruthy()
-    //actions.getCompaniesList({commit: mutations.setCompaniesList})
-
-    // let data;
-    // let mockCommit = (state, payload) => {
-    //   data = payload;
-    // };
-    // actions.getCompaniesList({ commit: mockCommit }).then(() => {
-    //   expect(data).toEqual({ title: "Mock with Jest" });
-    // });
+      ]
+    }),
+      (actions = {
+        getCompaniesList: jest.fn()
+      }),
+      (store = new Vuex.Store({
+        getters,
+        actions
+      }));
+  });
+  test("calls store action getCompaniesList when the componenet", () => {
+    const { getByText } = render(BranchPicker, { store });
+    expect(actions.getCompaniesList).toHaveBeenCalled();
+    expect(getByText("Soluciones Eléctricas")).toBeTruthy();
   });
 });
 
@@ -140,16 +127,6 @@ describe("BranchPicker", () => {
     });
     const disabledCompanies = wrapper.findAll("button:disabled");
     expect(disabledCompanies.length).toEqual(disabledCount);
-  });
-
-  test("it changes the selected propety when the branch is active", () => {
-    const { wrapper } = render(BranchPicker);
-
-    wrapper.vm.handleSelectedItem(wrapper.vm.companies[0].id);
-    expect(wrapper.vm.branches[0].selected).toBe(false);
-
-    wrapper.vm.handleSelectedBranch(wrapper.vm.branches[0].id);
-    expect(wrapper.vm.branches[0].selected).toBe(true);
   });
 
   test("locations shown when the branch is selected", async () => {

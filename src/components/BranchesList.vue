@@ -21,7 +21,7 @@
 </template>
 <script>
 import BranchListItem from "./BranchListItem";
-import { mapGetters, mapState } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "BranchesList",
   components: {
