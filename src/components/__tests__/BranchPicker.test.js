@@ -1,14 +1,13 @@
+/* eslint-disable no-undef */
 import { createLocalVue, mount } from "@vue/test-utils";
-import {
-  getQueriesForElement,
-  prettyDOM,
-  fireEvent
-} from "dom-testing-library";
-
+import { getQueriesForElement, prettyDOM } from "dom-testing-library";
+import Vuex from "vuex";
+import Vue from "vue";
 import BranchPicker from "../BranchPicker.vue";
 
 function render(component, options) {
   const localVue = createLocalVue();
+  localVue.use(Vuex);
   const wrapper = mount(component, {
     localVue,
     attachToDocument: true,
@@ -22,7 +21,42 @@ function render(component, options) {
   };
 }
 
-describe("BranchPicker", () => {
+Vue.use(Vuex);
+describe("actions", () => {
+  let actions;
+  let store;
+  let getters;
+  beforeEach(() => {
+    (getters = {
+      companiesList: () => [
+        {
+          company_id: 17,
+          active: true,
+          emitter: {
+            id: 11,
+            tax_id: "JAR1106038RA",
+            business_name: "Soluciones Eléctricas",
+            commercial_name: "Soluciones Eléctricas Ibarra Updated S.A. de C.V."
+          }
+        }
+      ]
+    }),
+      (actions = {
+        getCompaniesList: jest.fn()
+      }),
+      (store = new Vuex.Store({
+        getters,
+        actions
+      }));
+  });
+  test("calls store action getCompaniesList when the componenet", () => {
+    const { getByText } = render(BranchPicker, { store });
+    expect(actions.getCompaniesList).toHaveBeenCalled();
+    expect(getByText("Soluciones Eléctricas")).toBeTruthy();
+  });
+});
+
+/*describe("BranchPicker", () => {
   test("Updates active company correctly", () => {
     const { wrapper } = render(BranchPicker);
 
@@ -95,16 +129,6 @@ describe("BranchPicker", () => {
     expect(disabledCompanies.length).toEqual(disabledCount);
   });
 
-  test("it changes the selected propety when the branch is active", () => {
-    const { wrapper } = render(BranchPicker);
-
-    wrapper.vm.handleSelectedItem(wrapper.vm.companies[0].id);
-    expect(wrapper.vm.branches[0].selected).toBe(false);
-
-    wrapper.vm.handleSelectedBranch(wrapper.vm.branches[0].id);
-    expect(wrapper.vm.branches[0].selected).toBe(true);
-  });
-
   test("locations shown when the branch is selected", async () => {
     const { getByText, wrapper } = render(BranchPicker);
 
@@ -126,4 +150,4 @@ describe("BranchPicker", () => {
       getByText(`¿Solicitar permiso para la Tienda ${companyKey}?`)
     ).toBeTruthy();
   });
-});
+});*/
