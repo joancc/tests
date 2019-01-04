@@ -5,45 +5,21 @@
 			<h4>Ubicación</h4>
 		</div>
 		<div v-for="location in locationList" :key="location.key">
-			<ListItem
-				:company="location"
-				:handleCompanySelect="handleCompanySelect"
-				:handleRequest="handleRequest"
-				:showRequest="showRequest"
-				:requestId="requestId"
-			/>
+			<ListLocation :company="location"/>
 		</div>
 	</div>
 </template>
 <script>
-	import ListItem from "./ListItem";
+	import ListLocation from "./ListLocation";
+	import { mapGetters } from "vuex";
 
 	export default {
 		name: "StoreLocation",
-		props: {
-			locationList: {
-				type: Array,
-				required: true
-			},
-			handleCompanySelect: {
-				type: Function,
-				required: true
-			},
-			handleRequest: {
-				type: Function,
-				required: true
-			},
-			showRequest: {
-				type: Boolean,
-				required: true
-			},
-			requestId: {
-				type: String,
-				required: true
-			}
+		computed: {
+			...mapGetters(["locationList"])
 		},
 		components: {
-			ListItem
+			ListLocation
 		}
 	};
 </script>

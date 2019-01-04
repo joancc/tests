@@ -1,23 +1,18 @@
 <template>
 	<div class="item">
-		<button
-			class="select-item"
-			:class="{ active: company.active }"
-			@click="handleCompanySelect(company.company_id)"
-			v-if="company.status"
-		>
+		<button class="select-item" v-if="company.active" @click="handleStoreSelect(company.branch_id)">
 			<div class="info">
 				<p>
-					{{ company.emitter.business_name }}
+					{{ company.name }}
 					<span class="on"></span>
-					<span>RFC: {{ company.emitter.tax_id }}</span>
+					<span>RFC: {{ company.branch_id }}</span>
 				</p>
 			</div>
 		</button>
-		<button class="select-item" disabled v-if="!company.status">
+		<button class="select-item" disabled v-if="!company.active">
 			<div class="info">
 				<span>
-					{{company.emitter.business_name}}
+					{{company.name}}
 					<div class="popover_wrapper">
 						<i class="fas fa-lock-alt"></i>
 						<div class="push popover_content up">
@@ -27,16 +22,12 @@
 							</p>
 						</div>
 					</div>
-					<div class="d-block">RFC: {{ company.emitter.tax_id }}</div>
+					<div class="d-block">RFC: {{ company.branch_id}}</div>
 				</span>
 			</div>
-			<a class="fas fa-question-circle" @click="handleRequest(company.emitter.tax_id)"></a>
+			<a class="fas fa-question-circle" @click="handleRequest(company.branch_id)"></a>
 		</button>
-		<Request
-			:class="{'show': showRequest}"
-			v-if="company.emitter.tax_id === requestId"
-			:company="company"
-		/>
+		<Request :class="{'show': showRequest}" v-if="company.branch_id === requestId"/>
 	</div>
 </template>
 <script>
@@ -45,8 +36,8 @@
 
 	export default {
 		methods: {
-			handleCompanySelect(taxId) {
-				this.$store.dispatch("handleCompanySelect", taxId);
+			handleStoreSelect(storeId) {
+				this.$store.dispatch("handleStoreSelect", storeId);
 			},
 			handleRequest(id) {
 				this.$store.dispatch("handleRequest", id);
@@ -61,7 +52,7 @@
 				required: true
 			}
 		},
-		name: "ListItem",
+		name: "ListStore",
 		components: {
 			Request
 		}
