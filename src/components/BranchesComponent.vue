@@ -1,5 +1,5 @@
 <template>
-  <div class="column branches is-half is-hidden">
+  <div class="column branches is-half">
     <!--Render Warehouse information-->
     <EnterpriseBanner></EnterpriseBanner>
     <ItemCompany></ItemCompany>
@@ -37,6 +37,15 @@
 import EnterpriseBanner from "./EnterpriseBanner.vue";
 import ItemCompany from "./ItemCompany";
 export default {
+  props: ["branch"],
+  data: function() {
+    return {
+      branchesData: this.branch
+    };
+  },
+  mounted() {
+    this.branchesData = JSON.parse(localStorage.getItem("branches"));
+  },
   components: {
     EnterpriseBanner: EnterpriseBanner,
     ItemCompany: ItemCompany

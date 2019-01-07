@@ -3,8 +3,8 @@
     <!-- selecciona sucursal -->
     <div class="select-branch">
       <div class="columns">
-        <CompaniesComponent></CompaniesComponent>
-        <BranchesComponent></BranchesComponent>
+        <CompaniesComponent v-bind:company="companies"></CompaniesComponent>
+        <BranchesComponent v-bind:company="branches"></BranchesComponent>
       </div>
     </div>
   </div>
@@ -24,10 +24,11 @@ export default {
     return {
       users: {},
       companies: [],
-      branches: []
+      branches: [],
+      showBranch: true
     };
   },
-  created() {
+  mounted() {
     let urlBasic = "https://api-test.gestionix.com/api/v3/users/authentication";
     let urlUser = "https://api-test.gestionix.com/api/v3/users/93";
     let urlCompanie = "https://api-test.gestionix.com/api/v3/users/companies";
