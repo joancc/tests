@@ -4,13 +4,13 @@
       <div class="icon companies"></div>
       <h4>Empresas</h4>
     </div>
-    <ListItem v-for="company in companiesFromServer" :company="company" :key="company.key"/>
+    <ListCompany v-for="company in companiesFromServer" :company="company" :key="company.emitter.tax_id"/>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import ListItem from "@/components/ListItem.vue";
+import ListCompany from "@/components/ListCompany.vue";
 
 export default {
   name: "CompanyList",
@@ -21,7 +21,7 @@ export default {
     ...mapGetters(["companiesFromServer"])
   },
   components: {
-    ListItem
+    ListCompany
   }
 };
 </script>

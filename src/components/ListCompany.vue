@@ -2,7 +2,7 @@
   <div class="item company">
     <button
       class="select-item"
-      :class="{ active: company.active }"
+      :class="{ 'active': company.active }"
       @click="handleCompanySelect(company.company_id)"
       v-if="company.status"
     >
@@ -30,13 +30,13 @@
           <div class="d-block">RFC: {{ company.emitter.tax_id }}</div>
         </span>
       </div>
-      <a class="fas fa-question-circle" @click="handleRequest(company.emitter.tax_id)"></a>
+      <a class="fas fa-question-circle" @click="(company.emitter.tax_id)"></a>
     </button>
     <!-- <Request
       :class="{'show': showRequest}"
       v-if="company.emitter.tax_id === requestId"
       :company="company"
-    />-->
+    /> -->
   </div>
 </template>
 <script>
