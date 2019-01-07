@@ -11,14 +11,8 @@ export const mutations = {
   setBranchList: (state, payload) => {
     state.branchList = payload;
   },
-  setLocationList: (state, payload) => {
-    state.locationList = payload;
-  },
   setShowStoreColumn: (state, payload) => {
     state.showStoreColumn = payload;
-  },
-  setshowLocationColumn: (state, payload) => {
-    state.showLocationColumn = payload;
   },
   setRequestId: (state, payload) => {
     state.requestId = payload;
@@ -69,16 +63,11 @@ export const actions = {
       return {
         ...store,
         ...{
-          status: store.branch_id === payload
+          active: store.branch_id === payload
         }
       }
     });
     commit("setBranchList", stores);
-    const locations = state.branchList.filter(location => {
-      return location.branch_id === payload
-    });
-    commit('setLocationList', locations);
-    commit('setshowLocationColumn', !state.showLocationColumn);
   },
   getCompaniesFromServer: ({
     commit
@@ -107,9 +96,7 @@ export const actions = {
 export const state = {
   companiesFromServer: [],
   branchList: [],
-  locationList: [],
   showStoreColumn: true,
-  showLocationColumn: true,
   showRequest: false,
   requestId: "",
 };
@@ -117,9 +104,7 @@ export const state = {
 export const getters = {
   companiesFromServer: state => state.companiesFromServer,
   branchList: state => state.branchList,
-  locationList: state => state.locationList,
   showStoreColumn: state => state.showStoreColumn,
-  showLocationColumn: state => state.showLocationColumn,
   requestId: state => state.requestId,
   showRequest: state => state.showRequest
 };

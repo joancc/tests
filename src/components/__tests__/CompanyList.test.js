@@ -71,7 +71,6 @@ describe("CompanyList", () => {
         }
       }
     ],
-    showRequest: () => false,
     branchList: () => branches,
     showStoreColumn: () => true
   };

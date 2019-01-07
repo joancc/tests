@@ -13,15 +13,11 @@
       <div class="info">
         <span>
           {{company.name}}
-          <div class="popover_wrapper">
-            <i class="fas fa-lock-alt"></i>
-            <div class="push popover_content up">
-              <p class="popover_message">
-                No tienes
-                <strong>permiso</strong> para modificar la información
-              </p>
-            </div>
-          </div>
+             <div class="popover_wrapper"><a class="fg-question-square"></a>
+               <div class="push popover_content up">
+                 <p class="popover_message">No tienes <strong>permiso</strong> para acceder a esta ubicación, solicítalo <a class="requestbranch" href="#">aquí</a>.</p>
+               </div>
+             </div>
           <div class="d-block">RFC: {{ company.branch_id}}</div>
         </span>
       </div>
