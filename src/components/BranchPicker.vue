@@ -1,14 +1,14 @@
 <template>
-  <div class="select-branch" style="border: 2px solid purple;">
+  <div class="select-branch">
     <div class="outer-20-b">
-      <a @click="handleCloseColumns">
-        <i class="far fa-times-circle"></i> Cerrar
+      <a href="#">
+        Cerrar
+        <i class="far fa-times-circle"></i>
       </a>
     </div>
-    <div>
-      <CompanyList class="is-one-third"/>
-      <StoreList :class="{'is-hidden': showStoreColumn}" class="is-one-third"/>
-      <!-- <LocationList :class="{'is-hidden': showLocationColumn}" class="is-one-third"/> -->
+    <div class="columns">
+      <CompanyList class="column companies is-half"/>
+      <StoreList :class="{'is-hidden': showStoreColumn}" class="column branches is-half"/>
     </div>
   </div>
 </template>
@@ -17,29 +17,15 @@ import { mapGetters } from "vuex";
 import CompanyList from "./CompanyList.vue";
 import StoreList from "./StoreList.vue";
 import LocationList from "./LocationList.vue";
-import { log } from "util";
 
 export default {
   name: "BranchPicker",
   computed: {
-    ...mapGetters(["showStoreColumn", "showLocationColumn"])
-  },
-  data() {
-    return {
-      closeColumns: false
-    };
-  },
-  methods: {
-    handleCloseColumns() {
-      this.closeColumns = !this.closeColumns;
-    }
+    ...mapGetters(["showStoreColumn"])
   },
   components: {
     CompanyList,
-    StoreList,
-    LocationList
+    StoreList
   }
 };
 </script>
-
-		<div class="columns" :class="{'is-hidden': closeColumns}">
