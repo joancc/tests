@@ -32,11 +32,11 @@
       </div>
       <a class="fas fa-question-circle" @click="(company.emitter.tax_id)"></a>
     </button>
-    <!-- <Request
+    <Request
       :class="{'show': showRequest}"
       v-if="company.emitter.tax_id === requestId"
       :company="company"
-    /> -->
+    />
   </div>
 </template>
 <script>

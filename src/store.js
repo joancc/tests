@@ -63,7 +63,7 @@ export const actions = {
       return {
         ...store,
         ...{
-          active: store.branch_id === payload
+          status: store.branch_id === payload
         }
       }
     });

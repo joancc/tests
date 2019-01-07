@@ -83,7 +83,7 @@ describe("BranchPicker", () => {
         getters,
         actions
     };
-    test("calls store action getCompaniesFromServer when the component is rendered", async () => {
+    fit("calls store action getCompaniesFromServer when the component is rendered", async () => {
         const { wrapper, getByText } = render(BranchPicker, {}, storeOptions);
         expect(getByText("Empresas")).toBeTruthy();
     });
