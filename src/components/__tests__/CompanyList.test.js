@@ -74,25 +74,17 @@ describe("CompanyList.vue", () => {
   });
 
   test("Company branches are rendered when the company is selected", () => {
-    const { getByText, wrapper, debug } = render(
-      BranchPicker,
-      {},
-      storeOptions
-    );
+    const { getByText, wrapper } = render(BranchPicker, {}, storeOptions);
     const companyButton = wrapper.find("button");
     companyButton.trigger("click");
     expect(getByText(branches[1].name)).toBeTruthy();
   });
 
   test("it highlights the selected company", () => {
-    const { getByText, wrapper, debug } = render(
-      BranchPicker,
-      {},
-      storeOptions
-    );
-
+    const { wrapper, debug } = render(BranchPicker, {}, storeOptions);
     const companyButton = wrapper.find("button");
     companyButton.trigger("click");
+
     debug();
     expect(companyButton.classes("active")).toBe(true);
     expect(wrapper.findAll(".active").length).toEqual(1);

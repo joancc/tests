@@ -31,14 +31,13 @@
           </span>
         </div>
         <!--is-hidden -->
-        <a class="fas fa-question-circle" @click="handleRequest.handleSelectedRequest(item.id)"></a>
+        <a class="fas fa-question-circle"></a>
       </button>
       <RequestItem/>
     </div>
   </div>
 </template>
 <script>
-import RequestItem from "./RequestItem.vue";
 export default {
   name: "ListItem",
   props: {
@@ -52,9 +51,6 @@ export default {
         id: itemId
       });
     }
-  },
-  components: {
-    RequestItem
   }
 };
 </script>
