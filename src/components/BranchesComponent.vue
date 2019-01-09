@@ -2,7 +2,11 @@
   <div class="column branches is-half" v-bind:class="{ 'is-hidden': !isActive }">
     <!--Render Warehouse information-->
     <EnterpriseBanner :bannerName="'Almacenes'" :showBanner="activeSignal"></EnterpriseBanner>
-    <div v-for="warehouseBranch in getStore" :key="warehouseBranch.branch_id">
+    <div
+      class="item warehouse"
+      v-for="warehouseBranch in getStore"
+      :key="warehouseBranch.branch_id"
+    >
       <ItemCompany
         :companyId="warehouseBranch.branch_id"
         :companyName="warehouseBranch.name"
@@ -11,8 +15,8 @@
     </div>
     <hr>
     <!--Render Office information-->
-    <EnterpriseBanner :bannerName="'Oficinas'" :showBanner="activeSignal"></EnterpriseBanner>
-    <div v-for="oficeBranch in getOffice" :key="oficeBranch.branch_id">
+    <EnterpriseBanner :bannerName="'Oficinas'"></EnterpriseBanner>
+    <div class="item warehouse" v-for="oficeBranch in getOffice" :key="oficeBranch.branch_id">
       <ItemCompany
         :companyId="oficeBranch.branch_id"
         :companyName="oficeBranch.name"
@@ -21,8 +25,8 @@
     </div>
     <hr>
     <!--Render Shops information-->
-    <EnterpriseBanner :bannerName="'Tiendas'" :showBanner="activeSignal"></EnterpriseBanner>
-    <div v-for="storeBranch in isShop" :key="storeBranch.branch_id">
+    <EnterpriseBanner :bannerName="'Tiendas'"></EnterpriseBanner>
+    <div class="item warehouse" v-for="storeBranch in isShop" :key="storeBranch.branch_id">
       <ItemCompany
         :companyId="storeBranch.branch_id"
         :companyName="storeBranch.name"

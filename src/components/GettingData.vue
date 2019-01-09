@@ -1,17 +1,16 @@
 <template>
-  <div>
-    <!-- selecciona sucursal -->
-    <div class="select-branch">
-      <div class="columns">
-        <CompaniesComponent
-          :componentName="this.componentName"
-          :enterpriseData="showingEnterprises"
-          :branchesData="showingBranches"
-          @enterpriseShops="messageShops($event)"
-          @passingActive="messageActive($event)"
-        ></CompaniesComponent>
-        <BranchesComponent :activeSignal="activeBranch" :isShop="shops"></BranchesComponent>
-      </div>
+  <!-- selecciona sucursal -->
+  <div class="select-branch">
+    <WelcomeBack></WelcomeBack>
+    <div class="columns">
+      <CompaniesComponent
+        :componentName="this.componentName"
+        :enterpriseData="showingEnterprises"
+        :branchesData="showingBranches"
+        @enterpriseShops="messageShops($event)"
+        @passingActive="messageActive($event)"
+      ></CompaniesComponent>
+      <BranchesComponent :activeSignal="activeBranch" :isShop="shops"></BranchesComponent>
     </div>
   </div>
 </template>
@@ -20,16 +19,18 @@
 import axios from "axios";
 import CompaniesComponent from "./CompaniesComponent";
 import BranchesComponent from "./BranchesComponent";
+import WelcomeBack from "./WelcomeBack";
 
 export default {
   components: {
     BranchesComponent: BranchesComponent,
-    CompaniesComponent: CompaniesComponent
+    CompaniesComponent: CompaniesComponent,
+    WelcomeBack: WelcomeBack
   },
   data() {
     return {
       componentName: "Empresas",
-      C: false,
+      activeBranch: false,
       shops: []
     };
   },

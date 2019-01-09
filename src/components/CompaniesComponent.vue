@@ -1,7 +1,12 @@
 <template>
   <div class="column companies is-half">
-    <EnterpriseBanner :bannerName="this.componentName" :showBanner="true"></EnterpriseBanner>
-    <div v-for="company in enterpriseData" :key="company.company_id" @click="messageBranches()">
+    <EnterpriseBanner :bannerName="this.componentName"></EnterpriseBanner>
+    <div
+      class="item company"
+      v-for="company in enterpriseData"
+      :key="company.company_id"
+      @click="messageBranches()"
+    >
       <ItemCompany
         :companyId="company.company_id"
         :companyName="company.emitter.business_name"
