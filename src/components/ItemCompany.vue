@@ -33,7 +33,7 @@ export default {
   data: function() {
     return {
       enterpriseName: "",
-      isactive: true,
+      isactive: false,
       keyType: "RFC",
       rfc: ""
     };
