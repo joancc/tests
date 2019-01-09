@@ -10,7 +10,7 @@
         @enterpriseShops="messageShops($event)"
         @passingActive="messageActive($event)"
       ></CompaniesComponent>
-      <BranchesComponent :activeSignal="activeBranch" :isShop="shops"></BranchesComponent>
+      <BranchesComponent :activeSignal="activeBranch" :isShop="shops" v-if="shops.length != 0"></BranchesComponent>
     </div>
   </div>
 </template>

@@ -26,7 +26,7 @@
     <hr>
     <!--Render Shops information-->
     <EnterpriseBanner :bannerName="'Tiendas'"></EnterpriseBanner>
-    <div class="item warehouse" v-for="storeBranch in isShop" :key="storeBranch.branch_id">
+    <div class="item warehouse" v-for="storeBranch in getShops" :key="storeBranch.branch_id">
       <ItemCompany
         :companyId="storeBranch.branch_id"
         :companyName="storeBranch.name"

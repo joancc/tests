@@ -1,6 +1,6 @@
 <template>
   <!--Is needed to change the company class for warehouse class if needed-->
-  <button class="select-item" :disabled="!isactive ? '' : disabled">
+  <button class="select-item" :disabled="!isactive">
     <!-- The button has or not a disabled property-->
     <div class="info">
       <p>
@@ -33,7 +33,7 @@ export default {
   data: function() {
     return {
       enterpriseName: "",
-      isactive: false,
+      isactive: true,
       keyType: "RFC",
       rfc: ""
     };
