@@ -2,13 +2,15 @@
   <div>
     <!-- selecciona sucursal -->
     <div class="select-branch">
-      <div class="columns">
+      <div class="columns"><<<<<<< HEAD
         <CompaniesComponent
           :componentName="this.componentName"
           :enterpriseData="showingEnterprises"
           :branchesData="showingBranches"
         ></CompaniesComponent>
-        <BranchesComponent :isActive="branchActive" :branchesData="showingBranches"></BranchesComponent>
+        <BranchesComponent :isActive="branchActive" :branchesData="showingBranches"></BranchesComponent>=======
+        <CompaniesComponent v-bind:company="companies"></CompaniesComponent>
+        <BranchesComponent v-bind:company="branches"></BranchesComponent>>>>>>>> origin-yocelin/sample-1-yocelin
       </div>
     </div>
   </div>

@@ -31,6 +31,9 @@ export default {
   components: {
     EnterpriseBanner: EnterpriseBanner,
     ItemCompany: ItemCompany
+  },
+  mounted() {
+    this.companysData = JSON.parse(localStorage.getItem("companies"));
   }
 };
 </script>

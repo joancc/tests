@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
   <div class="column branches is-half" v-bind:class="{ 'is-hidden': !isActive }">
+=======
+  <div class="column branches is-half">
+>>>>>>> origin-yocelin/sample-1-yocelin
     <!--Render Warehouse information-->
     <EnterpriseBanner :bannerName="'Almacenes'"></EnterpriseBanner>
     <div v-for="warehouseBranch in getStore" :key="warehouseBranch.branch_id">
