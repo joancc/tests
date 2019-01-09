@@ -1,11 +1,7 @@
 <template>
   <div class="item company">
     <!--Is needed to change the company class for warehouse class if needed-->
-<<<<<<< HEAD
     <button class="select-item" :disabled="!isactive ? '' : disabled" @click="getBranches()">
-=======
-    <button class="select-item" :disabled="!isactive ? '' : disabled" @click.prevent="getBranches">
->>>>>>> origin-yocelin/sample-1-yocelin
       <!-- The button has or not a disabled property-->
       <div class="info">
         <p>

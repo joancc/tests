@@ -3,6 +3,5 @@
     <a href="#">Regresar</a>
   </div>
 </template>
-
 <script>
 </script>
