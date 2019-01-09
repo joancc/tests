@@ -1,13 +1,12 @@
 <template>
   <div class="column companies is-half">
-    <EnterpriseBanner :bannerName="this.componentName"></EnterpriseBanner>
-    <div v-for="company in enterpriseData" :key="company.company_id">
+    <EnterpriseBanner :bannerName="this.componentName" :showBanner="true"></EnterpriseBanner>
+    <div v-for="company in enterpriseData" :key="company.company_id" @click="messageBranches()">
       <ItemCompany
         :companyId="company.company_id"
         :companyName="company.emitter.business_name"
         :companyTask="company.emitter.tax_id"
         :gettingBranches="branchesData"
-        @enterpriseShops="branchesData =$event"
       ></ItemCompany>
     </div>
   </div>
@@ -28,9 +27,27 @@ export default {
       indexData: 0
     };
   },
+  computed: {
+    getShops() {
+      return this.branchesData.filter(branch => branch.type == "Shop");
+    },
+    getStore() {
+      return this.branchesData.filter(branch => branch.type == "Store");
+    },
+    getOffice() {
+      return this.branchesData.filter(branch => branch.type == "Office");
+    }
+  },
   components: {
     EnterpriseBanner: EnterpriseBanner,
     ItemCompany: ItemCompany
+  },
+  methods: {
+    messageBranches() {
+      let shopsAvailable = this.branchesData; // it should be the branch filtered by company
+      this.$emit("enterpriseShops", shopsAvailable);
+      this.$emit("passingActive", true);
+    }
   }
 };
 </script>

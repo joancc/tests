@@ -1,7 +1,7 @@
 <template>
   <div class="column branches is-half" v-bind:class="{ 'is-hidden': !isActive }">
     <!--Render Warehouse information-->
-    <EnterpriseBanner :bannerName="'Almacenes'"></EnterpriseBanner>
+    <EnterpriseBanner :bannerName="'Almacenes'" :showBanner="activeSignal"></EnterpriseBanner>
     <div v-for="warehouseBranch in getStore" :key="warehouseBranch.branch_id">
       <ItemCompany
         :companyId="warehouseBranch.branch_id"
@@ -11,7 +11,7 @@
     </div>
     <hr>
     <!--Render Office information-->
-    <EnterpriseBanner :bannerName="'Oficinas'"></EnterpriseBanner>
+    <EnterpriseBanner :bannerName="'Oficinas'" :showBanner="activeSignal"></EnterpriseBanner>
     <div v-for="oficeBranch in getOffice" :key="oficeBranch.branch_id">
       <ItemCompany
         :companyId="oficeBranch.branch_id"
@@ -20,9 +20,9 @@
       ></ItemCompany>
     </div>
     <hr>
-    <!--Render Store information-->
-    <EnterpriseBanner :bannerName="'Tiendas'"></EnterpriseBanner>
-    <div v-for="storeBranch in getShops" :key="storeBranch.branch_id">
+    <!--Render Shops information-->
+    <EnterpriseBanner :bannerName="'Tiendas'" :showBanner="activeSignal"></EnterpriseBanner>
+    <div v-for="storeBranch in isShop" :key="storeBranch.branch_id">
       <ItemCompany
         :companyId="storeBranch.branch_id"
         :companyName="storeBranch.name"
@@ -37,16 +37,16 @@ import EnterpriseBanner from "./EnterpriseBanner.vue";
 import ItemCompany from "./ItemCompany";
 export default {
   props: {
-    isActive: Boolean,
-    branchesData: Array
+    activeSignal: Boolean,
+    isShop: Array
   },
   data: function() {
     return {
-      branchesData: this.branch
+      isActive: false
     };
   },
   mounted() {
-    this.branchesData = JSON.parse(localStorage.getItem("branches"));
+    this.isActive = this.isShop;
   },
   components: {
     EnterpriseBanner: EnterpriseBanner,
@@ -54,13 +54,13 @@ export default {
   },
   computed: {
     getShops() {
-      return this.branchesData.filter(branch => branch.type == "Shop");
+      return this.isShop.filter(branch => branch.type == "Shop");
     },
     getStore() {
-      return this.branchesData.filter(branch => branch.type == "Store");
+      return this.isShop.filter(branch => branch.type == "Store");
     },
     getOffice() {
-      return this.branchesData.filter(branch => branch.type == "Office");
+      return this.isShop.filter(branch => branch.type == "Office");
     }
   }
 };

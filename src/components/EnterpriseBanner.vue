@@ -1,5 +1,5 @@
 <template>
-  <div class="select-title">
+  <div class="select-title" v-bind:class="{ 'is-hidden': !showBanner }">
     <div
       class="icon"
       :class="[company ? 'companies' : '', warehouse ? 'warehouse' : '', office ? 'offices' : '', store ? 'stores' : '',]"
@@ -12,7 +12,10 @@
 </template>
 <script>
 export default {
-  props: ["bannerName"],
+  props: {
+    bannerName: String,
+    showBanner: Boolean
+  },
   data: function() {
     return {
       selectBranchTitle: this.bannerName,

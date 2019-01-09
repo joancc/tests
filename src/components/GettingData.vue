@@ -7,8 +7,10 @@
           :componentName="this.componentName"
           :enterpriseData="showingEnterprises"
           :branchesData="showingBranches"
+          @enterpriseShops="messageShops($event)"
+          @passingActive="messageActive($event)"
         ></CompaniesComponent>
-        <BranchesComponent :isActive="branchActive" :branchesData="showingBranches"></BranchesComponent>
+        <BranchesComponent :activeSignal="activeBranch" :isShop="shops"></BranchesComponent>
       </div>
     </div>
   </div>
@@ -26,10 +28,9 @@ export default {
   },
   data() {
     return {
-      showBranch: true,
-      branchesActive: false,
       componentName: "Empresas",
-      branchActive: true
+      C: false,
+      shops: []
     };
   },
   mounted() {
@@ -90,6 +91,14 @@ export default {
     },
     showingEnterprises() {
       return JSON.parse(localStorage.getItem("companies"));
+    }
+  },
+  methods: {
+    messageShops(shopArray) {
+      this.shops = shopArray;
+    },
+    messageActive(active) {
+      this.activeBranch = active;
     }
   }
 };

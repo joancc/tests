@@ -1,7 +1,7 @@
 <template>
   <div class="item company">
     <!--Is needed to change the company class for warehouse class if needed-->
-    <button class="select-item" :disabled="!isactive ? '' : disabled" @click="getBranches()">
+    <button class="select-item" :disabled="!isactive ? '' : disabled">
       <!-- The button has or not a disabled property-->
       <div class="info">
         <p>
@@ -45,7 +45,7 @@ export default {
   mounted() {
     this.enterpriseName = this.companyName;
     this.rfc = this.companyTask;
-  },
+  } /*
   computed: {
     getShops() {
       return this.gettingBranches.filter(branch => branch.type == "Shop");
@@ -59,10 +59,10 @@ export default {
   },
   methods: {
     getBranches() {
-      console.log("The enterprise branches is loading");
       let shopsAvailable = this.getShops; // it should be the branch filtered by company
       this.$emit("enterpriseShops", shopsAvailable);
+      this.$emit("itemSelected", true);
     }
-  }
+  }*/
 };
 </script>
