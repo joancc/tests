@@ -5,12 +5,11 @@
     <div class="columns">
       <CompaniesComponent
         :componentName="this.componentName"
-        :enterpriseData="showingEnterprises"
-        :branchesData="showingBranches"
-        @enterpriseShops="messageShops($event)"
-        @passingActive="messageActive($event)"
+        :componentIcon="this.componentIcon"
+        :enterpriseData="this.companyData"
+        @enterpriseBranches="messageBranches($event)"
       ></CompaniesComponent>
-      <BranchesComponent :activeSignal="activeBranch" :isShop="shops" v-if="shops.length != 0"></BranchesComponent>
+      <BranchesComponent :isBranch="branches" v-if="branches.length != 0"></BranchesComponent>
     </div>
   </div>
 </template>
@@ -30,35 +29,18 @@ export default {
   data() {
     return {
       componentName: "Empresas",
-      activeBranch: false,
-      shops: []
+      componentIcon: "companies",
+      branches: [],
+      companyData: []
     };
   },
-  mounted() {
-    this.init();
-  },
-  computed: {
-    showingBranches() {
-      return JSON.parse(localStorage.getItem("branches"));
-    },
-    showingEnterprises() {
-      return JSON.parse(localStorage.getItem("companies"));
-    }
-  },
   methods: {
-    messageShops(shopArray) {
-      this.shops = shopArray;
-    },
-    messageActive(active) {
-      this.activeBranch = active;
-    },
     async init() {
       let urlBasic =
         "https://api-test.gestionix.com/api/v3/users/authentication";
-      let urlUser = "https://api-test.gestionix.com/api/v3/users/862";
+      let urlUser = "https://api-test.gestionix.com/api/v3/users/";
       let urlCompany = "https://api-test.gestionix.com/api/v3/users/companies";
-      let urlBranch = "https://api-test.gestionix.com/api/v3/branch_offices/?";
-      let ids = [];
+
       let authenticationPromise = await axios.post(urlBasic, {
         user: "qa@gestionix.com",
         password: "gestionix"
@@ -70,50 +52,19 @@ export default {
       let usersPromise = await axios.get(urlUser, {});
 
       let companyPromise = await axios.get(urlCompany, {});
+      this.companyData = companyPromise.data;
+    },
+    async messageBranches(companyId) {
+      let urlBranch = "https://api-test.gestionix.com/api/v3/branch_offices/?";
 
-      /*axios
-      .post(urlBasic, {
-        user: "qa@gestionix.com",
-        password: "gestionix"
-      })
-      .then(function(response) {
-        axios.defaults.headers.common["Authorization"] = localStorage.getItem(
-          "access-token"
-        );
-        axios
-          .get(urlUser)
-          .then(function(res) {
-          })
-          .catch(function(err) {
-            console.log(err);
-          });
-        axios
-          .get(urlCompany)
-          .then(function(resp) {
-            for (let i = 0; i < resp.data.length; i++) {
-              ids[i] = resp.data[i].company_id;
-            }
-            axios
-              .all(
-                ids.map(id => {
-                  axios.defaults.headers.common["Company"] = id;
-                  axios.get(urlBranch + id);
-                })
-              )
-              .then(
-                axios.spread(function(...respu) {
-                  localStorage.setItem("idBranches", JSON.stringify(respu));
-                })
-              );
-          })
-          .catch(function(err) {
-            console.log(err);
-          });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });*/
+      axios.defaults.headers.common["Company"] = companyId;
+
+      let branchesPromise = await axios.get(urlBranch, {});
+      this.branches = branchesPromise.data;
     }
+  },
+  mounted() {
+    this.init();
   }
 };
 </script>

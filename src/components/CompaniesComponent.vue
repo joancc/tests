@@ -1,17 +1,17 @@
 <template>
   <div class="column companies is-half">
-    <EnterpriseBanner :bannerName="this.componentName"></EnterpriseBanner>
+    <EnterpriseBanner :bannerName="this.componentName" :iconName="this.componentIcon"></EnterpriseBanner>
     <div
       class="item company"
       v-for="company in enterpriseData"
       :key="company.company_id"
-      @click="messageBranches()"
+      @click="messageBranches(company.company_id)"
     >
       <ItemCompany
         :companyId="company.company_id"
         :companyName="company.emitter.business_name"
         :companyTask="company.emitter.tax_id"
-        :gettingBranches="branchesData"
+        :companyActive="true"
       ></ItemCompany>
     </div>
   </div>
@@ -24,34 +24,16 @@ import ItemCompany from "./ItemCompany.vue";
 export default {
   props: {
     componentName: String,
-    enterpriseData: Array,
-    branchesData: Array
-  },
-  data: function() {
-    return {
-      indexData: 0
-    };
-  },
-  computed: {
-    getShops() {
-      return this.branchesData.filter(branch => branch.type == "Shop");
-    },
-    getStore() {
-      return this.branchesData.filter(branch => branch.type == "Store");
-    },
-    getOffice() {
-      return this.branchesData.filter(branch => branch.type == "Office");
-    }
+    componentIcon: String,
+    enterpriseData: Array
   },
   components: {
     EnterpriseBanner: EnterpriseBanner,
     ItemCompany: ItemCompany
   },
   methods: {
-    messageBranches() {
-      let shopsAvailable = this.branchesData; // it should be the branch filtered by company
-      this.$emit("enterpriseShops", shopsAvailable);
-      this.$emit("passingActive", true);
+    messageBranches(companyId) {
+      this.$emit("enterpriseBranches", companyId);
     }
   }
 };

@@ -1,29 +1,14 @@
 <template>
   <div class="select-title">
-    <div
-      class="icon"
-      :class="[company ? 'companies' : '', warehouse ? 'warehouse' : '', office ? 'offices' : '', store ? 'stores' : '',]"
-    ></div>
-    <h4 v-if="company">{{selectBranchTitle}}</h4>
-    <h4 v-if="warehouse">Almacenes</h4>
-    <h4 v-if="office">Oficinas</h4>
-    <h4 v-if="store">Tiendas</h4>
+    <div class="icon" :class="iconName"></div>
+    <h4>{{this.bannerName}}</h4>
   </div>
 </template>
 <script>
 export default {
   props: {
-    bannerName: String
-  },
-  data: function() {
-    return {
-      selectBranchTitle: this.bannerName,
-      enterpriseIcon: "",
-      company: true,
-      warehouse: false,
-      office: false,
-      store: false
-    };
+    bannerName: String,
+    iconName: String
   }
 };
 </script>

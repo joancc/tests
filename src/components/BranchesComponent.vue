@@ -1,7 +1,7 @@
 <template>
-  <div class="column branches is-half" v-bind:class="{ 'is-hidden': !isActive }">
+  <div class="column branches is-half">
     <!--Render Warehouse information-->
-    <EnterpriseBanner :bannerName="'Almacenes'" :showBanner="activeSignal"></EnterpriseBanner>
+    <EnterpriseBanner :bannerName="'Almacenes'" :iconName="'warehouses'"></EnterpriseBanner>
     <div
       class="item warehouse"
       v-for="warehouseBranch in getStore"
@@ -11,26 +11,29 @@
         :companyId="warehouseBranch.branch_id"
         :companyName="warehouseBranch.name"
         :companyTask="warehouseBranch.register_date"
+        :companyActive="warehouseBranch.active"
       ></ItemCompany>
     </div>
     <hr>
     <!--Render Office information-->
-    <EnterpriseBanner :bannerName="'Oficinas'"></EnterpriseBanner>
+    <EnterpriseBanner :bannerName="'Oficinas'" :iconName="'offices'"></EnterpriseBanner>
     <div class="item warehouse" v-for="oficeBranch in getOffice" :key="oficeBranch.branch_id">
       <ItemCompany
         :companyId="oficeBranch.branch_id"
         :companyName="oficeBranch.name"
         :companyTask="oficeBranch.register_date"
+        :companyActive="oficeBranch.active"
       ></ItemCompany>
     </div>
     <hr>
     <!--Render Shops information-->
-    <EnterpriseBanner :bannerName="'Tiendas'"></EnterpriseBanner>
+    <EnterpriseBanner :bannerName="'Tiendas'" :iconName="'stores'"></EnterpriseBanner>
     <div class="item warehouse" v-for="storeBranch in getShops" :key="storeBranch.branch_id">
       <ItemCompany
         :companyId="storeBranch.branch_id"
         :companyName="storeBranch.name"
         :companyTask="storeBranch.register_date"
+        :companyActive="storeBranch.active"
       ></ItemCompany>
     </div>
   </div>
@@ -41,16 +44,7 @@ import EnterpriseBanner from "./EnterpriseBanner.vue";
 import ItemCompany from "./ItemCompany";
 export default {
   props: {
-    activeSignal: Boolean,
-    isShop: Array
-  },
-  data: function() {
-    return {
-      isActive: false
-    };
-  },
-  mounted() {
-    this.isActive = this.isShop;
+    isBranch: Array
   },
   components: {
     EnterpriseBanner: EnterpriseBanner,
@@ -58,13 +52,13 @@ export default {
   },
   computed: {
     getShops() {
-      return this.isShop.filter(branch => branch.type == "Shop");
+      return this.isBranch.filter(branch => branch.type == "Shop");
     },
     getStore() {
-      return this.isShop.filter(branch => branch.type == "Store");
+      return this.isBranch.filter(branch => branch.type == "Store");
     },
     getOffice() {
-      return this.isShop.filter(branch => branch.type == "Office");
+      return this.isBranch.filter(branch => branch.type == "Office");
     }
   }
 };

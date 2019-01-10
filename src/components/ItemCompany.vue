@@ -1,19 +1,15 @@
 <template>
-  <!--Is needed to change the company class for warehouse class if needed-->
-  <button class="select-item" :disabled="!isactive">
-    <!-- The button has or not a disabled property-->
+  <button class="select-item" :disabled="!this.companyActive">
     <div class="info">
       <p>
-        <strong>{{enterpriseName}}</strong>
-        <!--Find the way of use isactive to active the display none property-->
+        <strong>{{this.companyName}}</strong>
         <!--<span v-bind:style="{ display: none }"></span>-->
-        <span v-bind:class="{'on': isactive}"></span>
-        <i v-bind:class="{'fas fa-lock': !isactive}"></i>
-        <span v-if="keyType == 'RFC'">{{keyType}}: {{rfc}}</span>
-        <span v-else-if="keyType == 'Clave'">{{keyType}}: {{warehouseKey}}</span>
+        <span v-bind:class="{'on': this.companyActive}"></span>
+        <i v-bind:class="{'fas fa-lock': !this.companyActive}"></i>
+        <span v-if="this.keyType == 'RFC'">{{this.keyType}}: {{this.companyTask}}</span>
       </p>
     </div>
-    <ItemCompanyDisabled v-if="isactive == false"></ItemCompanyDisabled>
+    <ItemCompanyDisabled v-if="!this.companyActive"></ItemCompanyDisabled>
   </button>
 </template>
 
@@ -25,22 +21,15 @@ export default {
     companyId: Number,
     companyName: String,
     companyTask: String,
-    gettingBranches: Array
+    companyActive: Boolean
   },
   components: {
     ItemCompanyDisabled: ItemCompanyDisabled
   },
   data: function() {
     return {
-      enterpriseName: "",
-      isactive: true,
-      keyType: "RFC",
-      rfc: ""
+      keyType: "RFC"
     };
-  },
-  mounted() {
-    this.enterpriseName = this.companyName;
-    this.rfc = this.companyTask;
   }
 };
 </script>
