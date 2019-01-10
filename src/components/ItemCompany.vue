@@ -41,24 +41,6 @@ export default {
   mounted() {
     this.enterpriseName = this.companyName;
     this.rfc = this.companyTask;
-  } /*
-  computed: {
-    getShops() {
-      return this.gettingBranches.filter(branch => branch.type == "Shop");
-    },
-    getStore() {
-      return this.gettingBranches.filter(branch => branch.type == "Store");
-    },
-    getOffice() {
-      return this.gettingBranches.filter(branch => branch.type == "Office");
-    }
-  },
-  methods: {
-    getBranches() {
-      let shopsAvailable = this.getShops; // it should be the branch filtered by company
-      this.$emit("enterpriseShops", shopsAvailable);
-      this.$emit("itemSelected", true);
-    }
-  }*/
+  }
 };
 </script>

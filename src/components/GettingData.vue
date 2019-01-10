@@ -35,56 +35,7 @@ export default {
     };
   },
   mounted() {
-    let urlBasic = "https://api-test.gestionix.com/api/v3/users/authentication";
-    let urlUser = "https://api-test.gestionix.com/api/v3/users/93";
-    let urlCompanie = "https://api-test.gestionix.com/api/v3/users/companies";
-    let urlBranch = "https://api-test.gestionix.com/api/v3/branch_offices/?";
-    axios
-      .post(urlBasic, {
-        user: "hogar@gestionix.com",
-        password: "demo"
-      })
-      .then(function(response) {
-        let accessKey = "Bearer " + response.data.access_token;
-        localStorage.setItem("access-token", accessKey);
-        axios.defaults.headers.common["Authorization"] = localStorage.getItem(
-          "access-token"
-        );
-        axios
-          .get(urlUser)
-          .then(function(res) {
-            // Get user data. Get n2
-            localStorage.setItem("users", JSON.stringify(res.data));
-          })
-          .catch(function(err) {
-            console.log(err);
-          });
-        axios
-          .get(urlCompanie)
-          .then(function(resp) {
-            // Get Companies data. Get n3
-            localStorage.setItem("companies", JSON.stringify(resp.data));
-            localStorage.setItem("company-id", resp.data[0].company_id);
-            axios.defaults.headers.common["Company"] = localStorage.getItem(
-              "company-id"
-            );
-            axios
-              .get(urlBranch)
-              .then(function(re) {
-                // Get Branches. Get n4
-                localStorage.setItem("branches", JSON.stringify(re.data));
-              })
-              .catch(function(err) {
-                console.log(err);
-              });
-          })
-          .catch(function(err) {
-            console.log(err);
-          });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    this.init();
   },
   computed: {
     showingBranches() {
@@ -100,6 +51,68 @@ export default {
     },
     messageActive(active) {
       this.activeBranch = active;
+    },
+    async init() {
+      let urlBasic =
+        "https://api-test.gestionix.com/api/v3/users/authentication";
+      let urlUser = "https://api-test.gestionix.com/api/v3/users/862";
+      let urlCompany = "https://api-test.gestionix.com/api/v3/users/companies";
+      let urlBranch = "https://api-test.gestionix.com/api/v3/branch_offices/?";
+      let ids = [];
+      let authenticationPromise = await axios.post(urlBasic, {
+        user: "qa@gestionix.com",
+        password: "gestionix"
+      });
+
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + authenticationPromise.data.access_token;
+
+      let usersPromise = await axios.get(urlUser, {});
+
+      let companyPromise = await axios.get(urlCompany, {});
+
+      /*axios
+      .post(urlBasic, {
+        user: "qa@gestionix.com",
+        password: "gestionix"
+      })
+      .then(function(response) {
+        axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+          "access-token"
+        );
+        axios
+          .get(urlUser)
+          .then(function(res) {
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
+        axios
+          .get(urlCompany)
+          .then(function(resp) {
+            for (let i = 0; i < resp.data.length; i++) {
+              ids[i] = resp.data[i].company_id;
+            }
+            axios
+              .all(
+                ids.map(id => {
+                  axios.defaults.headers.common["Company"] = id;
+                  axios.get(urlBranch + id);
+                })
+              )
+              .then(
+                axios.spread(function(...respu) {
+                  localStorage.setItem("idBranches", JSON.stringify(respu));
+                })
+              );
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });*/
     }
   }
 };
