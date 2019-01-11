@@ -53,6 +53,7 @@ export default {
 
       let companyPromise = await axios.get(urlCompany, {});
       this.companyData = companyPromise.data;
+      return this.companyData;
     },
     async messageBranches(companyId) {
       let urlBranch = "https://api-test.gestionix.com/api/v3/branch_offices/?";
@@ -61,6 +62,7 @@ export default {
 
       let branchesPromise = await axios.get(urlBranch, {});
       this.branches = branchesPromise.data;
+      return this.branches;
     }
   },
   mounted() {
