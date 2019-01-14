@@ -1,9 +1,39 @@
 /* eslint-disable no-undef */
 import { mount, shallowMount } from '@vue/test-utils';
 import GettingData from './../GettingData.vue';
+import axios from "axios";
 
 import CompaniesComponent from './../CompaniesComponent.vue';
 import BranchesComponent from './../BranchesComponent.vue';
+
+describe('GettingData test', () => {
+    test('Has a mounted hook', () => {
+        expect(typeof GettingData.mounted).toBe('function');
+    });
+    // Evaluate the results of functions in
+    // the raw component options
+    test('sets the correct default data', () => {
+        const defaultData = GettingData.data();
+        expect(defaultData.branches.length).toBe(0);
+        expect(defaultData.companyData.length).toBe(0);
+    });
+    /* Inspect the component instance on mount
+    test('correctly gets branches array', async () => {
+        const wrapper = mount(CompaniesComponent);
+        let authenticationPromise = await axios.post("https://api-test.gestionix.com/api/v3/users/authentication", {
+            user: "qa@gestionix.com",
+            password: "gestionix"
+        });
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + authenticationPromise.data.access_token;
+        let urlBranch = "https://api-test.gestionix.com/api/v3/branch_offices/?";
+
+        axios.defaults.headers.common["Company"] = 1104;
+
+        let branchesPromise = await axios.get(urlBranch, {});
+        console.log(branchesPromise.data);
+    });*/
+});
 
 describe('Parent call childs on GettingData component', () => {
     const wrapper = shallowMount(GettingData);
@@ -13,44 +43,12 @@ describe('Parent call childs on GettingData component', () => {
     test('does not renders the BranchesComponet before click a company', () => {
         expect(wrapper.find(BranchesComponent).exists()).toBe(false);
     });
-    // click a comany
+    // click a company adapt to be true
     test('it renders the BranchesComponet when click a company', () => {
         expect(wrapper.find(BranchesComponent).exists()).toBe(false);
     });
 });
 
-describe('GettingData', () => {
-    const wrapper = mount(GettingData);
-    test('should render company´s data when init method run and not before', () => {
-        expect(wrapper.vm.companyData.length).toBe(0);
-    });
-    test('branches data is only searched if an click events is present and not before', () => {
-        expect(wrapper.vm.branches.length).toBe(0);
-    });
-    wrapper.vm.init();
-    // mounted the component
-    test('should render company´s data when init method run', () => {
-        expect(wrapper.vm.companyData.length).toBe(0);
-    });
-    // click a comany
-    test('branches data is obtained if a clicks searched for it', () => {
-        expect(wrapper.vm.branches.length).toBe(0);
-    });
-});
-
-describe('GettingData.vue', () => {
-    test('should mount for testing', () => {
-        expect(1).toEqual(1);
-    });
-});
-/*describe('Events', () => {
-    const wrapper = mount(GettingData);
-    mounted(() => { });
-    wrapper.vm.messageBranches(1104);
-    test('calls branches info', () => {
-        expect(wrapper.vm.branches.length).toBe(1);
-    });
-});*/
 
 
 

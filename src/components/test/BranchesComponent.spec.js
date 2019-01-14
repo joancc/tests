@@ -3,7 +3,7 @@ import { mount, shallowMount } from '@vue/test-utils';
 import BranchesComponent from './../BranchesComponent.vue';
 import ItemCompany from './../ItemCompany.vue';
 
-describe('What happen when receibe a prop', () => {
+describe('Branches component test', () => {
     const wrapper = mount(BranchesComponent, {
         propsData: {
             isBranch: [
@@ -16,7 +16,7 @@ describe('What happen when receibe a prop', () => {
             ]
         }
     })
-    test('the component exist if ther are some data from branches', () => {
+    test('The component Item Company only exists if there are some data from branches', () => {
         expect(wrapper.find(ItemCompany).exists()).toBe(true);
     });
 });

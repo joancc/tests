@@ -62,7 +62,7 @@ export default {
 
       let branchesPromise = await axios.get(urlBranch, {});
       this.branches = branchesPromise.data;
-      return this.branches;
+      return branchesPromise;
     }
   },
   mounted() {
