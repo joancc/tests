@@ -11,7 +11,7 @@
         :companyId="company.company_id"
         :companyName="company.emitter.business_name"
         :companyTask="company.emitter.tax_id"
-        :companyActive="true"
+        :companyActive="false"
       ></ItemCompany>
     </div>
   </div>

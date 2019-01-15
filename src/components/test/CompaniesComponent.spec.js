@@ -50,7 +50,11 @@ describe('Companies test', () => {
 
 describe('Companies test without props', () => {
     const wrapper = shallowMount(CompaniesComponent);
+    const wrapper2 = shallowMount(ItemCompany);
     test('not renders the ItemCompany when there are not companies to show', () => {
         expect(wrapper.find(ItemCompany).exists()).toBe(false);
+    });
+    test('disabled property', () => {
+        expect(wrapper2.find('button').is('[disabled]')).toBe(true);
     });
 }); 

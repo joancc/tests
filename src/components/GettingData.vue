@@ -7,7 +7,7 @@
         :componentName="this.componentName"
         :componentIcon="this.componentIcon"
         :enterpriseData="this.companyData"
-        @enterpriseBranches="messageBranches($event)"
+        @enterpriseBranches="updateBranches($event)"
       ></CompaniesComponent>
       <BranchesComponent :isBranch="branches" v-if="branches.length != 0"></BranchesComponent>
     </div>
@@ -55,7 +55,7 @@ export default {
       this.companyData = companyPromise.data;
       return this.companyData;
     },
-    async messageBranches(companyId) {
+    async updateBranches(companyId) {
       let urlBranch = "https://api-test.gestionix.com/api/v3/branch_offices/?";
 
       axios.defaults.headers.common["Company"] = companyId;
