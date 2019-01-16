@@ -5,7 +5,7 @@ import ItemCompany from './../ItemCompany.vue';
 import EnterpriseBanner from './../EnterpriseBanner.vue';
 
 
-describe('Companies test', () => {
+describe('Companies test with props', () => {
     const wrapper = shallowMount(CompaniesComponent, {
         propsData: {
             componentName: 'Empresas',
@@ -30,10 +30,13 @@ describe('Companies test', () => {
             ]
         },
     });
-    test("Calls messageBranches() when click one company and acts if an ID is passed", () => {
+    test("Calls messageBranches() function is emitting an action from child to parent when clicks a company", () => {
         wrapper.vm.messageBranches(1104);
-        // expect(typeof (wrapper.emitted().enterpriseBranches[0][0])).toBe('number');
         expect(wrapper.emitted().messageBranches).toBeTruthy;
+    });
+    test("Calls messageBranches() when click one company and acts if an ID type number is passed", () => {
+        wrapper.vm.messageBranches(1104);
+        expect(typeof (wrapper.emitted().enterpriseBranches[0][0])).toBe('number');
     });
     test('renders the ItemCompany when there are companies to show', () => {
         expect(wrapper.find(ItemCompany).exists()).toBe(true);
@@ -41,7 +44,7 @@ describe('Companies test', () => {
     test('renders the EnterpriseBanner when there are title and icon to show', () => {
         expect(wrapper.find(EnterpriseBanner).exists()).toBe(true);
     });
-    test('The click over an item component, go over a messageBranches function', () => {
+    test('The click over an item component activates the messageBranches function', () => {
         wrapper.setMethods({ messageBranches: jest.fn() });
         wrapper.find('.company').trigger('click');
         expect(wrapper.vm.messageBranches).toHaveBeenCalledTimes(1);
@@ -50,11 +53,8 @@ describe('Companies test', () => {
 
 describe('Companies test without props', () => {
     const wrapper = shallowMount(CompaniesComponent);
-    const wrapper2 = shallowMount(ItemCompany);
     test('not renders the ItemCompany when there are not companies to show', () => {
         expect(wrapper.find(ItemCompany).exists()).toBe(false);
     });
-    test('disabled property', () => {
-        expect(wrapper2.find('button').is('[disabled]')).toBe(true);
-    });
-}); 
+});
+

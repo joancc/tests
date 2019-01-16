@@ -40,6 +40,7 @@ export default {
         "https://api-test.gestionix.com/api/v3/users/authentication";
       let urlUser = "https://api-test.gestionix.com/api/v3/users/";
       let urlCompany = "https://api-test.gestionix.com/api/v3/users/companies";
+      axios.defaults.headers["Cache-Control"] = "no-cache";
 
       let authenticationPromise = await axios.post(urlBasic, {
         user: "qa@gestionix.com",
