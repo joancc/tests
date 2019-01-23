@@ -1,43 +1,35 @@
 <template>
-  <div class="item company">
-    <!--Is needed to change the company class for warehouse class if needed-->
-    <button class="select-item" :disabled="!isactive ? '' : disabled">
-      <!-- The button has or not a disabled property-->
-      <div class="info">
-        <p>
-          <strong>{{warehouseTitle}}</strong>
-          <!--Find the way of use isactive to active the display none property-->
-          <!--<span v-bind:style="{ display: none }"></span>-->
-          <span v-bind:class="{'on': isactive}"></span>
-          <i v-bind:class="{'fg-lock-alt': !isactive}"></i>
-          <span v-if="keyType == 'RFC'">{{keyType}}: {{rfc}}</span>
-          <span v-else-if="keyType == 'Clave'">{{keyType}}: {{warehouseKey}}</span>
-        </p>
-      </div>
-      <div v-if="isactive == false">
-        <ItemCompanyDisabled></ItemCompanyDisabled>
-      </div>
-    </button>
-  </div>
+  <button class="select-item" :disabled="!this.companyActive">
+    <div class="info">
+      <p>
+        <strong>{{this.companyName}}</strong>
+        <!--<span v-bind:style="{ display: none }"></span>-->
+        <span v-bind:class="{'on': this.companyActive}"></span>
+        <i v-bind:class="{'fas fa-lock': !this.companyActive}"></i>
+        <span v-if="this.keyType == 'RFC'">{{this.keyType}}: {{this.companyTask}}</span>
+      </p>
+    </div>
+    <ItemCompanyDisabled v-if="!this.companyActive"></ItemCompanyDisabled>
+  </button>
 </template>
+
 <script>
 import ItemCompanyDisabled from "./ItemCompanyDisabled.vue";
 
 export default {
+  props: {
+    companyId: Number,
+    companyName: String,
+    companyTask: String,
+    companyActive: Boolean
+  },
   components: {
     ItemCompanyDisabled: ItemCompanyDisabled
   },
   data: function() {
     return {
-      enterpriseName:
-        "Empresa no patito S.A de C.V Empresa no patito S.A de C.V Empresa no patito S.A de C.V Empresa no patito S.A de C.V Empresa no patito S.A de C.V",
-      isactive: true,
-      keyType: "RFC",
-      rfc: "POASHF12434",
-      warehouseKey: "90078434",
-      warehouseTitle: "Almacén Sonora Grill"
+      keyType: "RFC"
     };
   }
 };
 </script>
-

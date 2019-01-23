@@ -1,11 +1,15 @@
 <template>
-  <div>
-    <!-- selecciona sucursal -->
-    <div class="select-branch">
-      <div class="columns">
-        <CompaniesComponent></CompaniesComponent>
-        <BranchesComponent></BranchesComponent>
-      </div>
+  <!-- selecciona sucursal -->
+  <div class="select-branch">
+    <WelcomeBack></WelcomeBack>
+    <div class="columns">
+      <CompaniesComponent
+        :componentName="this.componentName"
+        :componentIcon="this.componentIcon"
+        :enterpriseData="this.companyData"
+        @enterpriseBranches="updateBranches($event)"
+      ></CompaniesComponent>
+      <BranchesComponent :isBranch="branches" v-if="branches.length != 0"></BranchesComponent>
     </div>
   </div>
 </template>
@@ -14,70 +18,56 @@
 import axios from "axios";
 import CompaniesComponent from "./CompaniesComponent";
 import BranchesComponent from "./BranchesComponent";
+import WelcomeBack from "./WelcomeBack";
 
 export default {
   components: {
     BranchesComponent: BranchesComponent,
-    CompaniesComponent: CompaniesComponent
+    CompaniesComponent: CompaniesComponent,
+    WelcomeBack: WelcomeBack
   },
   data() {
     return {
-      users: {},
-      companies: [],
-      branches: []
+      componentName: "Empresas",
+      componentIcon: "companies",
+      branches: [],
+      companyData: []
     };
   },
-  created() {
-    let urlBasic = "https://api-test.gestionix.com/api/v3/users/authentication";
-    let urlUser = "https://api-test.gestionix.com/api/v3/users/93";
-    let urlCompanie = "https://api-test.gestionix.com/api/v3/users/companies";
-    let urlBranch = "https://api-test.gestionix.com/api/v3/branch_offices/?";
-    axios
-      .post(urlBasic, {
-        user: "hogar@gestionix.com",
-        password: "demo"
-      })
-      .then(function(response) {
-        let accessKey = "Bearer " + response.data.access_token;
-        localStorage.setItem("access-token", accessKey);
-        axios.defaults.headers.common["Authorization"] = localStorage.getItem(
-          "access-token"
-        );
-        axios
-          .get(urlUser)
-          .then(function(res) {
-            // Get user data. Get n2
-            localStorage.setItem("users", JSON.stringify(res.data));
-          })
-          .catch(function(err) {
-            console.log(err);
-          });
-        axios
-          .get(urlCompanie)
-          .then(function(resp) {
-            // Get Companies data. Get n3
-            localStorage.setItem("companies", JSON.stringify(resp.data));
-            localStorage.setItem("company-id", resp.data[0].company_id);
-            axios.defaults.headers.common["Company"] = localStorage.getItem(
-              "company-id"
-            );
-            axios
-              .get(urlBranch)
-              .then(function(re) {
-                // Get Branches. Get n4
-                localStorage.setItem("branches", JSON.stringify(re.data));
-              })
-              .catch(function(err) {
-                console.log(err);
-              });
-          })
-          .catch(function(err) {
-            console.log(err);
-          });
-      })
-      .catch(function(error) {
-        console.log(error);
+  methods: {
+    async init() {
+      let urlBasic =
+        "https://api-test.gestionix.com/api/v3/users/authentication";
+      let urlUser = "https://api-test.gestionix.com/api/v3/users/";
+      let urlCompany = "https://api-test.gestionix.com/api/v3/users/companies";
+      axios.defaults.headers["Cache-Control"] = "no-cache";
+
+      let authenticationPromise = await axios.post(urlBasic, {
+        user: "qa@gestionix.com",
+        password: "gestionix"
       });
+
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + authenticationPromise.data.access_token;
+
+      let usersPromise = await axios.get(urlUser, {});
+
+      let companyPromise = await axios.get(urlCompany, {});
+      this.companyData = companyPromise.data;
+      return this.companyData;
+    },
+    async updateBranches(companyId) {
+      let urlBranch = "https://api-test.gestionix.com/api/v3/branch_offices/?";
+
+      axios.defaults.headers.common["Company"] = companyId;
+
+      let branchesPromise = await axios.get(urlBranch, {});
+      this.branches = branchesPromise.data;
+      return branchesPromise;
+    }
+  },
+  mounted() {
+    this.init();
   }
 };
 </script>

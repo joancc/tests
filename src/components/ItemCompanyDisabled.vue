@@ -1,6 +1,6 @@
 <template>
   <div class="popover_wrapper">
-    <a class="fg-question-square"></a>
+    <a class="far fa-question-circle"></a>
     <div class="push popover_content up">
       <p class="popover_message">
         No tienes
@@ -14,8 +14,3 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {};
-</script>
-
